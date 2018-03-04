@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textSize35sp">35sp</dimen>
+    <dimen name="textSize30sp">30sp</dimen>
+    <dimen name="textSize28sp">28sp</dimen>
+    <dimen name="textSize26sp">26sp</dimen>
+    <dimen name="textSize24sp">24sp</dimen>
+    <dimen name="textSize22sp">22sp</dimen>
+    <dimen name="textSize20sp">20sp</dimen>
+    <dimen name="textSize18sp">18sp</dimen>
+    <dimen name="textSize16sp">16sp</dimen>
+    <dimen name="textSize14sp">14sp</dimen>
+    <dimen name="textSize12sp">12sp</dimen>
+    <dimen name="textSize10sp">10sp</dimen>
+
+    <dimen name="mar_0">0dp</dimen>
+    <dimen name="mar_0_2">0.2dp</dimen>
+    <dimen name="mar_1">1dp</dimen>
+    <dimen name="mar_2">2dp</dimen>
+    <dimen name="mar__2">-2dp</dimen>
+    <dimen name="mar_5">5dp</dimen>
+    <dimen name="mar__5">-5dp</dimen>
+    <dimen name="mar_8">8dp</dimen>
+    <dimen name="mar__8">-8dp</dimen>
+    <dimen name="mar_10">10dp</dimen>
+    <dimen name="mar__10">-10dp</dimen>
+    <dimen name="mar_12">12dp</dimen>
+    <dimen name="mar_15">15dp</dimen>
+    <dimen name="mar_20">20dp</dimen>
+    <dimen name="mar_25">25dp</dimen>
+    <dimen name="mar_30">30dp</dimen>
+    <dimen name="mar_35">35dp</dimen>
+    <dimen name="mar_40">40dp</dimen>
+    <dimen name="mar_45">45dp</dimen>
+    <dimen name="mar_50">50dp</dimen>
+    <dimen name="mar_60">60dp</dimen>
+    <dimen name="mar_65">65dp</dimen>
+    <dimen name="mar_70">70dp</dimen>
+    <dimen name="mar_100">100dp</dimen>
+    <dimen name="mar_125">125dp</dimen>
+    <dimen name="mar_150">150dp</dimen>
+    <dimen name="mar_200">200dp</dimen>
+    <dimen name="mar_250">250dp</dimen>
+    <dimen name="mar_300">300dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+</resources>

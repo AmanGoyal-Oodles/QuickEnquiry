@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White"
+    android:padding="@dimen/mar_20">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter OTP"
+        android:textSize="@dimen/textSize20sp"
+        android:id="@+id/otp_text_tv"
+        android:textColor="@color/Black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otp_text_tv"
+        android:background="@drawable/border_bg_et"
+        android:hint="Enter OTP Here"
+        android:inputType="number"
+        android:textSize="@dimen/textSize16sp"
+        android:maxLength="4"
+        android:id="@+id/otp_text_et"
+        android:layout_marginTop="@dimen/mar_20"
+        android:padding="@dimen/mar_10"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CANCEL"
+        android:layout_below="@id/otp_text_et"
+        android:layout_alignParentRight="true"
+        android:background="@color/LightGray"
+        android:textColor="@color/DarkGray"
+        android:textSize="@dimen/textSize16sp"
+        android:id="@+id/otp_cancel_btn"
+        android:layout_marginTop="@dimen/mar_20"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VALIDATE OTP"
+        android:layout_below="@id/otp_text_et"
+        android:layout_toLeftOf="@+id/otp_cancel_btn"
+        android:layout_marginRight="@dimen/mar_20"
+        android:background="@drawable/border_bg_et"
+        android:textColor="@color/Black"
+        android:paddingLeft="@dimen/mar_15"
+        android:paddingRight="@dimen/mar_15"
+        android:textSize="@dimen/textSize16sp"
+        android:id="@+id/otp_validate_btn"
+        android:layout_marginTop="@dimen/mar_20"/>
+
+</RelativeLayout>

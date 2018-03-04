@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/White"
+        android:padding="@dimen/mar_20"
+        android:layout_margin="@dimen/mar_10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Name*"
+            android:id="@+id/register_name_tv"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Name"
+            android:layout_below="@+id/register_name_tv"
+            android:padding="@dimen/mar_10"
+            android:inputType="text"
+            android:id="@+id/register_name_et"
+            android:background="@drawable/border_bg_et"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Mobile No*"
+            android:layout_below="@+id/register_name_et"
+            android:id="@+id/register_mobile_tv"
+            android:layout_marginTop="@dimen/mar_15"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Mobile No"
+            android:layout_below="@+id/register_mobile_tv"
+            android:id="@+id/register_mobile_et"
+            android:padding="@dimen/mar_10"
+            android:inputType="phone"
+            android:background="@drawable/border_bg_et"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Email(Optional)"
+            android:layout_below="@+id/register_mobile_et"
+            android:id="@+id/register_email_tv"
+            android:layout_marginTop="@dimen/mar_15"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Email(Optional)"
+            android:layout_below="@+id/register_email_tv"
+            android:padding="@dimen/mar_10"
+            android:inputType="textEmailAddress"
+            android:id="@+id/register_email_et"
+            android:background="@drawable/border_bg_et"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Password*"
+            android:layout_below="@+id/register_email_et"
+            android:id="@+id/register_password_tv"
+            android:layout_marginTop="@dimen/mar_15"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Password"
+            android:layout_below="@+id/register_password_tv"
+            android:padding="@dimen/mar_10"
+            android:inputType="textPassword"
+            android:id="@+id/register_password_et"
+            android:background="@drawable/border_bg_et"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Re-Type Password*"
+            android:layout_below="@+id/register_password_et"
+            android:layout_marginTop="@dimen/mar_15"
+            android:id="@+id/register_repass_tv"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Re-Type Password"
+            android:layout_below="@+id/register_repass_tv"
+            android:padding="@dimen/mar_10"
+            android:inputType="textPassword"
+            android:id="@+id/register_repass_et"
+            android:background="@drawable/border_bg_et"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <CheckBox
+            android:text="I agree "
+            android:layout_width="wrap_content"
+            android:buttonTint="@color/DarkGray"
+            android:id="@+id/register_agree_cb"
+            android:layout_below="@+id/register_repass_et"
+            android:layout_marginTop="@dimen/mar_15"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms of Services"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_toRightOf="@+id/register_agree_cb"
+            android:layout_marginTop="@dimen/mar_20"
+            android:id="@+id/register_terms_tv"
+            android:layout_below="@+id/register_repass_et"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mar_40"
+            android:text="REGISTER"
+            android:id="@+id/register_btn"
+            android:layout_below="@+id/register_terms_tv"
+            android:layout_marginTop="@dimen/mar_20"
+            android:background="@drawable/button_background"
+            android:textColor="@color/White"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/register_btn"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/mar_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? "
+                android:textColor="@color/Black"
+                android:id="@+id/register_account_text_tv"
+                android:textSize="@dimen/textSize14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:textColor="@color/Orange"
+                android:id="@+id/register_login_text_tv"
+                android:textSize="@dimen/textSize16sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

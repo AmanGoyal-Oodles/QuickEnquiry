@@ -8,40 +8,36 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-
 import com.android.quickenquiry.R;
-import com.android.quickenquiry.interfaces.OTPDialogListener;
-
+import com.android.quickenquiry.interfaces.ResetPassDialogListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by user on 3/3/2018.
+ * Created by user on 3/5/2018.
  */
 
-public class OTPDialog extends Dialog {
+public class NewPasswordDialog extends Dialog {
 
 
-    @BindView(R.id.otp_text_et)
-    EditText mOTPEt;
-    @BindView(R.id.otp_cancel_btn)
+    @BindView(R.id.reset_pass_submit_btn)
+    Button mSubmitBtn;
+    @BindView(R.id.reset_pass_cancel_btn)
     Button mCancelBtn;
-    @BindView(R.id.otp_validate_btn)
-    Button mValidateBtn;
     private Context mContext;
-    private OTPDialogListener mOTPOtpDialogListener;
+    private ResetPassDialogListener mResetPassDialogListener;
 
-    public OTPDialog(@NonNull Context context,OTPDialogListener listener) {
+    public NewPasswordDialog(@NonNull Context context,ResetPassDialogListener listener) {
         super(context);
-        mOTPOtpDialogListener=listener;
+        mContext=context;
+        mResetPassDialogListener=listener;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_otp);
+        setContentView(R.layout.dialog_new_password);
         ButterKnife.bind(this);
         setCancelable(false);
         Window window=getWindow();
@@ -49,16 +45,16 @@ public class OTPDialog extends Dialog {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
     }
 
-    @OnClick({R.id.otp_cancel_btn})
+    @OnClick({R.id.reset_pass_cancel_btn})
     public void onClickCancelBtn() {
         dismiss();
-        mOTPOtpDialogListener.isOTPValidate(false);
+        mResetPassDialogListener.isPasswordReset(false);
     }
 
-    @OnClick({R.id.otp_validate_btn})
-    public void onClickValidate() {
+    @OnClick({R.id.reset_pass_submit_btn})
+    public void onClickSubmitBtn() {
         dismiss();
-        mOTPOtpDialogListener.isOTPValidate(true);
+        mResetPassDialogListener.isPasswordReset(true);
     }
 
 }

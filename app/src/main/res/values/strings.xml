@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">QuickEnquiry</string>
+
+    <string-array name="CLIENT_TYPE">
+        <item>Client Type</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
 </resources>

@@ -2,6 +2,7 @@ package com.android.quickenquiry.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.activities.AddContactActivity;
 import com.android.quickenquiry.dialoges.ForgotPasswordDialog;
+import com.android.quickenquiry.dialoges.NewPasswordDialog;
 import com.android.quickenquiry.dialoges.OTPDialog;
 import com.android.quickenquiry.interfaces.ForgotPasswordDialogResponseListener;
+import com.android.quickenquiry.interfaces.OTPDialogListener;
+import com.android.quickenquiry.interfaces.ResetPassDialogListener;
+import com.android.quickenquiry.utils.util.AppToast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,13 +30,15 @@ import butterknife.OnClick;
  * Created by user on 3/2/2018.
  */
 
-public class LoginFragment extends Fragment implements ForgotPasswordDialogResponseListener{
+public class LoginFragment extends Fragment implements ForgotPasswordDialogResponseListener,OTPDialogListener,ResetPassDialogListener{
 
 
     @BindView(R.id.login_register_text_tv)
     TextView mRegisterTv;
     @BindView(R.id.login_forgot_pass_tv)
     TextView mForgotPassTv;
+    @BindView(R.id.login_btn)
+    Button mLoginBtn;
     private Context mContext;
     private Activity mActivity;
     private static final String CURRENT_TAG=LoginFragment.class.getName();
@@ -67,6 +77,12 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
         dialog.show();
     }
 
+    @OnClick({R.id.login_btn})
+    public void onClickLogin() {
+        Intent intent=new Intent(getActivity(), AddContactActivity.class);
+        startActivity(intent);
+    }
+
     private void openRegisterFragment() {
         Fragment fragment = new RegisterFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -78,8 +94,21 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     @Override
     public void isOTPSent(boolean isSend) {
         if(isSend) {
-            OTPDialog dialog=new OTPDialog(mContext);
+            OTPDialog dialog=new OTPDialog(mContext,this);
             dialog.show();
         }
+    }
+
+    @Override
+    public void isOTPValidate(boolean isValidate) {
+        if(isValidate) {
+            NewPasswordDialog dialog=new NewPasswordDialog(mContext,this);
+            dialog.show();
+        }
+    }
+
+    @Override
+    public void isPasswordReset(boolean isReset) {
+        AppToast.showToast(mContext,"Reset Password Successfully");
     }
 }

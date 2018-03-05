@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.quickenquiry.activities.AddContactActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/mar_20"
+        android:paddingLeft="@dimen/mar_10"
+        android:paddingRight="@dimen/mar_10"
+        android:paddingTop="@dimen/mar_20">
+
+        <TextView
+            android:id="@+id/add_contact_contact_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Type"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et">
+
+            <Spinner
+                android:id="@+id/add_contact_contact_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownVerticalOffset="50dp"
+                android:dropDownWidth="350dp"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_contact_relation_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Relation/Company"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/add_contact_relation_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et"
+            android:inputType="text"
+            android:padding="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp" />
+
+        <TextView
+            android:id="@+id/add_contact_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Name"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/add_contact_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et"
+            android:hint="Enter Your Name Here"
+            android:inputType="text"
+            android:padding="@dimen/mar_10"
+            android:textSize="@dimen/textSize14sp" />
+
+        <TextView
+            android:id="@+id/add_contact_mobile_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Mobile No"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/add_contact_mobile_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et"
+            android:hint="Enter Your Mobile No Here"
+            android:inputType="text"
+            android:padding="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp" />
+
+        <TextView
+            android:id="@+id/add_contact_email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Email"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/add_contact_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et"
+            android:hint="Enter Your Email Here"
+            android:inputType="text"
+            android:padding="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp" />
+
+        <TextView
+            android:id="@+id/add_contact_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Address"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <EditText
+            android:id="@+id/add_contact_address_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et"
+            android:lines="4"
+            android:maxLines="5"
+            android:minLines="3"
+            android:textSize="@dimen/textSize16sp" />
+
+        <TextView
+            android:id="@+id/add_contact_dob_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Date of Birth"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <LinearLayout
+            android:id="@+id/add_contact_dob_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_dob_date_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="50dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_dob_month_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="50dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_dob_year_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="50dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/add_contact_anniversary_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_20"
+            android:text="Anniversary"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize14sp" />
+
+        <LinearLayout
+            android:id="@+id/add_contact_anniversary_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_anniversary_date_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="50dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_anniversary_month_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownVerticalOffset="50dp"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et">
+
+                <Spinner
+                    android:id="@+id/add_contact_anniversary_year_spinner"
+                    android:layout_width="match_parent"
+                    android:dropDownVerticalOffset="50dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_contact_btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/mar_40"
+            android:layout_marginRight="@dimen/mar_40"
+            android:layout_marginTop="@dimen/mar_20"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add_contact_save_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/mar_20"
+                android:layout_weight="1"
+                android:background="@color/Blue"
+                android:text="SAVE" />
+
+            <Button
+                android:id="@+id/add_contact_cancel_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/mar_20"
+                android:layout_weight="1"
+                android:background="@color/Orange"
+                android:text="Cancel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

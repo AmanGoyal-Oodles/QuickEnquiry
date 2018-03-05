@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_home"
+        style="@style/MyToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="0.2dp"
+        app:subtitleTextColor="@color/Blue" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/White"
+            android:paddingBottom="@dimen/mar_20"
+            android:paddingLeft="@dimen/mar_10"
+            android:paddingRight="@dimen/mar_10"
+            android:paddingTop="@dimen/mar_20">
+
+            <TextView
+                android:id="@+id/send_sms_text_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send SMS Using Single Or Multiple Contact Type."
+                android:textColor="@color/Black"
+                android:textSize="@dimen/textSize16sp" />
+
+            <TextView
+                android:id="@+id/send_sms_package_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_text_tv"
+                android:layout_marginTop="@dimen/mar_5"
+                android:text="Package:"
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_package_val_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/send_sms_text_tv"
+                android:layout_marginTop="@dimen/mar_5"
+                android:layout_toRightOf="@+id/send_sms_package_tv"
+                android:text="Basic"
+                android:textColor="@color/MediumSeaGreen"
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_active_date_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_package_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="Active Date: "
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_active_date_val_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_package_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:layout_toRightOf="@+id/send_sms_active_date_text_tv"
+                android:text="25-Dec-2017"
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_expiry_date_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_active_date_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="Expiry Date: "
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_expiry_date_val_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_active_date_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:layout_toRightOf="@+id/send_sms_active_date_text_tv"
+                android:text="25-Dec-2018"
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_left_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_expiry_date_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="SMS Left:  "
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_left_val_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_expiry_date_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:layout_toRightOf="@+id/send_sms_left_text_tv"
+                android:text="4415"
+                android:textColor="@color/MediumSeaGreen"
+                android:textSize="@dimen/textSize14sp" />
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/send_sms_radio_btn_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_left_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/send_sms_multiple_radio_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mulitple"
+                    android:buttonTint="@color/Black"
+                    android:checked="true"
+                    android:textColor="@color/Gray" />
+
+                <RadioButton
+                    android:id="@+id/send_sms_single_radio_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Single"
+                    android:buttonTint="@color/Black"
+                    android:textColor="@color/Gray" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/send_sms_contact_type_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_radio_btn_layout"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="Contact Type*"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/textSize16sp" />
+
+            <EditText
+                android:id="@+id/send_sms_contact_type_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_contact_type_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et"
+                android:hint="Select an Option"
+                android:padding="@dimen/mar_10"
+                android:textSize="@dimen/textSize16sp" />
+
+            <TextView
+                android:id="@+id/send_sms_message_content_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_contact_type_et"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="Message Content*"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/textSize16sp" />
+
+            <EditText
+                android:id="@+id/send_sms_message_content_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_message_content_text_tv"
+                android:layout_marginTop="@dimen/mar_10"
+                android:background="@drawable/border_bg_et"
+                android:lines="4"
+                android:maxLines="5"
+                android:minLines="3"
+                android:gravity="top|left"
+                android:padding="@dimen/mar_5"
+                android:textSize="@dimen/textSize16sp" />
+
+            <TextView
+                android:id="@+id/send_sms_char_left_text_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_message_content_et"
+                android:layout_marginTop="@dimen/mar_10"
+                android:text="Char Left: "
+                android:textSize="@dimen/textSize14sp" />
+
+            <TextView
+                android:id="@+id/send_sms_char_left_val_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_message_content_et"
+                android:layout_marginTop="@dimen/mar_10"
+                android:layout_toRightOf="@+id/send_sms_char_left_text_tv"
+                android:text="160"
+                android:textSize="@dimen/textSize14sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/send_sms_char_left_val_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/mar_20"
+                android:background="@color/Orange"
+                android:text="SEND"
+                android:textColor="@color/White" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

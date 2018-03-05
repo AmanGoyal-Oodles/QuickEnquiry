@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">QuickEnquiry</string>
+    <string name="openDrawer">Open Drawer</string>
+    <string name="closeDrawer">Close Drawer</string>
 
     <string-array name="CLIENT_TYPE">
         <item>Client Type</item>

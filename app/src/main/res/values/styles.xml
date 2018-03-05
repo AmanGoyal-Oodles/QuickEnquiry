@@ -19,6 +19,20 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:textColor">@color/Black</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="drawerArrowStyle">@style/DrawerIconStyle</item>
+    </style>
+
+    <style name="DrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/Black</item>
+    </style>
+
+    <style name="MyToolBar" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/toolbar_background</item>
     </style>
 
 </resources>

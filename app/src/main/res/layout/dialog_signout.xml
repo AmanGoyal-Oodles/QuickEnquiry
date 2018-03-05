@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm LogOut?"
+        android:gravity="center"
+        android:id="@+id/signout_confirm_text_tv"
+        android:padding="@dimen/mar_10"
+        android:textSize="@dimen/textSize20sp"
+        android:textColor="@color/Blue"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mar_2"
+        android:layout_below="@+id/signout_confirm_text_tv"
+        android:id="@+id/signout_confirm_view"
+        android:background="@color/LightGray"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Are you sure want to SignOut?"
+        android:layout_below="@+id/signout_confirm_view"
+        android:textSize="@dimen/textSize16sp"
+        android:gravity="center"
+        android:textColor="@color/Black"
+        android:id="@+id/signout_text_tv"
+        android:padding="@dimen/mar_20"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mar_2"
+        android:layout_below="@+id/signout_text_tv"
+        android:id="@+id/signout_text_view"
+        android:background="@color/LightGray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/signout_response_layout"
+        android:layout_below="@+id/signout_text_view">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Yes"
+            android:textColor="@color/Blue"
+            android:gravity="center"
+            android:padding="@dimen/mar_10"
+            android:id="@+id/signout_yes_tv"/>
+
+        <View
+            android:layout_width="@dimen/mar_2"
+            android:layout_height="match_parent"
+            android:background="@color/LightGray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="No"
+            android:textColor="@color/Blue"
+            android:gravity="center"
+            android:padding="@dimen/mar_10"
+            android:id="@+id/signout_no_tv"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mar_2"
+        android:layout_below="@+id/signout_response_layout"
+        android:id="@+id/signout_response_view"
+        android:background="@color/LightGray"/>
+
+</RelativeLayout>

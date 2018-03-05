@@ -2,17 +2,30 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/White"
     android:padding="@dimen/mar_20">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Old Password*"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/textSize14sp"
+        android:id="@+id/change_pass_old_pass_tv"
+        android:layout_marginTop="@dimen/mar_10"/>
+
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reset Password"
-        android:textSize="@dimen/textSize20sp"
-        android:id="@+id/reset_pass_text_tv"
-        android:textColor="@color/Black"/>
+        android:layout_below="@+id/change_pass_old_pass_tv"
+        android:background="@drawable/border_bg_et"
+        android:hint="Old Password"
+        android:inputType="textPassword"
+        android:textSize="@dimen/textSize16sp"
+        android:id="@+id/change_pass_old_pass_et"
+        android:layout_marginTop="@dimen/mar_10"
+        android:padding="@dimen/mar_10"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,19 +33,19 @@
         android:text="New Password*"
         android:textColor="@color/Black"
         android:textSize="@dimen/textSize14sp"
-        android:id="@+id/reset_pass_new_pass_tv"
-        android:layout_below="@+id/reset_pass_text_tv"
-        android:layout_marginTop="@dimen/mar_30"/>
+        android:id="@+id/change_pass_new_pass_tv"
+        android:layout_below="@+id/change_pass_old_pass_et"
+        android:layout_marginTop="@dimen/mar_10"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/reset_pass_new_pass_tv"
+        android:layout_below="@+id/change_pass_new_pass_tv"
         android:background="@drawable/border_bg_et"
         android:hint="New Password"
         android:inputType="textPassword"
         android:textSize="@dimen/textSize16sp"
-        android:id="@+id/reset_pass_new_pass_et"
+        android:id="@+id/change_pass_new_pass_et"
         android:layout_marginTop="@dimen/mar_10"
         android:padding="@dimen/mar_10"/>
 
@@ -42,19 +55,19 @@
         android:text="Confirm Password*"
         android:textColor="@color/Black"
         android:textSize="@dimen/textSize14sp"
-        android:id="@+id/reset_pass_confirm_pass_tv"
-        android:layout_below="@+id/reset_pass_new_pass_et"
-        android:layout_marginTop="@dimen/mar_30"/>
+        android:id="@+id/change_pass_confirm_pass_tv"
+        android:layout_below="@+id/change_pass_new_pass_et"
+        android:layout_marginTop="@dimen/mar_10"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/reset_pass_confirm_pass_tv"
+        android:layout_below="@+id/change_pass_confirm_pass_tv"
         android:background="@drawable/border_bg_et"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:textSize="@dimen/textSize16sp"
-        android:id="@+id/reset_pass_confirm_pass_et"
+        android:id="@+id/change_pass_confirm_pass_et"
         android:layout_marginTop="@dimen/mar_10"
         android:padding="@dimen/mar_10"/>
 
@@ -62,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/reset_pass_confirm_pass_et"
+        android:layout_below="@+id/change_pass_confirm_pass_et"
         android:paddingTop="@dimen/mar_40"
         android:paddingLeft="@dimen/mar_20"
         android:paddingRight="@dimen/mar_20"
@@ -76,7 +89,7 @@
             android:background="@drawable/border_bg_et"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
-            android:id="@+id/reset_pass_submit_btn" />
+            android:id="@+id/change_pass_submit_btn" />
 
         <Button
             android:layout_width="0dp"
@@ -87,9 +100,8 @@
             android:background="@drawable/border_bg_et"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
-            android:id="@+id/reset_pass_cancel_btn" />
+            android:id="@+id/change_pass_cancel_btn" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

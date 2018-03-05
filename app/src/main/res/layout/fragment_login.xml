@@ -10,16 +10,28 @@
         <ImageView
             android:id="@+id/login_icon_iv"
             android:layout_width="@dimen/mar_150"
-            android:layout_height="@dimen/mar_150"
+            android:layout_height="@dimen/mar_70"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/mar_20"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_logo" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="www.quickenquiry.com"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginBottom="@dimen/mar_20"
+            android:layout_below="@+id/login_icon_iv"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/login_quick_url_tv"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_icon_iv"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/login_quick_url_tv"
             android:layout_margin="@dimen/mar_10"
             android:background="@color/White"
             android:orientation="vertical"

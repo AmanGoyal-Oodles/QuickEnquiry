@@ -1,14 +1,13 @@
 package com.android.quickenquiry.activities;
 
+import android.app.ActionBar;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import com.android.quickenquiry.R;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,7 +44,16 @@ public class AddContactActivity extends AppCompatActivity {
     }
 
     private void init() {
+        setToolBar();
         initVariables();
+    }
+
+    private void setToolBar() {
+        ActionBar actionBar=getActionBar();
+        if(actionBar!=null) {
+            actionBar.setTitle("Add Contact");
+            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.White)));
+        }
     }
 
     private void initVariables() {

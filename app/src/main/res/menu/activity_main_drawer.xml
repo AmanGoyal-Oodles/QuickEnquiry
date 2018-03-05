@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_update_profile"
+            android:title="Update Profile" />
+        <item
+            android:id="@+id/nav_change_pass"
+            android:title="Change Password" />
+
+        <item
+            android:id="@+id/nav_invite_friends"
+            android:title="Invite To Friends" />
+
+        <item
+            android:id="@+id/nav_import_contact"
+            android:title="Import Contact" />
+        <item
+            android:id="@+id/add_contact"
+            android:title="Add Contact" />
+
+        <item android:id="@+id/nav_contact_list"
+            android:title="Contact List"/>
+
+        <item
+            android:id="@+id/nav_send_sms"
+            android:title="Send SMS" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="LogOut" />
+    </group>
+</menu>

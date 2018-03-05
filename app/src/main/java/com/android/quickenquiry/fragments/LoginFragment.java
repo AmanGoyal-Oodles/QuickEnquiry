@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.activities.AddContactActivity;
+import com.android.quickenquiry.activities.MainDashboardActivity;
 import com.android.quickenquiry.dialoges.ForgotPasswordDialog;
 import com.android.quickenquiry.dialoges.NewPasswordDialog;
 import com.android.quickenquiry.dialoges.OTPDialog;
@@ -79,7 +80,7 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
 
     @OnClick({R.id.login_btn})
     public void onClickLogin() {
-        Intent intent=new Intent(getActivity(), AddContactActivity.class);
+        Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
         startActivity(intent);
     }
 

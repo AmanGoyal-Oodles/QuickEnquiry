@@ -7,9 +7,19 @@
 
     <ImageView
         android:layout_width="@dimen/mar_250"
-        android:layout_height="@dimen/mar_250"
+        android:layout_height="@dimen/mar_100"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:id="@+id/splash_logo_iv"
         android:src="@drawable/ic_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="www.quickenquiry.com"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/textSize16sp"
+        android:layout_below="@+id/splash_logo_iv"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

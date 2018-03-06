@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.dialoges.LogOutDialog;
+import com.android.quickenquiry.fragments.AddContactFragment;
 import com.android.quickenquiry.fragments.ChangePasswordFragment;
 import com.android.quickenquiry.fragments.HomeFragment;
 import com.android.quickenquiry.fragments.ImportContactFragment;
@@ -51,6 +52,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
         initViews();
         initVariables();
         handleNavigationSelectedItem();
+        Fragment fragment=new HomeFragment();
+        openFragment(fragment);
     }
 
     private void initViews() {
@@ -118,8 +121,10 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.add_contact:
                         NAV_ITEM_INDEX = 5;
-                        Intent intent=new Intent(MainDashboardActivity.this,AddContactActivity.class);
-                        startActivity(intent);
+                        fragment=new AddContactFragment();
+                        openFragment(fragment);
+                        /*Intent intent=new Intent(MainDashboardActivity.this,AddContactActivity.class);
+                        startActivity(intent);*/
                         break;
                     case R.id.nav_contact_list:
                         NAV_ITEM_INDEX = 6;
@@ -158,6 +163,19 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
             Intent intent=new Intent(this, LoginSignUpActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(NAV_ITEM_INDEX==0) {
+            finish();
+        } else if(getSupportFragmentManager().getBackStackEntryCount()==0&&NAV_ITEM_INDEX!=0) {
+            NAV_ITEM_INDEX=0;
+            getSupportActionBar().setTitle("Home");
+            openFragment(new HomeFragment());
+        } else {
+            super.onBackPressed();
         }
     }
 }

@@ -4,6 +4,7 @@ package com.android.quickenquiry.fragments;
  * Created by user on 3/2/2018.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,11 +12,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.activities.MainDashboardActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +40,12 @@ public class RegisterFragment extends Fragment {
     TextView mCompanyNameTv;
     @BindView(R.id.register_company_name_et)
     EditText mCompanyNameEt;
+    @BindView(R.id.register_layout_corporate)
+    LinearLayout mCorporateLayout;
+    @BindView(R.id.register_category_spinner)
+    Spinner mCategorySpinner;
     private static final String CURRENT_TAG=RegisterFragment.class.getName();
+    private ArrayAdapter<String> mCategoryAdapter;
 
     @Nullable
     @Override
@@ -53,6 +63,20 @@ public class RegisterFragment extends Fragment {
 
     private void init() {
         initVariables();
+        setSpinnerAdapter();
+    }
+
+    private void setSpinnerAdapter() {
+        mCategoryAdapter=new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position!=0&& super.isEnabled(position);
+            }
+        };
+        mCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategoryAdapter.clear();
+        mCategoryAdapter.addAll(getResources().getStringArray(R.array.CATEGORY));
+        mCategorySpinner.setAdapter(mCategoryAdapter);
     }
 
     private void initVariables() {
@@ -63,25 +87,28 @@ public class RegisterFragment extends Fragment {
         openLoginFragment();
     }
 
+    @OnClick({R.id.register_btn})
+    public void onClickRegisterBtn() {
+        Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
     @OnClick({R.id.register_corporate_radio_btn})
     public void onChangeCorporateRadioBtn() {
         if(mCorporateRadioBtn.isChecked()) {
-            mCompanyNameTv.setVisibility(View.VISIBLE);
-            mCompanyNameEt.setVisibility(View.VISIBLE);
+            mCorporateLayout.setVisibility(View.VISIBLE);
         } else {
-            mCompanyNameTv.setVisibility(View.GONE);
-            mCompanyNameEt.setVisibility(View.GONE);
+            mCorporateLayout.setVisibility(View.GONE);
         }
     }
 
     @OnClick({R.id.register_individual_radio_btn})
     public void onChangeIndividualRadioBtn() {
         if(mIndividualRadioBtn.isChecked()) {
-            mCompanyNameTv.setVisibility(View.GONE);
-            mCompanyNameEt.setVisibility(View.GONE);
+            mCorporateLayout.setVisibility(View.GONE);
         } else {
-            mCompanyNameTv.setVisibility(View.VISIBLE);
-            mCompanyNameEt.setVisibility(View.VISIBLE);
+            mCorporateLayout.setVisibility(View.VISIBLE);
         }
     }
 

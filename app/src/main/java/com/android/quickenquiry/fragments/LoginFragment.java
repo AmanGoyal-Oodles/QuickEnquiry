@@ -81,6 +81,8 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     @OnClick({R.id.login_btn})
     public void onClickLogin() {
         Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         startActivity(intent);
     }
 

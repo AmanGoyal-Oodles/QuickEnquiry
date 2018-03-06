@@ -5,10 +5,36 @@
 
     <string-array name="CLIENT_TYPE">
         <item>Client Type</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
+        <item>Client</item>
+        <item>Freinds</item>
+        <item>Family</item>
+        <item>Vendor</item>
+    </string-array>
+
+    <string-array name="CATEGORY">
+        <item>Category Type</item>
+        <item>Client</item>
+        <item>Freinds</item>
+        <item>Family</item>
+        <item>Vendor</item>
+    </string-array>
+
+    <string-array name="MONTH">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+
+
+
     </string-array>
 
 </resources>

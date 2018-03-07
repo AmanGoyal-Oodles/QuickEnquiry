@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.quickenquiry">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_launcher"
@@ -25,7 +27,11 @@
 
         <activity android:name=".activities.AddContactActivity" />
 
-        <activity android:name=".activities.MainDashboardActivity"
+        <activity
+            android:name=".activities.MainDashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activities.ImportContactActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

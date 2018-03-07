@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.adapters.ContactAdapter;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class ContactFragment extends Fragment {
     private Context mContext;
     private ContactAdapter mContactAdapter;
     private ArrayList<ContactDetail> mContactList,mSearchList;
+    private AccountDetailHolder mAccountDetailHolder;
 
     @Nullable
     @Override
@@ -61,9 +63,15 @@ public class ContactFragment extends Fragment {
     private void init() {
         initVariables();
         setRecyclerView();
-        setContactList();
+        //setContactList();
+        getContactFromLocalStorage();
         mContactAdapter.setContactList(mContactList);
         mContactAdapter.notifyDataSetChanged();
+    }
+
+    private void getContactFromLocalStorage() {
+        mContactList.clear();
+        mContactList=mAccountDetailHolder.getContactList();
     }
 
     private void setContactList() {
@@ -112,5 +120,6 @@ public class ContactFragment extends Fragment {
         mContext=getContext();
         mContactList=new ArrayList<>();
         mSearchList=new ArrayList<>();
+        mAccountDetailHolder=new AccountDetailHolder(mContext);
     }
 }

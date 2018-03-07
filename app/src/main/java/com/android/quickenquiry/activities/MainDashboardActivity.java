@@ -120,8 +120,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.nav_import_contact:
                         NAV_ITEM_INDEX = 4;
-                        fragment=new ImportContactFragment();
-                        openFragment(fragment);
+                        Intent intent=new Intent(MainDashboardActivity.this,ImportContactActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.add_contact:
                         NAV_ITEM_INDEX = 5;

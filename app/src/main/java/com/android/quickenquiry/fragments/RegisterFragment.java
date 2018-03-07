@@ -36,8 +36,8 @@ public class RegisterFragment extends Fragment {
     RadioButton mCorporateRadioBtn;
     @BindView(R.id.register_individual_radio_btn)
     RadioButton mIndividualRadioBtn;
-    @BindView(R.id.register_company_name_tv)
-    TextView mCompanyNameTv;
+    /*@BindView(R.id.register_company_name_tv)
+    TextView mCompanyNameTv;*/
     @BindView(R.id.register_company_name_et)
     EditText mCompanyNameEt;
     @BindView(R.id.register_layout_corporate)

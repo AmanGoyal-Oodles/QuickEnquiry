@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/Orange">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,12 +11,12 @@
         android:orientation="vertical"
         android:background="@color/White"
         android:padding="@dimen/mar_20"
-        android:layout_margin="@dimen/mar_10">
+        android:layout_margin="@dimen/mar_20">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UserType*"
+            android:text="User Type*"
             android:id="@+id/register_user_type_text_tv"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"/>
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/register_user_type_text_tv"
             android:layout_marginTop="@dimen/mar_10"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/register_corporate_radio_btn"
@@ -53,14 +54,14 @@
             android:layout_below="@id/register_user_type_radio_btn_layout"
             android:orientation="vertical">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category"
+                android:text="Business Category"
                 android:layout_marginTop="@dimen/mar_10"
                 android:textSize="@dimen/textSize16sp"
                 android:textColor="@color/Black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"/>-->
 
 
             <LinearLayout
@@ -78,7 +79,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Company Name*"
@@ -87,7 +88,7 @@
                 android:layout_marginTop="@dimen/mar_10"
                 android:textSize="@dimen/textSize16sp"
                 android:textStyle="bold"/>
-
+-->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,9 +102,7 @@
 
         </LinearLayout>
 
-
-
-        <TextView
+   <!--     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Name*"
@@ -113,12 +112,12 @@
             android:layout_below="@+id/register_layout_corporate"
             android:textSize="@dimen/textSize16sp"
             android:textStyle="bold"/>
-
+-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Name"
-            android:layout_below="@+id/register_name_tv"
+            android:layout_below="@+id/register_layout_corporate"
             android:padding="@dimen/mar_10"
             android:inputType="text"
             android:id="@+id/register_name_et"
@@ -126,7 +125,7 @@
             android:textSize="@dimen/textSize16sp"
             android:layout_marginTop="@dimen/mar_10"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Mobile No*"
@@ -136,12 +135,12 @@
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
             android:textStyle="bold"/>
-
+-->
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Mobile No"
-            android:layout_below="@+id/register_mobile_tv"
+            android:layout_below="@+id/register_name_et"
             android:id="@+id/register_mobile_et"
             android:padding="@dimen/mar_10"
             android:inputType="phone"
@@ -149,7 +148,7 @@
             android:textSize="@dimen/textSize16sp"
             android:layout_marginTop="@dimen/mar_10"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Email(Optional)"
@@ -158,13 +157,13 @@
             android:layout_marginTop="@dimen/mar_15"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Email(Optional)"
-            android:layout_below="@+id/register_email_tv"
+            android:layout_below="@+id/register_mobile_et"
             android:padding="@dimen/mar_10"
             android:inputType="textEmailAddress"
             android:id="@+id/register_email_et"
@@ -172,7 +171,7 @@
             android:textSize="@dimen/textSize16sp"
             android:layout_marginTop="@dimen/mar_10"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Password*"
@@ -181,13 +180,13 @@
             android:layout_marginTop="@dimen/mar_15"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Password"
-            android:layout_below="@+id/register_password_tv"
+            android:layout_below="@+id/register_email_et"
             android:padding="@dimen/mar_10"
             android:inputType="textPassword"
             android:id="@+id/register_password_et"
@@ -195,7 +194,7 @@
             android:textSize="@dimen/textSize16sp"
             android:layout_marginTop="@dimen/mar_10"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Re-Type Password*"
@@ -204,13 +203,13 @@
             android:id="@+id/register_repass_tv"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"/>-->
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Re-Type Password"
-            android:layout_below="@+id/register_repass_tv"
+            android:layout_below="@+id/register_password_et"
             android:padding="@dimen/mar_10"
             android:inputType="textPassword"
             android:id="@+id/register_repass_et"

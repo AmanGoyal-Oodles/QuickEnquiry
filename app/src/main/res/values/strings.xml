@@ -12,7 +12,7 @@
     </string-array>
 
     <string-array name="CATEGORY">
-        <item>Category Type</item>
+        <item>Business Category Type</item>
         <item>Client</item>
         <item>Freinds</item>
         <item>Family</item>

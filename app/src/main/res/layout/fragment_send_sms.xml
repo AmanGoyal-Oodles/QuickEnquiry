@@ -137,7 +137,7 @@
                     android:textColor="@color/Gray" />
             </RadioGroup>
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/send_sms_contact_type_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,14 +145,14 @@
                 android:layout_marginTop="@dimen/mar_10"
                 android:text="Contact Type*"
                 android:textColor="@color/Black"
-                android:textSize="@dimen/textSize16sp" />
+                android:textSize="@dimen/textSize16sp" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/mar_10"
+                android:layout_marginTop="@dimen/mar_20"
                 android:id="@+id/send_sms_spinner_layout"
-                android:layout_below="@+id/send_sms_contact_type_text_tv"
+                android:layout_below="@+id/send_sms_radio_btn_layout"
                 android:background="@drawable/border_bg_et">
 
                 <Spinner
@@ -164,7 +164,7 @@
 
             </LinearLayout>
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/send_sms_message_content_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,14 +172,15 @@
                 android:layout_marginTop="@dimen/mar_10"
                 android:text="Message Content*"
                 android:textColor="@color/Black"
-                android:textSize="@dimen/textSize16sp" />
+                android:textSize="@dimen/textSize16sp" />-->
 
             <EditText
                 android:id="@+id/send_sms_message_content_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/send_sms_message_content_text_tv"
-                android:layout_marginTop="@dimen/mar_10"
+                android:layout_below="@+id/send_sms_spinner_layout"
+                android:layout_marginTop="@dimen/mar_20"
+                android:hint="Message Content*"
                 android:background="@drawable/border_bg_et"
                 android:lines="4"
                 android:maxLines="5"

@@ -2,16 +2,18 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/Orange">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/White"
-        android:padding="@dimen/mar_20"
-        android:layout_margin="@dimen/mar_20">
+        android:padding="@dimen/mar_10"
+        android:layout_marginTop="@dimen/mar_20"
+        android:layout_marginLeft="@dimen/mar_20"
+        android:layout_marginRight="@dimen/mar_20"
+        android:layout_marginBottom="@dimen/mar_20">
 
         <TextView
             android:layout_width="wrap_content"
@@ -233,6 +235,7 @@
             android:textSize="@dimen/textSize16sp"
             android:layout_toRightOf="@+id/register_agree_cb"
             android:layout_marginTop="@dimen/mar_20"
+            android:textColor="@color/Orange"
             android:id="@+id/register_terms_tv"
             android:layout_below="@+id/register_repass_et"/>
 

@@ -39,33 +39,34 @@
 
         </LinearLayout>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/add_contact_relation_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
             android:text="Relation/Company"
             android:textColor="@color/Black"
-            android:textSize="@dimen/textSize14sp" />
+            android:textSize="@dimen/textSize14sp" />-->
 
         <EditText
             android:id="@+id/add_contact_relation_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
+            android:hint="Relation/Company"
             android:background="@drawable/border_bg_et"
             android:inputType="text"
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize16sp" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/add_contact_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
             android:text="Name"
             android:textColor="@color/Black"
-            android:textSize="@dimen/textSize14sp" />
+            android:textSize="@dimen/textSize14sp" />-->
 
         <EditText
             android:id="@+id/add_contact_name_et"
@@ -78,14 +79,14 @@
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize14sp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/add_contact_mobile_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
             android:text="Mobile No"
             android:textColor="@color/Black"
-            android:textSize="@dimen/textSize14sp" />
+            android:textSize="@dimen/textSize14sp" />-->
 
         <EditText
             android:id="@+id/add_contact_mobile_et"
@@ -98,14 +99,14 @@
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize16sp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/add_contact_email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
             android:text="Email"
             android:textColor="@color/Black"
-            android:textSize="@dimen/textSize14sp" />
+            android:textSize="@dimen/textSize14sp" />-->
 
         <EditText
             android:id="@+id/add_contact_email_et"
@@ -118,20 +119,23 @@
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize16sp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/add_contact_address_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
             android:text="Address"
             android:textColor="@color/Black"
-            android:textSize="@dimen/textSize14sp" />
+            android:textSize="@dimen/textSize14sp" />-->
 
         <EditText
             android:id="@+id/add_contact_address_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
+            android:hint="Address"
+            android:gravity="top|left"
+            android:padding="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
             android:lines="4"
             android:maxLines="5"

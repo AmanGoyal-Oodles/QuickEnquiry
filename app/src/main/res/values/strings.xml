@@ -32,9 +32,26 @@
         <item>Oct</item>
         <item>Nov</item>
         <item>Dec</item>
+    </string-array>
 
+    <string-array name="CITY">
+        <item>Select City</item>
+        <item>Noida</item>
+        <item>Delhi</item>
+        <item>Gurugram</item>
+        <item>Lucknow</item>
+        <item>Agra</item>
+    </string-array>
 
-
+    <string-array name="LOCALITY">
+        <item>Select Locality</item>
+        <item>Sec 10</item>
+        <item>Sec 11</item>
+        <item>Sec 12</item>
+        <item>Sec 13</item>
+        <item>Sec 14</item>
+        <item>Sec 15</item>
+        <item>Sec 16</item>
     </string-array>
 
 </resources>

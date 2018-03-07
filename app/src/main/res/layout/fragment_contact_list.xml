@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/contact_list_search_layout"
+        android:background="@drawable/border_bg_et">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:hint="Search"
+            android:id="@+id/contact_list_search_et"
+            android:background="@null"
+            android:padding="@dimen/mar_10"/>
+
+        <ImageView
+            android:layout_width="@dimen/mar_30"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/contact_list_search_iv"
+            android:src="@drawable/ic_search"
+            android:padding="@dimen/mar_10"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_list_header_layout"
+        android:layout_below="@+id/contact_list_search_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Detail"
+            android:textSize="@dimen/textSize16sp"
+            android:paddingLeft="@dimen/mar_10"
+            android:paddingTop="@dimen/mar_10"
+            android:layout_marginTop="@dimen/mar_2"
+            android:textColor="@color/Black"
+            android:id="@+id/contact_list_header_name_tv"/>
+
+        <View
+            android:layout_width="@dimen/mar_0_2"
+            android:layout_height="@dimen/mar_40"
+            android:background="@color/Gray"
+            android:id="@+id/contact_list_header_view2"
+            android:layout_toLeftOf="@+id/contact_list_header_action_tv"
+            android:layout_marginRight="@dimen/mar_12"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/mar_10"
+            android:layout_marginRight="@dimen/mar_20"
+            android:textColor="@color/Black"
+            android:id="@+id/contact_list_header_action_tv"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mar_0_2"
+            android:layout_below="@+id/contact_list_header_view2"
+            android:background="@color/Gray"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_list_header_layout"
+        android:id="@+id/contact_list_rv"/>
+
+</RelativeLayout>

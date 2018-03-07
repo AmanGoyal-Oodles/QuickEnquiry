@@ -46,7 +46,6 @@ public class AddContactFragment extends Fragment {
     private ArrayAdapter<String> mClientTypeAdapter;
     private ArrayAdapter<String> mDobDateAdapter,mDobMonthAdapter,mDobYearAdapter,mAnniversaryDateAdapter,mAnniversaryMonthAdapter,mAnniversaryYearAdapter;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

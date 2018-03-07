@@ -6,19 +6,18 @@
     android:background="@color/White"
     android:padding="@dimen/mar_20">
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Old Password*"
         android:textColor="@color/Black"
         android:textSize="@dimen/textSize14sp"
         android:id="@+id/change_pass_old_pass_tv"
-        android:layout_marginTop="@dimen/mar_10"/>
+        android:layout_marginTop="@dimen/mar_10"/>-->
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_pass_old_pass_tv"
         android:background="@drawable/border_bg_et"
         android:hint="Old Password"
         android:inputType="textPassword"
@@ -27,7 +26,7 @@
         android:layout_marginTop="@dimen/mar_10"
         android:padding="@dimen/mar_10"/>
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Password*"
@@ -35,21 +34,21 @@
         android:textSize="@dimen/textSize14sp"
         android:id="@+id/change_pass_new_pass_tv"
         android:layout_below="@+id/change_pass_old_pass_et"
-        android:layout_marginTop="@dimen/mar_10"/>
+        android:layout_marginTop="@dimen/mar_10"/>-->
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_pass_new_pass_tv"
+        android:layout_below="@+id/change_pass_old_pass_et"
         android:background="@drawable/border_bg_et"
         android:hint="New Password"
         android:inputType="textPassword"
         android:textSize="@dimen/textSize16sp"
         android:id="@+id/change_pass_new_pass_et"
-        android:layout_marginTop="@dimen/mar_10"
+        android:layout_marginTop="@dimen/mar_20"
         android:padding="@dimen/mar_10"/>
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm Password*"
@@ -57,18 +56,18 @@
         android:textSize="@dimen/textSize14sp"
         android:id="@+id/change_pass_confirm_pass_tv"
         android:layout_below="@+id/change_pass_new_pass_et"
-        android:layout_marginTop="@dimen/mar_10"/>
+        android:layout_marginTop="@dimen/mar_10"/>-->
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_pass_confirm_pass_tv"
+        android:layout_below="@+id/change_pass_new_pass_et"
         android:background="@drawable/border_bg_et"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:textSize="@dimen/textSize16sp"
         android:id="@+id/change_pass_confirm_pass_et"
-        android:layout_marginTop="@dimen/mar_10"
+        android:layout_marginTop="@dimen/mar_20"
         android:padding="@dimen/mar_10"/>
 
     <LinearLayout

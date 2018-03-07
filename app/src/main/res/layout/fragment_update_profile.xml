@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="false"
+    android:background="@color/Orange">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/mar_20"
+        android:background="@color/White"
+        android:layout_marginTop="@dimen/mar_20"
+        android:layout_marginLeft="@dimen/mar_20"
+        android:layout_marginRight="@dimen/mar_20"
+        android:layout_marginBottom="@dimen/mar_40"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage Your Security Settings"
+            android:id="@+id/update_profile_manage_sett_text_tv"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage Your Account"
+            android:id="@+id/update_profile_manage_acc_text_tv"
+            android:layout_below="@+id/update_profile_manage_sett_text_tv"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Name"
+            android:id="@+id/update_profile_name_tv"
+            android:layout_below="@+id/update_profile_manage_acc_text_tv"
+            android:textSize="@dimen/textSize16sp"
+            android:textColor="@color/Black"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_name_et"
+            android:layout_below="@+id/update_profile_name_tv"
+            android:background="@drawable/border_bg_et"
+            android:text="Aman Goyal"
+            android:hint="Your Name"
+            android:padding="@dimen/mar_10"
+            android:layout_marginTop="@dimen/mar_10"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Email*"
+            android:id="@+id/update_profile_email_tv"
+            android:layout_below="@+id/update_profile_name_et"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_email_et"
+            android:layout_below="@id/update_profile_email_tv"
+            android:background="@drawable/border_bg_et"
+            android:text="amang4444@gmail.com"
+            android:hint="Your Email"
+            android:padding="@dimen/mar_10"
+            android:layout_marginTop="@dimen/mar_10"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Primary Contact*"
+            android:id="@+id/update_profile_pri_con_tv"
+            android:layout_below="@+id/update_profile_email_et"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_pri_con_et"
+            android:layout_below="@+id/update_profile_pri_con_tv"
+            android:background="@drawable/border_bg_et"
+            android:text="9355606425"
+            android:hint="Primary Contact"
+            android:editable="false"
+            android:backgroundTint="@color/LightGray"
+            android:padding="@dimen/mar_10"
+            android:layout_marginTop="@dimen/mar_10"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Secondary Contact*"
+            android:id="@+id/update_profile_sec_con_tv"
+            android:layout_below="@+id/update_profile_pri_con_et"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"
+            android:layout_marginTop="@dimen/mar_10"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_sec_con_et"
+            android:layout_below="@+id/update_profile_sec_con_tv"
+            android:background="@drawable/border_bg_et"
+            android:text="9654286725"
+            android:hint="Secondary Contact"
+            android:padding="@dimen/mar_10"
+            android:layout_marginTop="@dimen/mar_10"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City*"
+            android:id="@+id/update_profile_city_tv"
+            android:layout_below="@+id/update_profile_sec_con_et"
+            android:textColor="@color/Black"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_10"
+            android:layout_below="@+id/update_profile_city_tv"
+            android:id="@+id/update_profile_city_spinner_layout"
+            android:background="@drawable/border_bg_et">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:dropDownVerticalOffset="50dp"
+                android:id="@+id/update_profile_city_spinner"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Locality*"
+            android:id="@+id/update_profile_locality_tv"
+            android:layout_below="@id/update_profile_city_spinner_layout"
+            android:textColor="@color/Black"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_locality_spinner_layout"
+            android:layout_below="@+id/update_profile_locality_tv"
+            android:layout_marginTop="@dimen/mar_10"
+            android:background="@drawable/border_bg_et">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:id="@+id/update_profile_locality_spinner"
+                android:dropDownVerticalOffset="50dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adress*"
+            android:id="@+id/update_profile_address_tv"
+            android:layout_below="@id/update_profile_locality_spinner_layout"
+            android:textColor="@color/Black"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textSize="@dimen/textSize16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_address_et"
+            android:layout_below="@+id/update_profile_address_tv"
+            android:minLines="3"
+            android:maxLines="5"
+            android:background="@drawable/border_bg_et"
+            android:layout_marginTop="@dimen/mar_10"
+            android:lines="4"
+            android:gravity="top|left" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/mar_30"
+            android:layout_below="@id/update_profile_address_et"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textSize="@dimen/textSize12sp"
+            android:id="@+id/update_profile_browse_btn"
+            android:text="Browse..."
+            android:textColor="@color/Black"
+            android:background="@drawable/border_button_bg"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/update_profile_address_et"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textSize="@dimen/textSize14sp"
+            android:background="@color/LightGray"
+            android:padding="@dimen/mar_5"
+            android:layout_toRightOf="@+id/update_profile_browse_btn"/>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/update_profile_checkbox"
+            android:layout_marginTop="@dimen/mar_10"
+            android:layout_below="@+id/update_profile_browse_btn"
+            android:text="I agree "/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Terms of Services"
+            android:textColor="@color/Orange"
+            android:layout_marginTop="@dimen/mar_15"
+            android:layout_below="@+id/update_profile_browse_btn"
+            android:layout_toRightOf="@+id/update_profile_checkbox"
+            android:textSize="@dimen/textSize16sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UPDATE INFO"
+            android:textColor="@color/White"
+            android:background="@color/Orange"
+            android:paddingLeft="@dimen/mar_20"
+            android:paddingRight="@dimen/mar_20"
+            android:id="@+id/update_profile_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/update_profile_checkbox"
+            android:layout_marginTop="@dimen/mar_20"/>
+
+    </RelativeLayout>
+
+</ScrollView>

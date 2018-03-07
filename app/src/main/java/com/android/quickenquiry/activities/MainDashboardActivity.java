@@ -18,9 +18,11 @@ import com.android.quickenquiry.R;
 import com.android.quickenquiry.dialoges.LogOutDialog;
 import com.android.quickenquiry.fragments.AddContactFragment;
 import com.android.quickenquiry.fragments.ChangePasswordFragment;
+import com.android.quickenquiry.fragments.ContactFragment;
 import com.android.quickenquiry.fragments.HomeFragment;
 import com.android.quickenquiry.fragments.ImportContactFragment;
 import com.android.quickenquiry.fragments.SendSMSFragment;
+import com.android.quickenquiry.fragments.UpdateProfileFragment;
 import com.android.quickenquiry.interfaces.SignOutResponseListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,6 +107,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.nav_update_profile:
                         NAV_ITEM_INDEX = 1;
+                        fragment=new UpdateProfileFragment();
+                        openFragment(fragment);
                         break;
                     case R.id.nav_change_pass:
                         NAV_ITEM_INDEX = 2;
@@ -128,6 +132,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.nav_contact_list:
                         NAV_ITEM_INDEX = 6;
+                        fragment=new ContactFragment();
+                        openFragment(fragment);
                         break;
                     case R.id.nav_send_sms:
                         NAV_ITEM_INDEX = 7;

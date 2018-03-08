@@ -18,8 +18,10 @@
     <dimen name="mar_0">0dp</dimen>
     <dimen name="mar_0_1">0.1dp</dimen>
     <dimen name="mar_0_2">0.2dp</dimen>
+    <dimen name="mar_0_5">0.5dp</dimen>
     <dimen name="mar_1">1dp</dimen>
     <dimen name="mar_2">2dp</dimen>
+    <dimen name="mar_3">3dp</dimen>
     <dimen name="mar__2">-2dp</dimen>
     <dimen name="mar_5">5dp</dimen>
     <dimen name="mar__5">-5dp</dimen>

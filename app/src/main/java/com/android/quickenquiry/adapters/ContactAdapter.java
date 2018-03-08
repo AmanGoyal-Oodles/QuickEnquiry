@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
@@ -36,6 +37,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
 
     @Override
     public void onBindViewHolder(ContactHolder holder, int position) {
+        if(position%2!=0) {
+            holder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.White));
+        } else {
+            holder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
+        }
         holder.mNameTv.setText(mContactList.get(position).getmName());
         holder.mPhoneTv.setText(mContactList.get(position).getmPhone());
     }
@@ -61,6 +67,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         ImageView mDeleteIv;
         @BindView(R.id.contact_list_item_edit_iv)
         ImageView mEditIv;
+        @BindView(R.id.contact_list_item_layout)
+        RelativeLayout mLayout;
 
         public ContactHolder(View itemView) {
             super(itemView);

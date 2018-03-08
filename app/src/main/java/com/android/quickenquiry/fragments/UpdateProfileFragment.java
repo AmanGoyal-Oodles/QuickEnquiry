@@ -40,8 +40,6 @@ public class UpdateProfileFragment extends Fragment {
     Spinner mLocalitySpinner;
     @BindView(R.id.update_profile_address_et)
     EditText mAddressEt;
-    @BindView(R.id.update_profile_checkbox)
-    CheckBox mAgreeCb;
     @BindView(R.id.update_profile_btn)
     Button mUpdateInfoBtn;
     private ArrayAdapter<String> mCityAdapter,mLocalityAdapter;

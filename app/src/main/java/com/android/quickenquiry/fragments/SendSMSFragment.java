@@ -1,5 +1,7 @@
 package com.android.quickenquiry.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +11,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.adapters.SendSMSSingleContactAdapter;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by user on 3/5/2018.
@@ -25,7 +37,24 @@ public class SendSMSFragment extends Fragment {
 
     @BindView(R.id.send_sms_contact_type_spinner)
     Spinner mContactTypeSpinner;
+    @BindView(R.id.send_sms_multiple_spinner_layout)
+    LinearLayout mMultipleLayout;
+    @BindView(R.id.send_sms_single_list_layout)
+    LinearLayout mSingleItemLayout;
+    @BindView(R.id.send_sms_search_et)
+    EditText mSearchEt;
+    @BindView(R.id.send_sms_single_contact_list_view)
+    ListView mContactListView;
+    @BindView(R.id.send_sms_multiple_radio_btn)
+    RadioButton mMultipleRadiobtn;
+    @BindView(R.id.send_sms_single_radio_btn)
+    RadioButton mSingleRadioButton;
     private ArrayAdapter<String> mContactTypeAdapter;
+    private SendSMSSingleContactAdapter mSendSMSSingleContactAdapter;
+    private ArrayList<ContactDetail> mContactlist,mSearchList;
+    private Context mcContext;
+    private Activity mActivity;
+    private AccountDetailHolder mAccountDetailHolder;
 
     @Nullable
     @Override
@@ -47,6 +76,21 @@ public class SendSMSFragment extends Fragment {
     private void init() {
         initVariables();
         setSpinnerAdapter();
+        mContactlist.clear();
+        mContactlist.addAll(mAccountDetailHolder.getContactList());
+        setListViewAdapter();
+
+        //setListView(mContactlist);
+    }
+
+    private void setListViewAdapter() {
+        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,mContactlist);
+        mContactListView.setAdapter(mSendSMSSingleContactAdapter);
+    }
+
+    private void setListView(ArrayList<ContactDetail> list) {
+        mSendSMSSingleContactAdapter.setmContactList(list);
+        mSendSMSSingleContactAdapter.notifyDataSetChanged();
     }
 
     private void setSpinnerAdapter() {
@@ -63,5 +107,33 @@ public class SendSMSFragment extends Fragment {
     }
 
     private void initVariables() {
+        mcContext=getContext();
+        mActivity=getActivity();
+        mContactlist=new ArrayList<>();
+        mSearchList=new ArrayList<>();
+        mAccountDetailHolder=new AccountDetailHolder(mcContext);
     }
+
+    @OnClick({R.id.send_sms_multiple_radio_btn})
+    public void onClickMultipleRadioBtn() {
+        if(mMultipleRadiobtn.isChecked()) {
+            mSingleItemLayout.setVisibility(View.GONE);
+            mMultipleLayout.setVisibility(View.VISIBLE);
+        } else {
+            mMultipleLayout.setVisibility(View.GONE);
+            mSingleItemLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @OnClick({R.id.send_sms_single_radio_btn})
+    public void onClickSingleRadioBtn() {
+        if(mSingleRadioButton.isChecked()) {
+            mMultipleLayout.setVisibility(View.GONE);
+            mSingleItemLayout.setVisibility(View.VISIBLE);
+        } else {
+            mSingleItemLayout.setVisibility(View.GONE);
+            mMultipleLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

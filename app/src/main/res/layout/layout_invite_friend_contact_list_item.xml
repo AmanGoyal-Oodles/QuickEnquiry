@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/invite_friend_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mar_60"
+    android:layout_below="@+id/invite_friend_contacts_text_tv"
+    android:background="@color/LightGray">
+
+    <CheckBox
+        android:id="@+id/invite_friend_item_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mar_3"
+        android:layout_marginTop="@dimen/mar_5" />
+
+    <View
+        android:id="@+id/invite_friend_view1"
+        android:layout_width="@dimen/mar_0_5"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mar_5"
+        android:layout_toRightOf="@+id/invite_friend_item_cb"
+        android:background="@color/Gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mar_10"
+        android:layout_marginTop="@dimen/mar_10"
+        android:layout_toRightOf="@+id/invite_friend_view1"
+        android:id="@+id/invite_friend_item_name_tv"
+        android:text="Aman"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/textSize16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mar_10"
+        android:id="@+id/invite_friend_item_phone_tv"
+        android:layout_below="@+id/invite_friend_item_name_tv"
+        android:layout_toRightOf="@+id/invite_friend_view1"
+        android:text="9355606425"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/textSize16sp" />
+
+</RelativeLayout>

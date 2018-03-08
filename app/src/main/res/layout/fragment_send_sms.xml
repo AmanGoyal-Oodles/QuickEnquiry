@@ -150,17 +150,52 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/mar_20"
-                android:id="@+id/send_sms_spinner_layout"
+                android:id="@+id/send_sms_display_contact_layout"
                 android:layout_below="@+id/send_sms_radio_btn_layout"
-                android:background="@drawable/border_bg_et">
+                android:orientation="vertical">
 
-                <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/send_sms_contact_type_spinner"
-                android:spinnerMode="dropdown"
-                android:dropDownVerticalOffset="50dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mar_20"
+                    android:id="@+id/send_sms_multiple_spinner_layout"
+                    android:background="@drawable/border_bg_et">
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/send_sms_contact_type_spinner"
+                        android:spinnerMode="dropdown"
+                        android:dropDownVerticalOffset="50dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_sms_single_list_layout"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_bg_et"
+                        android:hint="Search Contact"
+                        android:padding="@dimen/mar_10"
+                        android:id="@+id/send_sms_search_et"
+                        android:textSize="@dimen/textSize16sp"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:dividerHeight="1dp"
+                        android:divider="#b5b5b5"
+                        android:visibility="gone"
+                        android:listSelector="@drawable/list_selector"
+                        android:id="@+id/send_sms_single_contact_list_view"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -178,7 +213,7 @@
                 android:id="@+id/send_sms_message_content_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/send_sms_spinner_layout"
+                android:layout_below="@+id/send_sms_display_contact_layout"
                 android:layout_marginTop="@dimen/mar_20"
                 android:hint="Message Content*"
                 android:background="@drawable/border_bg_et"

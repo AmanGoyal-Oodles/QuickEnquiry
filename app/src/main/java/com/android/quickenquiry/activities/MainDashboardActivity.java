@@ -21,6 +21,7 @@ import com.android.quickenquiry.fragments.ChangePasswordFragment;
 import com.android.quickenquiry.fragments.ContactFragment;
 import com.android.quickenquiry.fragments.HomeFragment;
 import com.android.quickenquiry.fragments.ImportContactFragment;
+import com.android.quickenquiry.fragments.InviteFriendFragment;
 import com.android.quickenquiry.fragments.SendSMSFragment;
 import com.android.quickenquiry.fragments.UpdateProfileFragment;
 import com.android.quickenquiry.interfaces.SignOutResponseListener;
@@ -117,6 +118,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.nav_invite_friends:
                         NAV_ITEM_INDEX = 3;
+                        fragment=new InviteFriendFragment();
+                        openFragment(fragment);
                         break;
                     case R.id.nav_import_contact:
                         NAV_ITEM_INDEX = 4;

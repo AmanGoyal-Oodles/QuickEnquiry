@@ -63,8 +63,8 @@ public class ContactFragment extends Fragment {
     private void init() {
         initVariables();
         setRecyclerView();
-        //setContactList();
-        getContactFromLocalStorage();
+        setContactList();
+        //getContactFromLocalStorage();
         mContactAdapter.setContactList(mContactList);
         mContactAdapter.notifyDataSetChanged();
     }

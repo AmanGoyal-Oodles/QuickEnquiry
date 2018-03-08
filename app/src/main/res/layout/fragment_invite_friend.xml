@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contacts"
+        android:textColor="@color/Black"
+        android:textSize="@dimen/textSize16sp"
+        android:gravity="center"
+        android:id="@+id/invite_friend_contacts_text_tv"
+        android:padding="@dimen/mar_10"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mar_40"
+        android:background="@color/LightGray"
+        android:id="@+id/invite_friend_header_layout"
+        android:layout_below="@+id/invite_friend_contacts_text_tv">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mar_5"
+            android:layout_marginLeft="@dimen/mar_3"
+            android:id="@+id/invite_friend_select_all_cb" />
+
+        <View
+            android:layout_width="@dimen/mar_0_5"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/mar_5"
+            android:id="@+id/invite_friend_view1"
+            android:layout_toRightOf="@+id/invite_friend_select_all_cb"
+            android:background="@color/Gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:layout_toRightOf="@+id/invite_friend_view1"
+            android:layout_marginLeft="@dimen/mar_10"
+            android:text="Select All"
+            android:layout_marginTop="@dimen/mar_10"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/textSize16sp"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/invite_friend_contact_list_rv"
+        android:layout_below="@+id/invite_friend_header_layout"/>
+
+</RelativeLayout>

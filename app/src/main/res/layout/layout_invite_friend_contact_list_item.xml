@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/invite_friend_item_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/mar_60"
+    android:layout_height="wrap_content"
     android:layout_below="@+id/invite_friend_contacts_text_tv"
     android:background="@color/LightGray">
 
@@ -16,7 +16,7 @@
     <View
         android:id="@+id/invite_friend_view1"
         android:layout_width="@dimen/mar_0_5"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/mar_60"
         android:layout_marginLeft="@dimen/mar_5"
         android:layout_toRightOf="@+id/invite_friend_item_cb"
         android:background="@color/Gray" />

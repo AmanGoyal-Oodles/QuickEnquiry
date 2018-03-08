@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.android.quickenquiry.R;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 /**
@@ -38,10 +41,13 @@ public class ContactFragment extends Fragment {
     ImageView mSearchIv;
     @BindView(R.id.contact_list_rv)
     RecyclerView mContactListRv;
+    @BindView(R.id.contact_list_add_contact_btn)
+    Button mAddContactBtn;
     private Context mContext;
     private ContactAdapter mContactAdapter;
     private ArrayList<ContactDetail> mContactList,mSearchList;
     private AccountDetailHolder mAccountDetailHolder;
+    private final static String CURRENT_TAG=ContactFragment.class.getName();
 
     @Nullable
     @Override
@@ -106,6 +112,15 @@ public class ContactFragment extends Fragment {
         }
         mContactAdapter.setContactList(mSearchList);
         mContactAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick({R.id.contact_list_add_contact_btn})
+    public void onClickAddContactBtn() {
+        Fragment fragment = new AddContactFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
+        fragmentTransaction.addToBackStack(CURRENT_TAG);
+        fragmentTransaction.commit();
     }
 
     private void setRecyclerView() {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
@@ -42,6 +43,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         } else {
             holder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
         }
+        holder.mSnTv.setText(position+1+"");
         holder.mNameTv.setText(mContactList.get(position).getmName());
         holder.mPhoneTv.setText(mContactList.get(position).getmPhone());
     }
@@ -59,6 +61,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     public class ContactHolder extends RecyclerView.ViewHolder {
 
 
+        @BindView(R.id.contact_list_item_sn_tv)
+        TextView mSnTv;
         @BindView(R.id.contact_list_item_name_tv)
         TextView mNameTv;
         @BindView(R.id.contact_list_item_phone_tv)
@@ -68,7 +72,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         @BindView(R.id.contact_list_item_edit_iv)
         ImageView mEditIv;
         @BindView(R.id.contact_list_item_layout)
-        RelativeLayout mLayout;
+        LinearLayout mLayout;
 
         public ContactHolder(View itemView) {
             super(itemView);

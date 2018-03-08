@@ -8,6 +8,6 @@ import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 
 public interface ContactSelectionListener {
 
-    public void contactSelected(ContactDetail contactDetail,boolean isSelected);
+    public void contactSelected(ContactDetail contactDetail,int position,boolean isSelected);
 
 }

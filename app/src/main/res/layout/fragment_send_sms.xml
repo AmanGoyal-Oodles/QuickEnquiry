@@ -177,23 +177,17 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Select an option"
+                        android:textSize="@dimen/textSize16sp"
                         android:background="@drawable/border_bg_et"
-                        android:hint="Search Contact"
                         android:padding="@dimen/mar_10"
-                        android:id="@+id/send_sms_search_et"
-                        android:textSize="@dimen/textSize16sp"/>
-
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:dividerHeight="1dp"
-                        android:divider="#b5b5b5"
-                        android:visibility="gone"
-                        android:listSelector="@drawable/list_selector"
-                        android:id="@+id/send_sms_single_contact_list_view"/>
+                        android:layout_marginTop="@dimen/mar_10"
+                        android:textColor="@color/Black"
+                        android:completionThreshold="1"
+                        android:id="@+id/send_sms_single_contact_actv"/>
 
                 </LinearLayout>
 

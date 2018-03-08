@@ -26,10 +26,14 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
     private Context mContext;
     private ArrayList<ContactDetail> mContactList;
     private ContactSelectionListener mContactSelectionListener;
+    private ArrayList<Boolean> mContactSelectionStatusList;
 
-    public InviteFriendListAdapter(Context context,ContactSelectionListener listener) {
+    public InviteFriendListAdapter(Context context,ContactSelectionListener listener,ArrayList<Boolean> list) {
         mContext=context;
         mContactList=new ArrayList<>();
+        mContactSelectionStatusList=new ArrayList<>();
+        mContactSelectionStatusList.clear();
+        mContactSelectionStatusList.addAll(list);
         mContactSelectionListener=listener;
     }
 
@@ -46,6 +50,11 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
         } else {
             holder.mLayout.setBackgroundColor(mContext.getResources().getColor(R.color.White));
         }
+        if(mContactSelectionStatusList.get(position)) {
+            holder.mCheckBox.setChecked(true);
+        } else {
+            holder.mCheckBox.setChecked(false);
+        }
         holder.mNameTv.setText(mContactList.get(position).getmName());
         holder.mPhoneTv.setText(mContactList.get(position).getmPhone());
     }
@@ -58,6 +67,11 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
     public void setmContactList(ArrayList<ContactDetail> list) {
         mContactList.clear();
         mContactList.addAll(list);
+    }
+
+    public void setmContactSelectionStatusList(ArrayList<Boolean> list) {
+        mContactSelectionStatusList.clear();
+        mContactSelectionStatusList.addAll(list);
     }
 
     public class InviteFriendListHolder extends RecyclerView.ViewHolder {
@@ -81,9 +95,11 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
         public void onClickCheckBox() {
             int position=getAdapterPosition();
             if(mCheckBox.isChecked()) {
-                mContactSelectionListener.contactSelected(mContactList.get(position),true);
+                mContactSelectionStatusList.set(position,true);
+                mContactSelectionListener.contactSelected(mContactList.get(position),position,true);
             } else {
-                mContactSelectionListener.contactSelected(mContactList.get(position),false);
+                mContactSelectionStatusList.set(position,false);
+                mContactSelectionListener.contactSelected(mContactList.get(position),position,false);
             }
         }
 

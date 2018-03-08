@@ -5,13 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/Gray</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style parent="@android:style/Widget.Spinner" name="SpinnerwithNoArrow">
+        <item name="android:background">@android:drawable/edit_text</item>
     </style>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">

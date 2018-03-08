@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:hint="Invite Message"
+       android:minLines="8"
+       android:maxLines="10"
+       android:lines="9"
+       android:id="@+id/invite_message_et"
+       android:layout_margin="@dimen/mar_10"
+       android:background="@drawable/border_bg_et"
+       android:gravity="top|left"
+       android:padding="@dimen/mar_10"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CANCEL"
+        android:id="@+id/invite_message_cancel_btn"
+        android:layout_below="@+id/invite_message_et"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/mar_10"
+        android:textColor="@color/White"
+        android:background="@color/Orange"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEND"
+        android:id="@+id/invite_message_send_btn"
+        android:layout_below="@+id/invite_message_et"
+        android:layout_toLeftOf="@+id/invite_message_cancel_btn"
+        android:layout_margin="@dimen/mar_10"
+        android:textColor="@color/White"
+        android:background="@color/Orange"/>
+
+</RelativeLayout>

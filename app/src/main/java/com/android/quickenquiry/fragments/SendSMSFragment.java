@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,14 +42,16 @@ public class SendSMSFragment extends Fragment {
     LinearLayout mMultipleLayout;
     @BindView(R.id.send_sms_single_list_layout)
     LinearLayout mSingleItemLayout;
-    @BindView(R.id.send_sms_search_et)
-    EditText mSearchEt;
-    @BindView(R.id.send_sms_single_contact_list_view)
-    ListView mContactListView;
+    /*@BindView(R.id.send_sms_search_et)
+    EditText mSearchEt;*/
+    /*@BindView(R.id.send_sms_single_contact_list_view)
+    ListView mContactListView;*/
     @BindView(R.id.send_sms_multiple_radio_btn)
     RadioButton mMultipleRadiobtn;
     @BindView(R.id.send_sms_single_radio_btn)
     RadioButton mSingleRadioButton;
+    @BindView(R.id.send_sms_single_contact_actv)
+    AutoCompleteTextView mSingleContactACTV;
     private ArrayAdapter<String> mContactTypeAdapter;
     private SendSMSSingleContactAdapter mSendSMSSingleContactAdapter;
     private ArrayList<ContactDetail> mContactlist,mSearchList;
@@ -78,20 +81,26 @@ public class SendSMSFragment extends Fragment {
         setSpinnerAdapter();
         mContactlist.clear();
         mContactlist.addAll(mAccountDetailHolder.getContactList());
-        setListViewAdapter();
+        setACTVAdapter();
+        //setListViewAdapter();
 
         //setListView(mContactlist);
     }
 
-    private void setListViewAdapter() {
-        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,mContactlist);
-        mContactListView.setAdapter(mSendSMSSingleContactAdapter);
+    private void setACTVAdapter() {
+        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,R.layout.layout_send_sms_contact_list,mContactlist);
+        mSingleContactACTV.setAdapter(mSendSMSSingleContactAdapter);
     }
 
-    private void setListView(ArrayList<ContactDetail> list) {
+    /*private void setListViewAdapter() {
+        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,mContactlist);
+        mContactListView.setAdapter(mSendSMSSingleContactAdapter);
+    }*/
+
+    /*private void setListView(ArrayList<ContactDetail> list) {
         mSendSMSSingleContactAdapter.setmContactList(list);
         mSendSMSSingleContactAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     private void setSpinnerAdapter() {
         mContactTypeAdapter=new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item) {

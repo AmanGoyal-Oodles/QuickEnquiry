@@ -46,7 +46,6 @@ public class ImportContactActivity extends AppCompatActivity {
 
     private void init() {
         initVariables();
-
     }
 
     private void initVariables() {

@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,8 +12,7 @@
         android:padding="@dimen/mar_10"
         android:layout_marginTop="@dimen/mar_20"
         android:layout_marginLeft="@dimen/mar_20"
-        android:layout_marginRight="@dimen/mar_20"
-        android:layout_marginBottom="@dimen/mar_20">
+        android:layout_marginRight="@dimen/mar_20">
 
         <TextView
             android:layout_width="wrap_content"
@@ -254,12 +253,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/register_btn"
             android:gravity="center"
+            android:padding="@dimen/mar_20"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/mar_15">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Already have an account? "
                 android:textColor="@color/Black"
                 android:id="@+id/register_account_text_tv"
@@ -267,7 +267,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Log In"
                 android:textColor="@color/Orange"
                 android:id="@+id/register_login_text_tv"

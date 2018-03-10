@@ -91,4 +91,9 @@ public class ContactDetail {
     public void setmClientType(String mClientType) {
         this.mClientType = mClientType;
     }
+
+    @Override
+    public String toString() {
+        return mName + " (" + mPhone + ")";
+    }
 }

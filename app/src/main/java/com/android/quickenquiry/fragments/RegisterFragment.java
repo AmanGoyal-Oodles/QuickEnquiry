@@ -4,6 +4,7 @@ package com.android.quickenquiry.fragments;
  * Created by user on 3/2/2018.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,13 +22,15 @@ import android.widget.TextView;
 
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.activities.MainDashboardActivity;
+import com.android.quickenquiry.dialoges.OTPDialog;
+import com.android.quickenquiry.interfaces.OTPDialogListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements OTPDialogListener {
 
 
     @BindView(R.id.register_login_text_tv)
@@ -46,6 +49,7 @@ public class RegisterFragment extends Fragment {
     Spinner mCategorySpinner;
     private static final String CURRENT_TAG=RegisterFragment.class.getName();
     private ArrayAdapter<String> mCategoryAdapter;
+    private Context mContext;
 
     @Nullable
     @Override
@@ -80,6 +84,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void initVariables() {
+        mContext=getContext();
     }
 
     @OnClick({R.id.register_login_text_tv})
@@ -89,9 +94,8 @@ public class RegisterFragment extends Fragment {
 
     @OnClick({R.id.register_btn})
     public void onClickRegisterBtn() {
-        Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        OTPDialog dialog=new OTPDialog(mContext,this);
+        dialog.show();
     }
 
     @OnClick({R.id.register_corporate_radio_btn})
@@ -120,4 +124,12 @@ public class RegisterFragment extends Fragment {
     }
 
 
+    @Override
+    public void isOTPValidate(boolean isValidate) {
+        if(isValidate) {
+            Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+    }
 }

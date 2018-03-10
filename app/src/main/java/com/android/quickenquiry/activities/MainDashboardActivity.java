@@ -1,7 +1,11 @@
 package com.android.quickenquiry.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -25,6 +29,15 @@ import com.android.quickenquiry.fragments.InviteFriendFragment;
 import com.android.quickenquiry.fragments.SendSMSFragment;
 import com.android.quickenquiry.fragments.UpdateProfileFragment;
 import com.android.quickenquiry.interfaces.SignOutResponseListener;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.utils.constants.AppConstantKeys;
+import com.android.quickenquiry.utils.util.AppToast;
+import com.android.quickenquiry.utils.util.ContactListComparator;
+import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,6 +52,10 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
     private ActionBar mActionBar;
     NavigationView mNavView;
     private int NAV_ITEM_INDEX=0;
+    private Context mContext;
+    private Cursor cursor ;
+    private ArrayList<ContactDetail> mContactList ;
+    private AccountDetailHolder mAccountDetailHolder;
 
 
     @Override
@@ -91,7 +108,9 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
     }
 
     private void initVariables() {
-
+        mContext=getApplicationContext();
+        mContactList=new ArrayList<>();
+        mAccountDetailHolder=new AccountDetailHolder(mContext);
     }
 
     private void handleNavigationSelectedItem() {
@@ -123,8 +142,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.nav_import_contact:
                         NAV_ITEM_INDEX = 4;
-                        Intent intent=new Intent(MainDashboardActivity.this,ImportContactActivity.class);
-                        startActivity(intent);
+                        fragment=new ImportContactFragment();
+                        openFragment(fragment);
                         break;
                     case R.id.add_contact:
                         NAV_ITEM_INDEX = 5;
@@ -187,4 +206,56 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
             super.onBackPressed();
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case AppConstantKeys.READ_CONTACT_PERMISSION: if(grantResults[0]== PackageManager.PERMISSION_GRANTED) {
+                getContacts();
+            } else {
+                AppToast.showToast(mContext,"You can not import Contacts");
+            }
+                return;
+
+        }
+    }
+
+    private void getContacts() {
+        cursor = mContext.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null, null, null);
+        String name,phone;
+        while (cursor!=null&&cursor.moveToNext()&&cursor!=null) {
+
+            name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+
+            phone = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            phone=phone.trim();
+            mContactList.add(new ContactDetail(name,phone,"","","","","",""));
+        }
+        AppToast.showToast(mContext,"All contacts imported successfully");
+        storeContactsInLocalStorage();
+        cursor.close();
+    }
+
+    private void storeContactsInLocalStorage() {
+        ArrayList<ContactDetail> list=mAccountDetailHolder.getContactList();
+        boolean flag;
+        for(int i=0;i<mContactList.size();i++) {
+            flag=false;
+            for(int j=0;j<list.size();j++) {
+                if(list.get(j).getmPhone().equals(mContactList.get(i).getmPhone()))  {
+                    flag=true;
+                    break;
+                }
+            }
+            if(!flag) {
+                list.add(mContactList.get(i));
+            }
+        }
+        Collections.sort(list,new ContactListComparator());
+        mAccountDetailHolder.setContactList(list);
+    }
+
+
 }

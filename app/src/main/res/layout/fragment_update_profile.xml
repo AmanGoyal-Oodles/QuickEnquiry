@@ -188,6 +188,8 @@
             android:layout_below="@+id/update_profile_locality_spinner_layout"
             android:minLines="3"
             android:maxLines="5"
+            android:hint="Address"
+            android:padding="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
             android:layout_marginTop="@dimen/mar_10"
             android:lines="4"

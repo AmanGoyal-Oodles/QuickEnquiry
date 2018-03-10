@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -53,8 +51,10 @@ public class SendSMSFragment extends Fragment {
     @BindView(R.id.send_sms_single_contact_actv)
     AutoCompleteTextView mSingleContactACTV;
     private ArrayAdapter<String> mContactTypeAdapter;
-    private SendSMSSingleContactAdapter mSendSMSSingleContactAdapter;
-    private ArrayList<ContactDetail> mContactlist,mSearchList;
+    private ArrayAdapter<ContactDetail> mSendSMSSingleContactAdapter;
+    private ArrayAdapter<String> arrayAdapter;
+    private String[] list={"A","B","C","D"};
+    private ArrayList<ContactDetail> mContactList,mSearchList;
     private Context mcContext;
     private Activity mActivity;
     private AccountDetailHolder mAccountDetailHolder;
@@ -79,21 +79,46 @@ public class SendSMSFragment extends Fragment {
     private void init() {
         initVariables();
         setSpinnerAdapter();
-        mContactlist.clear();
-        mContactlist.addAll(mAccountDetailHolder.getContactList());
+        mContactList.clear();
+        mContactList.addAll(mAccountDetailHolder.getContactList());
+        setContactList();
         setACTVAdapter();
         //setListViewAdapter();
 
-        //setListView(mContactlist);
+        //setListView(mContactList);
+    }
+
+    private void setContactList() {
+        mContactList.add(new ContactDetail("Aman","9355606425","","","","","",""));
+        mContactList.add(new ContactDetail("Ajay","9355606424","","","","","",""));
+        mContactList.add(new ContactDetail("Amar","9355606423","","","","","",""));
+        mContactList.add(new ContactDetail("Akhil","9355606422","","","","","",""));
+        mContactList.add(new ContactDetail("Rahul","9355606421","","","","","",""));
+        mContactList.add(new ContactDetail("Abhinav","9355606420","","","","","",""));
+        mContactList.add(new ContactDetail("Sahil","9355606435","","","","","",""));
+        mContactList.add(new ContactDetail("Ravi","9355606445","","","","","",""));
+        mContactList.add(new ContactDetail("Puneet","9355606455","","","","","",""));
+        mContactList.add(new ContactDetail("Rishabh","9355606465","","","","","",""));
+        mContactList.add(new ContactDetail("Anmol","9355606475","","","","","",""));
+        mContactList.add(new ContactDetail("Ankit","9355606485","","","","","",""));
+        mContactList.add(new ContactDetail("Ajit","9355606495","","","","","",""));
+        mContactList.add(new ContactDetail("Akash","9355606405","","","","","",""));
     }
 
     private void setACTVAdapter() {
-        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,R.layout.layout_send_sms_contact_list,mContactlist);
+        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,R.layout.layout_send_sms_contact_list, mContactList);
+      //  mSingleContactACTV.setAdapter(mSendSMSSingleContactAdapter);
+       /* String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
+
+        //janab jugaad dekhte hai ab
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (mcContext,android.R.layout.select_dialog_item,language);
+        mSingleContactACTV.setThreshold(1);*/
         mSingleContactACTV.setAdapter(mSendSMSSingleContactAdapter);
     }
 
     /*private void setListViewAdapter() {
-        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,mContactlist);
+        mSendSMSSingleContactAdapter=new SendSMSSingleContactAdapter(mActivity,mContactList);
         mContactListView.setAdapter(mSendSMSSingleContactAdapter);
     }*/
 
@@ -118,7 +143,7 @@ public class SendSMSFragment extends Fragment {
     private void initVariables() {
         mcContext=getContext();
         mActivity=getActivity();
-        mContactlist=new ArrayList<>();
+        mContactList =new ArrayList<>();
         mSearchList=new ArrayList<>();
         mAccountDetailHolder=new AccountDetailHolder(mcContext);
     }

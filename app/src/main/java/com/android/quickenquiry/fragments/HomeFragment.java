@@ -30,10 +30,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
-        ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
+       /* ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null) {
             actionBar.setTitle("Home");
             actionBar.setLogo(getResources().getDrawable(R.mipmap.ic_app_launcher));
-        }
+        }*/
     }
 }

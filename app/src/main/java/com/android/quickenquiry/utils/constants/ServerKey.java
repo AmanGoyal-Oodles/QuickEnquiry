@@ -1,0 +1,21 @@
+package com.android.quickenquiry.utils.constants;
+
+/**
+ * Created by user on 3/9/2018.
+ */
+
+public class ServerKey {
+
+    public static final String SERVER_URL=AppConfig.APP_SERVER_URL;
+
+    public static final String LOGIN="/login";
+    public static final String REGISTER="/register";
+    public static final String USER_CATEGORY="/usercategory";
+    public static final String CITY_LIST="/citylist";
+    public static final String LOCALITY_BY_CITY_ID="/localitybycityid";
+    public static final String UPDATE_OTP_STATUS="/updateotpstatus";
+    public static final String ADD_CONTACT="/addcontact";
+    public static final String CONTACTLIST="/contactlist";
+
+
+}

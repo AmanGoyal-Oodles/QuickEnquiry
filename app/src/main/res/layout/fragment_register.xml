@@ -103,7 +103,7 @@
 
         </LinearLayout>
 
-   <!--     <TextView
+        <!--     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Name*"
@@ -114,6 +114,7 @@
             android:textSize="@dimen/textSize16sp"
             android:textStyle="bold"/>
 -->
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,6 +138,7 @@
             android:textSize="@dimen/textSize16sp"
             android:textStyle="bold"/>
 -->
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -253,7 +255,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/register_btn"
             android:gravity="center"
-            android:padding="@dimen/mar_20"
+            android:paddingBottom="@dimen/mar_30"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/mar_15">
 

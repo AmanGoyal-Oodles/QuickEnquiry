@@ -293,7 +293,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/mar_20"
                 android:layout_weight="1"
-                android:background="@color/Blue"
+                android:textColor="@color/White"
+                android:background="@color/Orange"
                 android:text="SAVE" />
 
             <Button
@@ -302,7 +303,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/mar_20"
                 android:layout_weight="1"
-                android:background="@color/Orange"
+                android:background="@color/LightGray"
+                android:textColor="@color/DarkGray"
                 android:text="Cancel" />
 
         </LinearLayout>

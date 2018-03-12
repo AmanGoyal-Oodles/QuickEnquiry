@@ -97,7 +97,8 @@
             android:text="CANCEL"
             android:layout_marginLeft="@dimen/mar_20"
             android:background="@drawable/border_bg_et"
-            android:textColor="@color/Black"
+            android:backgroundTint="@color/LightGray"
+            android:textColor="@color/DarkGray"
             android:textSize="@dimen/textSize16sp"
             android:id="@+id/change_pass_cancel_btn" />
 

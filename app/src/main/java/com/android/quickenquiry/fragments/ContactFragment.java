@@ -102,8 +102,11 @@ public class ContactFragment extends Fragment {
         mSearchList.clear();
         String text=mSearchEt.getText().toString().trim();
         if(!text.isEmpty()) {
+            text=text.toLowerCase();
             for (int i = 0; i < mContactList.size(); i++) {
-                if (mContactList.get(i).getmName().contains(text) || mContactList.get(i).getmPhone().contains(text)) {
+                String name=mContactList.get(i).getmName().toLowerCase();
+                String phone=mContactList.get(i).getmPhone();
+                if (name.contains(text) || phone.contains(text)) {
                     mSearchList.add(mContactList.get(i));
                 }
             }

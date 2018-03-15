@@ -94,6 +94,7 @@ public class ContactDetail {
 
     @Override
     public String toString() {
-        return mName + " (" + mPhone + ")";
+        return "";
+        //return mName + " (" + mPhone + ")";
     }
 }

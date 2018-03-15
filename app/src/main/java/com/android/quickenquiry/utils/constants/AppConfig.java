@@ -10,9 +10,9 @@ import com.android.quickenquiry.BuildConfig;
 public class AppConfig {
 
 
-    private static final String QUICK_ENQUIRY_PRODUCTION_URL="http://ascinfratech.in/ascinfratech/api";
-    private static final String QUICK_ENQUIRY_STAGING_URL="http://ascinfratech.in/ascinfratech/api";
-    public static String APP_SERVER_URL="http://ascinfratech.in/ascinfratech/api";
+    private static final String QUICK_ENQUIRY_PRODUCTION_URL="http://techpaworld.com/quick-enquiry/";
+    private static final String QUICK_ENQUIRY_STAGING_URL="http://techpaworld.com/quick-enquiry/";
+    public static String APP_SERVER_URL="http://techpaworld.com/quick-enquiry/";
 
     public static void setConfig() {
         if(BuildConfig.DEBUG) {

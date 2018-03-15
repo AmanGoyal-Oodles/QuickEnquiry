@@ -2,6 +2,8 @@ package com.android.quickenquiry.services.databases.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +20,7 @@ public class AccountDetailHolder {
     private static final String PREFERENCE_KEY = "user_detail_preference";
     private static final String KEY_IS_USER__LOGGED_IN="isUserLoggedIn";
     private static final String KEY_CONTACT_LIST="contactList";
+    private static final String KEY_USER_DATEIL="userDetail";
     public static SharedPreferences.Editor editor;
 
     public AccountDetailHolder(Context context) {
@@ -51,6 +54,23 @@ public class AccountDetailHolder {
 
     public boolean getIsUserLoggedIn() {
         return sharedPreferences.getBoolean(KEY_IS_USER__LOGGED_IN,false);
+    }
+
+    public void setUserDetail(UserResponseBean userDetail) {
+        Gson gson=new Gson();
+        String json=gson.toJson(userDetail);
+        sharedPreferences.edit().putString(KEY_USER_DATEIL,json).apply();
+    }
+
+    public UserResponseBean getUserDetail(){
+        Gson gson=new Gson();
+        String defaultJson=gson.toJson(new UserResponseBean());
+        String json=sharedPreferences.getString(KEY_USER_DATEIL,defaultJson);
+        UserResponseBean userDetail=gson.fromJson(json,UserResponseBean.class);
+        if(userDetail==null) {
+            userDetail=new UserResponseBean();
+        }
+        return userDetail;
     }
 
     public void clearAllSharedPreferences() {

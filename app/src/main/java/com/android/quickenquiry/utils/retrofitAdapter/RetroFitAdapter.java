@@ -31,9 +31,9 @@ public class RetroFitAdapter {
 
     public static <object> object createService(Class<object> serviceClass, String baseUrl) {
 
-        Gson gson = new GsonBuilder()
+        /*Gson gson = new GsonBuilder()
                 .setLenient()
-                .create();
+                .create();*/
 
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -45,7 +45,7 @@ public class RetroFitAdapter {
         Retrofit retrofit=new Retrofit.Builder()
                             .baseUrl(baseUrl)
                             .client(okHttpClient)
-                            .addConverterFactory(GsonConverterFactory.create(gson))
+                            .addConverterFactory(GsonConverterFactory.create())
                             .build();
 
         return retrofit.create(serviceClass);

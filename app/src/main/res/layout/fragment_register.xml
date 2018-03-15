@@ -58,7 +58,7 @@
             <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Business Category"
+                android:text="BusinCategoryTypegory"
                 android:layout_marginTop="@dimen/mar_10"
                 android:textSize="@dimen/textSize16sp"
                 android:textColor="@color/Black"

@@ -89,11 +89,12 @@
             android:background="@drawable/border_bg_et"
             android:text="9355606425"
             android:hint="Primary Contact"
-            android:editable="false"
             android:backgroundTint="@color/LightGray"
             android:padding="@dimen/mar_10"
-            android:layout_marginTop="@dimen/mar_10"
-            android:inputType="text"/>
+            android:textColor="@color/Black"
+            android:inputType="none"
+            android:enabled="false"
+            android:layout_marginTop="@dimen/mar_10" />
 
         <!--<TextView
             android:layout_width="wrap_content"

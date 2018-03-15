@@ -154,7 +154,23 @@
                 android:layout_below="@+id/send_sms_radio_btn_layout"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bg_et"
+                    android:layout_marginTop="@dimen/mar_10"
+                    android:id="@+id/send_sms_multiple_item_et"
+                    android:textSize="@dimen/textSize16sp"
+                    android:hint="Select an Option"
+                    android:padding="@dimen/mar_5"/>
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:visibility="gone"
+                    android:id="@+id/send_sms_multiple_item_list"/>
+
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/mar_20"
@@ -169,7 +185,7 @@
                         android:dropDownVerticalOffset="50dp"/>
 
                 </LinearLayout>
-
+-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

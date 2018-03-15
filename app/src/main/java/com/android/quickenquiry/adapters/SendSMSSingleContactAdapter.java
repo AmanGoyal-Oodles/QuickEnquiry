@@ -5,13 +5,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.activities.MainDashboardActivity;
+import com.android.quickenquiry.utils.util.Logger;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by user on 3/8/2018.
@@ -20,14 +26,12 @@ import java.util.ArrayList;
 public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
 
 
-    /*@BindView(R.id.send_sms_single_contact_item_name_tv)
-    TextView mNameTv;*/
+    @BindView(R.id.send_sms_single_contact_item_name_tv)
+    TextView mNameTv;
     private Context mContext;
     private Activity mActivity;
     private ArrayList<ContactDetail> mContactList;
     private ArrayList<ContactDetail> fullList;
-
-    //private static LayoutInflater inflater=null;
     private int layoutResId;
     private ArrayFilter mFilter;
 
@@ -47,6 +51,7 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
 
     @Override
     public ContactDetail getItem(int position) {
+        Logger.LogDebug("hello","getitem"+position);
         return mContactList.get(position);
     }
 
@@ -59,6 +64,7 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
         mContactList.clear();
         mContactList.addAll(list);
     }
+
     @Override
     public Filter getFilter() {
         if (mFilter == null) {
@@ -67,29 +73,22 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
         return mFilter;
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //View view=convertView;
         if(convertView==null) {
             LayoutInflater inflater= ((MainDashboardActivity) mContext).getLayoutInflater();
             convertView = inflater.inflate(R.layout.layout_send_sms_contact_list, parent, false);
         }
-        //ButterKnife.bind(this,view);//kammal h janaab aapki to salute acha suno abhi mat jao ruko
-        TextView mNameTv=(TextView)convertView.findViewById(R.id.send_sms_single_contact_item_name_tv) ;
+        ButterKnife.bind(this,convertView);
         mNameTv.setText(mContactList.get(position).getmName()+ " ("+mContactList.get(position).getmPhone()+")");
-        //init(position);
+        if(position%2!=0) {
+            mNameTv.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
+        } else {
+            mNameTv.setBackgroundColor(mContext.getResources().getColor(R.color.White));
+        }
         return convertView;
     }
-    //acha ab ye wala ho gya na ?
 
-    private void init(int position) {
-        initVariables(position);
-    }
-
-    private void initVariables(int pos) {
-        //mNameTv.setText(mContactList.get(pos).getmPhone()+ " ("+mContactList.get(pos).getmPhone()+")");
-    }
     private class ArrayFilter extends Filter {
         private Object lock;
 
@@ -125,7 +124,6 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
                     }
 
                 }
-
                 results.values = newValues;
                 results.count = newValues.size();
             }
@@ -149,4 +147,5 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
             }
         }
     }
+
 }

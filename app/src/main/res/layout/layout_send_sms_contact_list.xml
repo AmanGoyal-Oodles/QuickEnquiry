@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:id="@+id/send_sms_single_contact_item_name_tv"
         android:text="Aman (9355606425)"
+        android:background="@color/White"
         android:padding="@dimen/mar_10"
         android:textSize="@dimen/textSize16sp"
         android:textColor="@color/Black" />

@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
+
+import retrofit2.Response;
 
 
 /**
@@ -38,21 +41,16 @@ public class ConvertInputStream {
         return sb.toString();
     }
 
-/*
-    public static String getFormattedResponse(Response resp){
+    public static String getFormattedResponse(InputStream read){
         BufferedReader reader = null;
         StringBuilder sb = new StringBuilder();
+        reader = new BufferedReader(new InputStreamReader(read));
+
+        String line;
+
         try {
-            reader = new BufferedReader(new InputStreamReader(resp.getBody().in()));
-
-            String line;
-
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +58,6 @@ public class ConvertInputStream {
         String result = sb.toString();
         return result;
     }
-*/
 
 }
 

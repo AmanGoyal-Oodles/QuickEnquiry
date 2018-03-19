@@ -25,4 +25,8 @@ public interface UserConnection {
     @POST(ServerApi.GET_CATEGORY)
     Call<ResponseBody> getCategory(@Query("key")String key);
 
+    @POST(ServerApi.ADD_CONTACT)
+    Call<ResponseBody> addContact(@Query("key")String key, @Query("user_id")String userId,@Query("contact_type")String contactType,@Query("contact_name")String contactName,@Query("contact_mob")String contactMobile,@Query("contact_email")String contactEmail, @Query("contact_add")String contactAddress, @Query("contact_dob")String contactDOB,@Query("contact_anniversary")String contactAnniv);
+
+
 }

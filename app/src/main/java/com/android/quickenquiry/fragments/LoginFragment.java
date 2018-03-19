@@ -98,11 +98,15 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     public void onClickLogin() {
         String mobile=mMobileEt.getText().toString().trim();
         String password=mPasswordEt.getText().toString().trim();
-        if(isInputValid()) {
+        /*if(isInputValid()) {
             mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
             LoginApi loginApi=new LoginApi(mContext,this,mProgressDialog);
             loginApi.callLoginApi(mobile,password);
-        }
+        }*/
+        Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        startActivity(intent);
     }
 
     private boolean isInputValid() {

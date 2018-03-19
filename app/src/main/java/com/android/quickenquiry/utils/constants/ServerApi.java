@@ -17,7 +17,7 @@ public class ServerApi {
     public static final String CITY_LIST="/citylist";
     public static final String LOCALITY_BY_CITY_ID="/localitybycityid";
     public static final String UPDATE_OTP_STATUS="/updateotpstatus";
-    public static final String ADD_CONTACT="/addcontact";
+    public static final String ADD_CONTACT="add_contact_api.php";
     public static final String CONTACTLIST="/contactlist";
 
 

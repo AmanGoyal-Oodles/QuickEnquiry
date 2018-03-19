@@ -1,30 +1,58 @@
 package com.android.quickenquiry.fragments;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.interfaces.apiResponseListener.AddContactAPIResponseListener;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.AddContactAPI;
+import com.android.quickenquiry.utils.util.AppToast;
+import com.android.quickenquiry.utils.util.InputValidation;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 /**
  * Created by user on 3/6/2018.
  */
 
-public class AddContactFragment extends Fragment {
+public class AddContactFragment extends Fragment implements AddContactAPIResponseListener{
 
+    @BindView(R.id.add_contact_save_btn)
+    Button mSaveBtn;
+    @BindView(R.id.add_contact_cancel_btn)
+    Button mCancelBtn;
+    @BindView(R.id.add_contact_relation_et)
+    EditText mRelationEt;
+    @BindView(R.id.add_contact_name_et)
+    EditText mNameEt;
+    @BindView(R.id.add_contact_mobile_et)
+    EditText mMobileEt;
+    @BindView(R.id.add_contact_email_et)
+    EditText mEmailEt;
+    @BindView(R.id.add_contact_address_et)
+    EditText mAddressEt;
     @BindView(R.id.add_contact_contact_spinner)
     Spinner mSpinnerClientType;
     @BindView(R.id.add_contact_dob_date_spinner)
@@ -43,6 +71,10 @@ public class AddContactFragment extends Fragment {
     private static final String SELECT_DATE="Date";
     private static final String SELECT_MONTH="Month";
     private static final String SELECT_YEAR="Year";
+    private Context mContext;
+    private AccountDetailHolder mAccountDetailHolder;
+    private ProgressDialog mProgressDialog;
+    private String dobDay,dobMon,dobYear,annivDay,annivMon,annivYear,contactType;
     private ArrayAdapter<String> mClientTypeAdapter;
     private ArrayAdapter<String> mDobDateAdapter,mDobMonthAdapter,mDobYearAdapter,mAnniversaryDateAdapter,mAnniversaryMonthAdapter,mAnniversaryYearAdapter;
 
@@ -74,6 +106,8 @@ public class AddContactFragment extends Fragment {
     }
 
     private void initVariables() {
+        mContext=getContext();
+        mAccountDetailHolder=new AccountDetailHolder(mContext);
         mDateList=new ArrayList<>();
         mMonthList=new ArrayList<>();
         mYearList=new ArrayList<>();
@@ -167,6 +201,94 @@ public class AddContactFragment extends Fragment {
         for(int i=start;i<=end;i++) {
             list.add(i+"");
         }
+    }
+
+    @OnClick({R.id.add_contact_save_btn})
+    public void onClickSave() {
+        if(isInputValid()) {
+            String userId=mAccountDetailHolder.getUserDetail().getUserId();
+            String relation=mRelationEt.getText().toString().trim();
+            String contactName=mNameEt.getText().toString().trim();
+            String contactMobile=mMobileEt.getText().toString().trim();
+            String contactEmail=mEmailEt.getText().toString().trim();
+            String contactAddress=mAddressEt.getText().toString().trim();
+            String contactDOB=dobYear+"-"+dobMon+"-"+dobDay;
+            String contactAnniv=annivYear+"-"+annivMon+"-"+annivDay;
+            mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
+            AddContactAPI addContactAPI=new AddContactAPI(mContext,this,mProgressDialog);
+            addContactAPI.callAddContactApi(userId,contactType,contactName,contactMobile,contactEmail,contactAddress,contactDOB,contactAnniv);
+        }
+    }
+
+    private boolean isInputValid() {
+        if(contactType!=null&&!contactType.isEmpty()) {
+            if(InputValidation.validateFirstName(mRelationEt)&&InputValidation.validateFirstName(mNameEt)
+                    &&InputValidation.validateMobile(mMobileEt)&&InputValidation.validateEmail(mEmailEt)
+                    &&InputValidation.validateFirstName(mAddressEt)) {
+                if( (dobDay!=null&&!dobDay.isEmpty()) &&(dobMon!=null&&!dobMon.isEmpty()) && (dobYear!=null&&!dobYear.isEmpty())) {
+                    if( (annivDay!=null&&!annivDay.isEmpty()) && (annivMon!=null&&!annivMon.isEmpty()) && (annivYear!=null&&!annivYear.isEmpty()) ) {
+                        return true;
+                    } else {
+                        AppToast.showToast(mContext,"Please Select Annivsary Date");
+                    }
+                } else {
+                    AppToast.showToast(mContext,"Please Select Date Of Birth");
+                }
+            }
+        } else {
+            AppToast.showToast(mContext,"Please Select Contact Type");
+        }
+        return false;
+    }
+
+    @OnItemSelected({R.id.add_contact_contact_spinner})
+    public void onSelectedCarBrand(AdapterView<?> parent, View view, int position, long id) {
+        contactType=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_dob_date_spinner})
+    public void onSelectedDOBDay(AdapterView<?> parent, View view, int position, long id) {
+        dobDay=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_dob_month_spinner})
+    public void onSelectedDOBMon(AdapterView<?> parent, View view, int position, long id) {
+        dobMon=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_dob_year_spinner})
+    public void onSelectedDOBYear(AdapterView<?> parent, View view, int position, long id) {
+        dobYear=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_anniversary_date_spinner})
+    public void onSelectedAnnivDay(AdapterView<?> parent, View view, int position, long id) {
+        annivDay=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_anniversary_month_spinner})
+    public void onSelectedAnnivMon(AdapterView<?> parent, View view, int position, long id) {
+        annivMon=parent.getItemAtPosition(position).toString();
+    }
+
+    @OnItemSelected({R.id.add_contact_anniversary_year_spinner})
+    public void onSelectedAnnivYear(AdapterView<?> parent, View view, int position, long id) {
+        annivYear=parent.getItemAtPosition(position).toString();
+    }
+
+    @Override
+    public void getAddContactResponse(boolean isAdded) {
+        if (isAdded) {
+            Fragment fragment=new HomeFragment();
+            openFragment(fragment);
+        }
+    }
+
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commitNowAllowingStateLoss();
     }
 
 }

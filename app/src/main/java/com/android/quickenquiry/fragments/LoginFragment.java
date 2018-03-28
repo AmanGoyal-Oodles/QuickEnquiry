@@ -98,15 +98,11 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     public void onClickLogin() {
         String mobile=mMobileEt.getText().toString().trim();
         String password=mPasswordEt.getText().toString().trim();
-        /*if(isInputValid()) {
+        if(isInputValid()) {
             mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
             LoginApi loginApi=new LoginApi(mContext,this,mProgressDialog);
             loginApi.callLoginApi(mobile,password);
-        }*/
-        Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-        startActivity(intent);
+        }
     }
 
     private boolean isInputValid() {
@@ -122,17 +118,17 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     }
 
     @Override
-    public void isOTPSent(boolean isSend) {
+    public void isOTPSent(boolean isSend,String mobile, String OTP) {
         if(isSend) {
-            OTPDialog dialog=new OTPDialog(mContext,mActivity,this,"","");
+            OTPDialog dialog=new OTPDialog(mContext,mActivity,this,mobile,OTP);
             dialog.show();
         }
     }
 
     @Override
-    public void isOTPValidate(boolean isValidate) {
+    public void isOTPValidate(boolean isValidate,String mobile) {
         if(isValidate) {
-            NewPasswordDialog dialog=new NewPasswordDialog(mContext,this);
+            NewPasswordDialog dialog=new NewPasswordDialog(mContext,this,mobile);
             dialog.show();
         }
     }
@@ -146,6 +142,7 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     public void getLoginResponse(boolean isLogin, UserResponseBean userResponseBean) {
         if(isLogin) {
             mAccountDetailHolder.setUserDetail(userResponseBean);
+            mAccountDetailHolder.setUserLoggedIn(true);
             Intent intent=new Intent(getActivity(), MainDashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);

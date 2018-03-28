@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.interfaces.SignOutResponseListener;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,10 +27,12 @@ public class LogOutDialog extends Dialog {
     TextView mNoTv;
     private Context mContext;
     private SignOutResponseListener mSignOutResponseListener;
+    private AccountDetailHolder mAccountDetailHolder;
 
     public LogOutDialog(@NonNull Context context,SignOutResponseListener signOutResponseListener) {
         super(context);
         mContext=context;
+        mAccountDetailHolder=new AccountDetailHolder(mContext);
         mSignOutResponseListener=signOutResponseListener;
     }
 
@@ -43,6 +46,7 @@ public class LogOutDialog extends Dialog {
 
     @OnClick({R.id.signout_yes_tv})
     public void onClickYesTv() {
+        mAccountDetailHolder.setUserLoggedIn(false);
         mSignOutResponseListener.signoutResponse(true);
         dismiss();
     }
@@ -55,6 +59,7 @@ public class LogOutDialog extends Dialog {
 
     @OnTouch({R.id.signout_yes_tv})
     public boolean onTouchYesTv() {
+        mAccountDetailHolder.setUserLoggedIn(false);
         mYesTv.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
         mSignOutResponseListener.signoutResponse(true);
         dismiss();

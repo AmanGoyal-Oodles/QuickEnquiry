@@ -28,12 +28,10 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
     private ContactSelectionListener mContactSelectionListener;
     private ArrayList<Boolean> mContactSelectionStatusList;
 
-    public InviteFriendListAdapter(Context context,ContactSelectionListener listener,ArrayList<Boolean> list) {
+    public InviteFriendListAdapter(Context context,ContactSelectionListener listener) {
         mContext=context;
         mContactList=new ArrayList<>();
         mContactSelectionStatusList=new ArrayList<>();
-        mContactSelectionStatusList.clear();
-        mContactSelectionStatusList.addAll(list);
         mContactSelectionListener=listener;
     }
 
@@ -64,9 +62,11 @@ public class InviteFriendListAdapter extends RecyclerView.Adapter<InviteFriendLi
         return mContactList.size();
     }
 
-    public void setmContactList(ArrayList<ContactDetail> list) {
+    public void setmContactList(ArrayList<ContactDetail> list,ArrayList<Boolean> selectedList) {
         mContactList.clear();
         mContactList.addAll(list);
+        mContactSelectionStatusList.clear();
+        mContactSelectionStatusList.addAll(selectedList);
     }
 
     public void setmContactSelectionStatusList(ArrayList<Boolean> list) {

@@ -1,5 +1,6 @@
 package com.android.quickenquiry.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +19,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.adapters.ContactAdapter;
+import com.android.quickenquiry.interfaces.GetUpdateContactListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetContactsResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetContactsApi;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -32,7 +38,7 @@ import butterknife.OnTextChanged;
  * Created by user on 3/7/2018.
  */
 
-public class ContactFragment extends Fragment {
+public class ContactFragment extends Fragment implements GetContactsResponseListener,GetUpdateContactListener{
 
 
     @BindView(R.id.contact_list_search_et)
@@ -47,6 +53,7 @@ public class ContactFragment extends Fragment {
     private ContactAdapter mContactAdapter;
     private ArrayList<ContactDetail> mContactList,mSearchList;
     private AccountDetailHolder mAccountDetailHolder;
+    private ProgressDialog mProgressDialog;
     private final static String CURRENT_TAG=ContactFragment.class.getName();
 
     @Nullable
@@ -69,15 +76,23 @@ public class ContactFragment extends Fragment {
     private void init() {
         initVariables();
         setRecyclerView();
-        setContactList();
+        //setContactList();
+        callGetContacts();
         //getContactFromLocalStorage();
-        mContactAdapter.setContactList(mContactList);
-        mContactAdapter.notifyDataSetChanged();
+        //mContactAdapter.setContactList(mContactList);
+        //mContactAdapter.notifyDataSetChanged();
+    }
+
+    private void callGetContacts() {
+        String userid=mAccountDetailHolder.getUserDetail().getUserId();
+        mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+        GetContactsApi getContactsApi=new GetContactsApi(mContext,this,mProgressDialog);
+        getContactsApi.callGetContactsApi(userid);
     }
 
     private void getContactFromLocalStorage() {
-        mContactList.clear();
-        mContactList=mAccountDetailHolder.getContactList();
+        //mContactList.clear();
+        //mContactList=mAccountDetailHolder.getContactList();
     }
 
     private void setContactList() {
@@ -120,6 +135,9 @@ public class ContactFragment extends Fragment {
     @OnClick({R.id.contact_list_add_contact_btn})
     public void onClickAddContactBtn() {
         Fragment fragment = new AddContactFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("tag","addContact");
+        fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
         fragmentTransaction.addToBackStack(CURRENT_TAG);
@@ -127,7 +145,7 @@ public class ContactFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        mContactAdapter =new ContactAdapter(mContext);
+        mContactAdapter =new ContactAdapter(mContext,this);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(mContext);
         mContactListRv.setLayoutManager(layoutManager);
         mContactListRv.setItemAnimator(new DefaultItemAnimator());
@@ -139,5 +157,28 @@ public class ContactFragment extends Fragment {
         mContactList=new ArrayList<>();
         mSearchList=new ArrayList<>();
         mAccountDetailHolder=new AccountDetailHolder(mContext);
+    }
+
+    @Override
+    public void getContectsResponse(boolean isReceived, ArrayList<ContactDetail> contactList) {
+        if(isReceived) {
+            mContactList.clear();
+            mContactList.addAll(contactList);
+            mContactAdapter.setContactList(contactList);
+            mContactAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void getContactPosition(int position) {
+        Fragment fragment = new AddContactFragment();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("contactdetail",mContactList.get(position));
+        bundle.putString("tag","updateContact");
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
+        fragmentTransaction.addToBackStack(CURRENT_TAG);
+        fragmentTransaction.commit();
     }
 }

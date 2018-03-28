@@ -6,6 +6,6 @@ package com.android.quickenquiry.interfaces;
 
 public interface OTPDialogListener {
 
-    public void isOTPValidate(boolean isValidate);
+    public void isOTPValidate(boolean isValidate,String mobile);
 
 }

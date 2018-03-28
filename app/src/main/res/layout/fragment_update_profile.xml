@@ -196,7 +196,7 @@
             android:lines="4"
             android:gravity="top|left" />
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/update_profile_address_et"
@@ -227,7 +227,7 @@
             android:background="@color/LightGray"
             android:padding="@dimen/mar_10"
             android:layout_toRightOf="@+id/update_profile_browse_btn"/>
-
+-->
         <!--<android.support.v7.widget.AppCompatCheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
             android:paddingRight="@dimen/mar_20"
             android:id="@+id/update_profile_btn"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/update_profile_browse_btn"
+            android:layout_below="@+id/update_profile_address_et"
             android:layout_marginTop="@dimen/mar_20"/>
 
     </RelativeLayout>

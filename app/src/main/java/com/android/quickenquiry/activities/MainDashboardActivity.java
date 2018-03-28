@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.dialoges.LogOutDialog;
 import com.android.quickenquiry.fragments.AddContactFragment;
@@ -48,6 +50,10 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
     DrawerLayout mNavDrawerLayout;
     @BindView(R.id.nav_toolbar)
     Toolbar mToolbar;
+    //@BindView(R.id.nav_email_tv)
+    TextView mPhoneTv;
+    //@BindView(R.id.nav_displayname_tv)
+    TextView mNameTv;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ActionBar mActionBar;
     NavigationView mNavView;
@@ -78,6 +84,10 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
 
     private void initViews() {
         mNavView = (NavigationView) findViewById(R.id.nav_view);
+        View header = mNavView.getHeaderView(0);
+        /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+        mPhoneTv = (TextView) header.findViewById(R.id.nav_email_tv);
+        mNameTv = (TextView) header.findViewById(R.id.nav_displayname_tv);
     }
 
     private void setToolBar() {
@@ -111,6 +121,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
         mContext=getApplicationContext();
         mContactList=new ArrayList<>();
         mAccountDetailHolder=new AccountDetailHolder(mContext);
+        mPhoneTv.setText(mAccountDetailHolder.getUserDetail().getUserMob());
+        mNameTv.setText(mAccountDetailHolder.getUserDetail().getUserName());
     }
 
     private void handleNavigationSelectedItem() {
@@ -147,7 +159,10 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
                         break;
                     case R.id.add_contact:
                         NAV_ITEM_INDEX = 5;
+                        Bundle bundle=new Bundle();
+                        bundle.putString("tag","homeFragment");
                         fragment=new AddContactFragment();
+                        fragment.setArguments(bundle);
                         openFragment(fragment);
                         /*Intent intent=new Intent(MainDashboardActivity.this,AddContactActivity.class);
                         startActivity(intent);*/

@@ -1,12 +1,15 @@
 package com.android.quickenquiry.services.databases.preferences.webServices.apiRequests;
 
+/**
+ * Created by user on 3/26/2018.
+ */
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import com.android.quickenquiry.R;
-import com.android.quickenquiry.interfaces.apiResponseListener.LoginResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.InviteFriendResponseListener;
 import com.android.quickenquiry.services.databases.preferences.connectionClasses.UserConnection;
-import com.android.quickenquiry.utils.apiResponseBean.LoginResponseBean;
-import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.InviteFriendResponseBean;
 import com.android.quickenquiry.utils.constants.ServerApi;
 import com.android.quickenquiry.utils.retrofitAdapter.ConvertInputStream;
 import com.android.quickenquiry.utils.retrofitAdapter.RetroFitAdapter;
@@ -25,46 +28,45 @@ import retrofit2.Response;
  * Created by Cortana on 1/11/2018.
  */
 
-public class ValidateOTPAPI implements Callback<ResponseBody> {
+public class InviteFriendApi implements Callback<ResponseBody> {
 
 
     private Context mContext;
-    private LoginResponseListener mLoginResponseListener;
-    private static final String TAG=ValidateOTPAPI.class.getName();
+    private InviteFriendResponseListener mInviteFriendResponseListener;
+    private static final String TAG=LoginApi.class.getName();
     private ProgressDialog mProgressDialog;
 
-    public ValidateOTPAPI(Context context,LoginResponseListener loginResponseListener,ProgressDialog progressDialog) {
+    public InviteFriendApi(Context context, InviteFriendResponseListener listener, ProgressDialog progressDialog) {
         mContext=context;
-        mLoginResponseListener=loginResponseListener;
+        mInviteFriendResponseListener=listener;
         mProgressDialog=progressDialog;
     }
 
-    public void callValidateOTPApi(String mobile, String otp) {
+    public void callInviteFriendApi(String userId,String contacts) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
             return;
         }
-        String key=ServerApi.API_KEY;
+        String key= ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.validateOTP(key,mobile,otp);
+        Call<ResponseBody> call=userConnection.inviteToFriend(key,userId,contacts);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        UserResponseBean userDetailBean=new UserResponseBean();
-        LoginResponseBean loginResponseBean=new LoginResponseBean();
+        InviteFriendResponseBean inviteFriendResponseBean=new InviteFriendResponseBean();
         if(response.isSuccessful()) {
             InputStream stream=response.body().byteStream();
-            String result=ConvertInputStream.getFormattedResponse(stream);
+            String result= ConvertInputStream.getFormattedResponse(stream);
             Gson gson=new Gson();
-            loginResponseBean=gson.fromJson(result,LoginResponseBean.class);
-            AppToast.showToast(mContext,loginResponseBean.getMessage());
-            afterSuccessfullResponse(loginResponseBean);
+            inviteFriendResponseBean=gson.fromJson(result,InviteFriendResponseBean.class);
+            AppToast.showToast(mContext,inviteFriendResponseBean.getMessage());
+            afterSuccessfullResponse(inviteFriendResponseBean.isResponse(),inviteFriendResponseBean.getMessage());
         } else {
-            AppToast.showToast(mContext,"OTP Validation Failed.");
-            afterSuccessfullResponse(loginResponseBean);
+            AppToast.showToast(mContext,"User Login Failed.");
+            afterSuccessfullResponse(inviteFriendResponseBean.isResponse(),inviteFriendResponseBean.getMessage());
         }
     }
 
@@ -75,9 +77,10 @@ public class ValidateOTPAPI implements Callback<ResponseBody> {
         AppToast.showToast(mContext,"Network Error");
     }
 
-    private void afterSuccessfullResponse(LoginResponseBean loginResponseBean) {
+
+    private void afterSuccessfullResponse(boolean isInvited,String message) {
         DismissDialog.dismissWithCheck(mProgressDialog);
-        mLoginResponseListener.getLoginResponse(loginResponseBean.isResponse(),loginResponseBean.getProfile());
+        mInviteFriendResponseListener.getInviteFriendResponse(isInvited, message);
     }
 
 }

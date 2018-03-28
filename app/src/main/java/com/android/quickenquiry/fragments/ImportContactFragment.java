@@ -1,12 +1,14 @@
 package com.android.quickenquiry.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -15,11 +17,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.interfaces.apiResponseListener.ImportContactResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.ImportContactApi;
 import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.CheckPermission;
 import com.android.quickenquiry.utils.util.ContactListComparator;
+import com.android.quickenquiry.utils.util.Logger;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactListBean;
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,16 +41,19 @@ import butterknife.OnClick;
  * Created by user on 3/6/2018.
  */
 
-public class ImportContactFragment extends Fragment {
+public class ImportContactFragment extends Fragment implements ImportContactResponseListener{
 
 
+    private static final String CURRENT_TAG =ImportContactFragment.class.getName() ;
     @BindView(R.id.import_contact_btn)
     Button mImportBtn;
     private Context mContext;
     private Activity mActivity;
     private Cursor cursor ;
+    @SerializedName("import_contact_arr")
     private ArrayList<ContactDetail> mContactList ;
     private AccountDetailHolder mAccountDetailHolder;
+    private ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
@@ -112,6 +124,28 @@ public class ImportContactFragment extends Fragment {
         }
         Collections.sort(list,new ContactListComparator());
         mAccountDetailHolder.setContactList(list);
+        mContactList.clear();
+        mContactList.addAll(list);
+        callImportContactApi();
     }
 
+    private void callImportContactApi() {
+        String userId=mAccountDetailHolder.getUserDetail().getUserId();
+        Gson gson=new Gson();
+        String jsonDetails=gson.toJson(mContactList);
+        Logger.LogDebug(CURRENT_TAG,jsonDetails);
+        mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+        ImportContactApi importContactApi=new ImportContactApi(mContext,this,mProgressDialog);
+        importContactApi.callImportContact(userId,jsonDetails);
+    }
+
+    @Override
+    public void getImportContactResponse(boolean isImported, String message) {
+        if(isImported) {
+            Fragment fragment = new HomeFragment();
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
+            fragmentTransaction.commit();
+        }
+    }
 }

@@ -1,19 +1,33 @@
 package com.android.quickenquiry.utils.util.pojoClasses;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by user on 3/7/2018.
  */
 
-public class ContactDetail {
+public class ContactDetail implements Serializable{
 
-    private String mName;
-    private String mPhone;
-    private String mCompany;
-    private String mEmail;
-    private String mAddress;
-    private String mDOB;
-    private String mAnniversary;
-    private String mClientType;
+    @SerializedName("contactid")
+    private String contactid="";
+    @SerializedName("contact_name")
+    private String mName="";
+    @SerializedName("primary_no")
+    private String mPhone="";
+    @SerializedName("contact_relation")
+    private String mCompany="";
+    @SerializedName("primary_email")
+    private String mEmail="";
+    @SerializedName("contact_address")
+    private String mAddress="";
+    @SerializedName("contact_dob")
+    private String mDOB="";
+    @SerializedName("marriage_date")
+    private String mAnniversary="";
+    @SerializedName("contact_type")
+    private String mClientType="";
 
     public ContactDetail(String mName, String mPhone, String mCompany, String mEmail, String mAddress, String mDOB, String mAnniversary, String mClientType) {
         this.mName = mName;
@@ -24,6 +38,14 @@ public class ContactDetail {
         this.mDOB = mDOB;
         this.mAnniversary = mAnniversary;
         this.mClientType = mClientType;
+    }
+
+    public String getContactid() {
+        return contactid;
+    }
+
+    public void setContactid(String contactid) {
+        this.contactid = contactid;
     }
 
     public ContactDetail() {}

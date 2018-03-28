@@ -38,7 +38,7 @@ public class AddContactAPI implements Callback<ResponseBody> {
         mProgressDialog=progressDialog;
     }
 
-    public void callAddContactApi(String userId,String contactType,String contactName,String contactMobile,String contactEmail,String contactAddress,String contactDOB,String contactAnniv) {
+    public void callAddContactApi(String userId,String contactType,String contactRelation,String contactName,String contactMobile,String contactEmail,String contactAddress,String contactDOB,String contactAnniv) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
@@ -46,7 +46,7 @@ public class AddContactAPI implements Callback<ResponseBody> {
         }
         String key= ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.addContact(key,userId,contactType,contactName,contactMobile,contactEmail,contactAddress,contactDOB,contactAnniv);
+        Call<ResponseBody> call=userConnection.addContact(key,userId,contactType,contactRelation,contactName,contactMobile,contactEmail,contactAddress,contactDOB,contactAnniv);
         call.enqueue(this);
     }
 

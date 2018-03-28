@@ -40,8 +40,8 @@ public class InputValidation {
             mobileEt.setError("Please enter your phone number");
         } else if(!mobile.matches(regex)) {
             mobileEt.setError("Please enter valid phone number");
-        } else if(!(mobile.length()>=7 && mobile.length()<=14)) {
-            mobileEt.setError("Phone number digits should be 7 to 14");
+        } else if(!(mobile.length()==10)) {
+            mobileEt.setError("Phone number digits should be 10");
         } else {
             return true;
         }

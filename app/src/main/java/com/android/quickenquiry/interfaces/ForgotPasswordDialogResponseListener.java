@@ -6,5 +6,5 @@ package com.android.quickenquiry.interfaces;
 
 public interface ForgotPasswordDialogResponseListener {
 
-    public void isOTPSent(boolean isSend);
+    public void isOTPSent(boolean isSend,String mobile,String OTP);
 }

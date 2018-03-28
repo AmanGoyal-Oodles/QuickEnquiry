@@ -1,6 +1,9 @@
 package com.android.quickenquiry.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.fragments.AddContactFragment;
+import com.android.quickenquiry.interfaces.GetUpdateContactListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.DeleteContactResponseListener;
+import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.DeleteContactApi;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 import java.util.ArrayList;
 import butterknife.BindView;
@@ -24,10 +33,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
 
     private Context mContext;
     private ArrayList<ContactDetail> mContactList;
+    private AccountDetailHolder mAccountDetailHolder;
+    private GetUpdateContactListener mGetUpdateContactListener;
 
-    public ContactAdapter(Context context) {
+    public ContactAdapter(Context context,GetUpdateContactListener listener) {
        mContext=context;
        mContactList=new ArrayList<>();
+       mGetUpdateContactListener=listener;
+       mAccountDetailHolder=new AccountDetailHolder(mContext);
     }
 
     @Override
@@ -58,7 +71,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         mContactList.addAll(list);
     }
 
-    public class ContactHolder extends RecyclerView.ViewHolder {
+    public class ContactHolder extends RecyclerView.ViewHolder implements DeleteContactResponseListener{
 
 
         @BindView(R.id.contact_list_item_sn_tv)
@@ -73,6 +86,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         ImageView mEditIv;
         @BindView(R.id.contact_list_item_layout)
         LinearLayout mLayout;
+        private ProgressDialog mProgressDialog;
+        private int position;
 
         public ContactHolder(View itemView) {
             super(itemView);
@@ -81,13 +96,25 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
 
         @OnClick({R.id.contact_list_item_delete_iv})
         public void onClickDelete() {
-
+            String userId=mAccountDetailHolder.getUserDetail().getUserId();
+            position=getAdapterPosition();
+            String contect_id=mContactList.get(position).getContactid();
+            mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+            DeleteContactApi deleteContactApi=new DeleteContactApi(mContext,this,mProgressDialog);
+            deleteContactApi.callDeleteContactApi(userId,contect_id);
         }
 
         @OnClick({R.id.contact_list_item_edit_iv})
         public void onClickEdit() {
-
+            mGetUpdateContactListener.getContactPosition(getAdapterPosition());
         }
 
+        @Override
+        public void getDeleteContactResponse(boolean isDeleted, String message) {
+            if(isDeleted) {
+                mContactList.remove(position);
+                notifyDataSetChanged();
+            }
+        }
     }
 }

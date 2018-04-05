@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactDetail;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;

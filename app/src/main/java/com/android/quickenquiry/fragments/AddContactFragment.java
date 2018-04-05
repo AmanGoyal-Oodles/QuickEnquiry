@@ -277,7 +277,13 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
             String contactEmail = mEmailEt.getText().toString().trim();
             String contactAddress = mAddressEt.getText().toString().trim();
             String contactDOB = dobYear + "-" + dobMon + "-" + dobDay;
+            if(dobDay.isEmpty()||dobMon.isEmpty()||dobYear.isEmpty()) {
+                contactDOB="";
+            }
             String contactAnniv = annivYear + "-" + annivMon + "-" + annivDay;
+            if(annivDay.isEmpty()||annivMon.isEmpty()||annivYear.isEmpty()) {
+                contactAnniv="";
+            }
             if(tag.equalsIgnoreCase("updateContact")) {
                 mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
                 UpdateContactAPi updateContactAPI = new UpdateContactAPi(mContext, this, mProgressDialog);

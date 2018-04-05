@@ -26,6 +26,7 @@ import com.android.quickenquiry.utils.util.ContactListComparator;
 import com.android.quickenquiry.utils.util.Logger;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactDetail;
 import com.android.quickenquiry.utils.util.pojoClasses.ImportContactListBean;
 import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
 import com.google.gson.Gson;
@@ -51,7 +52,7 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
     private Context mContext;
     private Activity mActivity;
     private Cursor cursor ;
-    private ArrayList<ContactDetail> mContactList ;
+    private ArrayList<ImportContactDetail> mContactList ;
     private AccountDetailHolder mAccountDetailHolder;
     private ProgressDialog mProgressDialog;
 
@@ -85,11 +86,11 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
 
     @OnClick({R.id.import_contact_btn})
     public void onClickImportBtn() {
-        /*if(CheckPermission.checkPermissionForReadContact(mActivity)) {
+        if(CheckPermission.checkPermissionForReadContact(mActivity)) {
             getContacts();
-        }*/
-       setContactList();
-       callImportContactApi();
+        }
+       //setContactList();
+       //callImportContactApi();
     }
 
     private void getContacts() {
@@ -102,15 +103,16 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
             phone = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
             phone=phone.trim();
-            mContactList.add(new ContactDetail(name,phone,"","","","","",""));
+            mContactList.add(new ImportContactDetail(name,phone));
         }
-        AppToast.showToast(mContext,"All contacts imported successfully");
-        storeContactsInLocalStorage();
+        //AppToast.showToast(mContext,"All contacts imported successfully");
+        //storeContactsInLocalStorage();
+        callImportContactApi();
         cursor.close();
     }
 
-    private void storeContactsInLocalStorage() {
-        ArrayList<ContactDetail> list=mAccountDetailHolder.getContactList();
+    /*private void storeContactsInLocalStorage() {
+        ArrayList<ImportContactDetail> list=mAccountDetailHolder.getContactList();
         boolean flag;
         for(int i=0;i<mContactList.size();i++) {
             flag=false;
@@ -129,24 +131,24 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
         mContactList.clear();
         mContactList.addAll(list);
         callImportContactApi();
-    }
+    }*/
 
     private void setContactList() {
         mContactList.clear();
-        mContactList.add(new ContactDetail("Aman","9355606425",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Ajay","9355606424",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Amar","9355606423",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Akhil","9355606422",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Rahul","9355606421",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Abhinav","9355606420",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Sahil","9355606435",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Ravi","9355606445",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Puneet","9355606455",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Rishabh","9355606465",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Anmol","9355606475",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Ankit","9355606485",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Ajit","9355606495",null,null,null,null,null,null));
-        mContactList.add(new ContactDetail("Akash","9355606405",null,null,null,null,null,null));
+        mContactList.add(new ImportContactDetail("Aman","9355606425"));
+        mContactList.add(new ImportContactDetail("Ajay","9355606424"));
+        mContactList.add(new ImportContactDetail("Amar","9355606423"));
+        mContactList.add(new ImportContactDetail("Akhil","9355606422"));
+        mContactList.add(new ImportContactDetail("Rahul","9355606421"));
+        mContactList.add(new ImportContactDetail("Abhinav","9355606420"));
+        mContactList.add(new ImportContactDetail("Sahil","9355606435"));
+        mContactList.add(new ImportContactDetail("Ravi","9355606445"));
+        mContactList.add(new ImportContactDetail("Puneet","9355606455"));
+        mContactList.add(new ImportContactDetail("Rishabh","9355606465"));
+        mContactList.add(new ImportContactDetail("Anmol","9355606475"));
+        mContactList.add(new ImportContactDetail("Ankit","9355606485"));
+        mContactList.add(new ImportContactDetail("Ajit","9355606495"));
+        mContactList.add(new ImportContactDetail("Akash","9355606405"));
     }
 
     private void callImportContactApi() {
@@ -159,7 +161,7 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
         Logger.LogDebug(CURRENT_TAG,jsonDetails);
         mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
         ImportContactApi importContactApi=new ImportContactApi(mContext,this,mProgressDialog);
-        importContactApi.callImportContact(importContactRequestBean);
+        importContactApi.callImportContact(importContactRequestBean.getUserid(),jsonDetails);
     }
 
     @Override

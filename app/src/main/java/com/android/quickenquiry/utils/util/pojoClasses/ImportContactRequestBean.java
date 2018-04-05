@@ -15,7 +15,7 @@ public class ImportContactRequestBean {
     @SerializedName("user_id")
     private String userid;
     @SerializedName("import_contact_arr")
-    private ArrayList<ContactDetail> contactList;
+    private ArrayList<ImportContactDetail> contactList;
 
     public String getKey() {
         return key;
@@ -33,11 +33,11 @@ public class ImportContactRequestBean {
         this.userid = userid;
     }
 
-    public ArrayList<ContactDetail> getContactList() {
+    public ArrayList<ImportContactDetail> getContactList() {
         return contactList;
     }
 
-    public void setContactList(ArrayList<ContactDetail> contactList) {
+    public void setContactList(ArrayList<ImportContactDetail> contactList) {
         this.contactList = contactList;
     }
 }

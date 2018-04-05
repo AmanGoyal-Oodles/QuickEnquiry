@@ -1,5 +1,6 @@
 package com.android.quickenquiry.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +31,19 @@ import com.android.quickenquiry.fragments.InviteFriendFragment;
 import com.android.quickenquiry.fragments.SendSMSFragment;
 import com.android.quickenquiry.fragments.UpdateProfileFragment;
 import com.android.quickenquiry.interfaces.SignOutResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.ImportContactResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.ImportContactApi;
 import com.android.quickenquiry.utils.constants.AppConstantKeys;
 import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.ContactListComparator;
+import com.android.quickenquiry.utils.util.Logger;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
 import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,9 +52,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
-public class MainDashboardActivity extends AppCompatActivity implements SignOutResponseListener{
+public class MainDashboardActivity extends AppCompatActivity implements SignOutResponseListener,ImportContactResponseListener {
 
 
+    private static final String CURRENT_TAG = MainDashboardActivity.class.getName();
     @BindView(R.id.main_nav_drawer_layout)
     DrawerLayout mNavDrawerLayout;
     @BindView(R.id.nav_toolbar)
@@ -61,8 +70,9 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
     private int NAV_ITEM_INDEX=0;
     private Context mContext;
     private Cursor cursor ;
-    private ArrayList<ContactDetail> mContactList ;
+    private ArrayList<ImportContactDetail> mContactList ;
     private AccountDetailHolder mAccountDetailHolder;
+    private ProgressDialog mProgressDialog;
 
 
     @Override
@@ -249,15 +259,39 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
             phone = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
             phone=phone.trim();
-            mContactList.add(new ContactDetail(name,phone,"","","","","",""));
+            mContactList.add(new ImportContactDetail(name,phone));
         }
         AppToast.showToast(mContext,"All contacts imported successfully");
-        storeContactsInLocalStorage();
+        //storeContactsInLocalStorage();
         cursor.close();
+        callImportContactApi();
     }
 
-    private void storeContactsInLocalStorage() {
-        ArrayList<ContactDetail> list=mAccountDetailHolder.getContactList();
+    private void callImportContactApi() {
+        String userId=mAccountDetailHolder.getUserDetail().getUserId();
+        Gson gson=new Gson();
+        ImportContactRequestBean importContactRequestBean=new ImportContactRequestBean();
+        importContactRequestBean.setUserid(userId);
+        importContactRequestBean.setContactList(mContactList);
+        String jsonDetails=gson.toJson(mContactList);
+        Logger.LogDebug(CURRENT_TAG,jsonDetails);
+        mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+        ImportContactApi importContactApi=new ImportContactApi(mContext,this,mProgressDialog);
+        importContactApi.callImportContact(importContactRequestBean.getUserid(),jsonDetails);
+    }
+
+    @Override
+    public void getImportContactResponse(boolean isImported, String message) {
+        if(isImported) {
+            Fragment fragment = new HomeFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
+            fragmentTransaction.commit();
+        }
+    }
+
+    /*private void storeContactsInLocalStorage() {
+        ArrayList<ImportContactDetail> list=mAccountDetailHolder.getContactList();
         boolean flag;
         for(int i=0;i<mContactList.size();i++) {
             flag=false;
@@ -273,7 +307,7 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
         }
         Collections.sort(list,new ContactListComparator());
         mAccountDetailHolder.setContactList(list);
-    }
+    }*/
 
 
 }

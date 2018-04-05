@@ -12,6 +12,16 @@ public class UpdateProfileResponseBean {
     private boolean response;
     @SerializedName("message")
     private String message;
+    @SerializedName("profile")
+    private UserResponseBean userResponseBean;
+
+    public UserResponseBean getUserResponseBean() {
+        return userResponseBean;
+    }
+
+    public void setUserResponseBean(UserResponseBean userResponseBean) {
+        this.userResponseBean = userResponseBean;
+    }
 
     public boolean isResponse() {
         return response;

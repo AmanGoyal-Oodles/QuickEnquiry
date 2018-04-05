@@ -64,6 +64,7 @@
                 android:layout_marginTop="@dimen/mar_10"
                 android:background="@drawable/border_bg_et"
                 android:hint="Your Mobile No"
+                android:maxLength="10"
                 android:inputType="phone"
                 android:padding="@dimen/mar_10"
                 android:textSize="@dimen/textSize16sp" />

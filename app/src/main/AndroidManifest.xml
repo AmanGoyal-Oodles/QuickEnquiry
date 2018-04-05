@@ -34,6 +34,10 @@
             android:name=".activities.MainDashboardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="86f5a4b7a21e7a4da81d7fd3bb9c5d1ec14d43ed"/>
+
     </application>
 
 </manifest>

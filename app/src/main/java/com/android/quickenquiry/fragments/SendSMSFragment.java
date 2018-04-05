@@ -85,7 +85,7 @@ public class SendSMSFragment extends Fragment implements GetSingleContactSelecti
         ButterKnife.bind(this, view);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null)
-            actionBar.setTitle("Send SMS");
+            actionBar.setTitle("  Send SMS");
         init();
     }
 

@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.dialoges.LogOutDialog;
 import com.android.quickenquiry.fragments.AddContactFragment;
@@ -36,12 +35,14 @@ import com.android.quickenquiry.utils.constants.AppConstantKeys;
 import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.ContactListComparator;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 
 public class MainDashboardActivity extends AppCompatActivity implements SignOutResponseListener{
 
@@ -69,6 +70,8 @@ public class MainDashboardActivity extends AppCompatActivity implements SignOutR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_dashboard);
         ButterKnife.bind(this);
+        mContext=getApplicationContext();
+        Fabric.with(mContext, new Crashlytics());
         init();
     }
 

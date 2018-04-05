@@ -8,9 +8,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class CategoryType {
 
-    @SerializedName("ctypeid")
+    @SerializedName("cateid")
     private String catId;
-    @SerializedName("ctype_name")
+    @SerializedName("business_cate")
     private String catName;
 
     public String getCatId() {
@@ -28,4 +28,5 @@ public class CategoryType {
     public void setCatName(String catName) {
         this.catName = catName;
     }
+
 }

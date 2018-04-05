@@ -11,23 +11,23 @@ import java.io.Serializable;
 public class ContactDetail implements Serializable{
 
     @SerializedName("contactid")
-    private String contactid="";
+    private String contactid;
     @SerializedName("contact_name")
-    private String mName="";
+    private String mName;
     @SerializedName("primary_no")
-    private String mPhone="";
+    private String mPhone;
     @SerializedName("contact_relation")
-    private String mCompany="";
+    private String mCompany;
     @SerializedName("primary_email")
-    private String mEmail="";
+    private String mEmail;
     @SerializedName("contact_address")
-    private String mAddress="";
+    private String mAddress;
     @SerializedName("contact_dob")
-    private String mDOB="";
+    private String mDOB;
     @SerializedName("marriage_date")
-    private String mAnniversary="";
+    private String mAnniversary;
     @SerializedName("contact_type")
-    private String mClientType="";
+    private String mClientType;
 
     public ContactDetail(String mName, String mPhone, String mCompany, String mEmail, String mAddress, String mDOB, String mAnniversary, String mClientType) {
         this.mName = mName;

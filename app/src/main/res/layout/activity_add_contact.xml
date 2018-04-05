@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
-            android:hint="Enter Your Name Here"
+            android:hint="Contact Name"
             android:inputType="text"
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize14sp" />
@@ -67,8 +67,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
-            android:hint="Enter Your Mobile No Here"
-            android:inputType="text"
+            android:hint="Contact Number"
+            android:inputType="number"
+            android:maxLength="10"
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize16sp" />
 
@@ -78,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
-            android:hint="Enter Your Email Here"
+            android:hint="Contact Email (Optional)"
             android:inputType="text"
             android:padding="@dimen/mar_10"
             android:textSize="@dimen/textSize16sp" />
@@ -88,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_10"
-            android:hint="Address"
+            android:hint="Contact Address (Optional)"
             android:gravity="top|left"
             android:padding="@dimen/mar_10"
             android:background="@drawable/border_bg_et"
@@ -102,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
-            android:text="Date of Birth"
+            android:text="Date of Birth (Optional)"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize14sp" />
 
@@ -170,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mar_20"
-            android:text="Anniversary"
+            android:text="Anniversary (Optional)"
             android:textColor="@color/Black"
             android:textSize="@dimen/textSize14sp" />
 
@@ -252,7 +253,7 @@
                 android:background="@color/Orange"
                 android:text="SAVE" />
 
-            <Button
+            <!--<Button
                 android:id="@+id/add_contact_cancel_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -260,7 +261,7 @@
                 android:layout_weight="1"
                 android:background="@color/LightGray"
                 android:textColor="@color/DarkGray"
-                android:text="Cancel" />
+                android:text="Cancel" />-->
 
         </LinearLayout>
 

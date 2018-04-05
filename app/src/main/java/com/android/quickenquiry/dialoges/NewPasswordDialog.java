@@ -15,6 +15,7 @@ import com.android.quickenquiry.R;
 import com.android.quickenquiry.interfaces.ResetPassDialogListener;
 import com.android.quickenquiry.interfaces.apiResponseListener.ForgotPassResetPassResponseListener;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.ForgotPassResetPass;
+import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.InputValidation;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 
@@ -83,6 +84,9 @@ public class NewPasswordDialog extends Dialog implements ForgotPassResetPassResp
             String confirmPass=mConfirmPassEt.getText().toString().trim();
             if(newPass.equalsIgnoreCase(confirmPass)) {
                 return true;
+            } else {
+                AppToast.showToast(mContext,"Password & Confirm Password should be same");
+                return false;
             }
         }
         return false;

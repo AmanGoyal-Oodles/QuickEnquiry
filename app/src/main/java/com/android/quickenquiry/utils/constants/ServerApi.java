@@ -12,6 +12,7 @@ public class ServerApi {
     public static final String LOGIN="user_login_api.php";
     public static final String REGISTER="user_registration_api.php";
     public static final String VALIDATE_OTP="validate_account_api.php";
+    public static final String GET_BUSINESS_CATEGORY="get_business_category_api.php";
     public static final String GET_CONTACT_TYPE="get_contact_type_api.php";
     public static final String GET_CITY="get_city_api.php";
     public static final String GET_LOCALITY="get_locality_api.php";

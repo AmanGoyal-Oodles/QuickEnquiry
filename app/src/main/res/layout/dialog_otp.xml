@@ -22,6 +22,7 @@
         android:hint="Enter OTP Here"
         android:inputType="number"
         android:textSize="@dimen/textSize16sp"
+        android:maxLength="6"
         android:id="@+id/otp_text_et"
         android:layout_marginTop="@dimen/mar_20"
         android:padding="@dimen/mar_10"/>

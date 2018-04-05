@@ -69,7 +69,7 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
         ButterKnife.bind(this,view);
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null)
-            actionBar.setTitle("Contacts");
+            actionBar.setTitle("  Contacts");
         init();
     }
 

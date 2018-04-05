@@ -1,15 +1,13 @@
 package com.android.quickenquiry.services.databases.preferences.webServices.apiRequests;
 
-/**
- * Created by user on 3/26/2018.
- */
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import com.android.quickenquiry.R;
-import com.android.quickenquiry.interfaces.apiResponseListener.ImportContactResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetCategoryResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetContactTypeResponseListener;
 import com.android.quickenquiry.services.databases.preferences.connectionClasses.UserConnection;
-import com.android.quickenquiry.utils.apiResponseBean.ImportContactResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.GetCategoryAPIResponse;
+import com.android.quickenquiry.utils.apiResponseBean.GetContactTypeResponseBean;
 import com.android.quickenquiry.utils.constants.ServerApi;
 import com.android.quickenquiry.utils.retrofitAdapter.ConvertInputStream;
 import com.android.quickenquiry.utils.retrofitAdapter.RetroFitAdapter;
@@ -17,9 +15,11 @@ import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.InternetConnection;
 import com.android.quickenquiry.utils.util.Logger;
 import com.android.quickenquiry.utils.util.dialogs.DismissDialog;
-import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
+import com.android.quickenquiry.utils.util.pojoClasses.CategoryType;
+import com.android.quickenquiry.utils.util.pojoClasses.ContactType;
 import com.google.gson.Gson;
 import java.io.InputStream;
+import java.util.ArrayList;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,45 +29,47 @@ import retrofit2.Response;
  * Created by Cortana on 1/11/2018.
  */
 
-public class ImportContactApi implements Callback<ResponseBody> {
+public class GetContactTypeApi implements Callback<ResponseBody> {
 
 
     private Context mContext;
-    private ImportContactResponseListener mImportContactResponseListener;
+    private GetContactTypeResponseListener mGetContactTypeResponseListener;
     private static final String TAG=LoginApi.class.getName();
     private ProgressDialog mProgressDialog;
 
-    public ImportContactApi(Context context, ImportContactResponseListener listener, ProgressDialog progressDialog) {
+    public GetContactTypeApi(Context context,GetContactTypeResponseListener listener,ProgressDialog progressDialog) {
         mContext=context;
-        mImportContactResponseListener=listener;
+        mGetContactTypeResponseListener=listener;
         mProgressDialog=progressDialog;
     }
 
-    public void callImportContact(ImportContactRequestBean importContactRequestBean) {
+    public void callGetContactTypeApi() {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
             return;
         }
-        importContactRequestBean.setKey(ServerApi.API_KEY);
+        String key=ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.importContact(importContactRequestBean);
+        Call<ResponseBody> call=userConnection.getContactType(key);
         call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        ImportContactResponseBean importContactResponseBean=new ImportContactResponseBean();
+        GetContactTypeResponseBean getContactTypeResponseBean=new GetContactTypeResponseBean();
+        ArrayList<ContactType> contactTypeList=new ArrayList<>();
         if(response.isSuccessful()) {
             InputStream stream=response.body().byteStream();
-            String result= ConvertInputStream.getFormattedResponse(stream);
+            String result=ConvertInputStream.getFormattedResponse(stream);
             Gson gson=new Gson();
-            importContactResponseBean=gson.fromJson(result,ImportContactResponseBean.class);
-            AppToast.showToast(mContext,importContactResponseBean.getMessage());
-            afterSuccessfullResponse(importContactResponseBean.isResponse(),importContactResponseBean.getMessage());
+            getContactTypeResponseBean=gson.fromJson(result,GetContactTypeResponseBean.class);
+            //AppToast.showToast(mContext,"");
+            contactTypeList=getContactTypeResponseBean.getContactTypeList();
+            afterSuccessfullResponse(getContactTypeResponseBean.isResponse(),contactTypeList);
         } else {
-            AppToast.showToast(mContext,"User Login Failed.");
-            afterSuccessfullResponse(importContactResponseBean.isResponse(),importContactResponseBean.getMessage());
+            AppToast.showToast(mContext,"Contact Type Not Loaded");
+            afterSuccessfullResponse(getContactTypeResponseBean.isResponse(),contactTypeList);
         }
     }
 
@@ -78,9 +80,9 @@ public class ImportContactApi implements Callback<ResponseBody> {
         AppToast.showToast(mContext,"Network Error");
     }
 
-    private void afterSuccessfullResponse(boolean isImported,String message) {
+    private void afterSuccessfullResponse(boolean isReceived,ArrayList<ContactType> contactTypeList) {
         DismissDialog.dismissWithCheck(mProgressDialog);
-        mImportContactResponseListener.getImportContactResponse(isImported, message);
+        mGetContactTypeResponseListener.getContactTypeResponse(isReceived,contactTypeList);
     }
 
 }

@@ -79,7 +79,7 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
     private ArrayList<CategoryType> mCategoryList;
     private Context mContext;
     private Activity mActivity;
-    private String userType;
+    private int userType;
     private String mobile;
     private String selectedCatId = "0";
     private ProgressDialog mProgressDialog;
@@ -189,6 +189,7 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
                         return true;
                     } else {
                         AppToast.showToast(mContext,"Please agree with the Terms of Services.");
+                        return false;
                     }
                 }
             } else {
@@ -196,7 +197,12 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
                     AppToast.showToast(mContext, "Password and RePassword must be same");
                     return false;
                 }
-                return true;
+                if(mAgreeCb.isChecked()) {
+                    return true;
+                } else {
+                    AppToast.showToast(mContext,"Please agree with the Terms of Services.");
+                    return false;
+                }
             }
         }
         return false;
@@ -205,10 +211,10 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
         @OnClick({R.id.register_corporate_radio_btn})
         public void onChangeCorporateRadioBtn () {
             if (mCorporateRadioBtn.isChecked()) {
-                userType = "1";
+                userType = 1;
                 mCorporateLayout.setVisibility(View.VISIBLE);
             } else {
-                userType = "2";
+                userType = 2;
                 mCorporateLayout.setVisibility(View.GONE);
             }
         }
@@ -216,10 +222,10 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
         @OnClick({R.id.register_individual_radio_btn})
         public void onChangeIndividualRadioBtn () {
             if (mIndividualRadioBtn.isChecked()) {
-                userType = "2";
+                userType = 2;
                 mCorporateLayout.setVisibility(View.GONE);
             } else {
-                userType = "1";
+                userType = 1;
                 mCorporateLayout.setVisibility(View.VISIBLE);
             }
         }

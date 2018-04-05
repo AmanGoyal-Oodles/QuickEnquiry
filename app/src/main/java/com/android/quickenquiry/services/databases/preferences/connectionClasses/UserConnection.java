@@ -1,6 +1,8 @@
 package com.android.quickenquiry.services.databases.preferences.connectionClasses;
 
 import com.android.quickenquiry.utils.constants.ServerApi;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,13 +20,16 @@ public interface UserConnection {
     Call<ResponseBody> userLoginIn(@Query("key") String key, @Query("mobile") String mobile, @Query("password") String password);
 
     @POST(ServerApi.REGISTER)
-    Call<ResponseBody> userRegister(@Query("key") String key, @Query("user_type") String userType, @Query("company_name") String companyNamee, @Query("user_name") String userName, @Query("user_mobile") String userMobile, @Query("user_email") String userEmail, @Query("password") String password, @Query("busi_cat") String busCat);
+    Call<ResponseBody> userRegister(@Query("key") String key, @Query("user_type") int userType, @Query("company_name") String companyNamee, @Query("user_name") String userName, @Query("user_mobile") String userMobile, @Query("user_email") String userEmail, @Query("password") String password, @Query("busi_cat") String busCat);
 
     @POST(ServerApi.VALIDATE_OTP)
     Call<ResponseBody> validateOTP(@Query("key") String key, @Query("user_mobile") String mobile, @Query("otp") String otp);
 
-    @GET(ServerApi.GET_CONTACT_TYPE)
+    @GET(ServerApi.GET_BUSINESS_CATEGORY)
     Call<ResponseBody> getCategory(@Query("key") String key);
+
+    @GET(ServerApi.GET_CONTACT_TYPE)
+    Call<ResponseBody> getContactType(@Query("key") String key);
 
     @GET(ServerApi.GET_CITY)
     Call<ResponseBody> getCity(@Query("key") String key);
@@ -48,9 +53,9 @@ public interface UserConnection {
     Call<ResponseBody> inviteToFriend(@Query("key") String key, @Query("user_id") String userId, @Query("contacts") String contacts);
 
     @POST(ServerApi.IMPORT_CONTACT)
-    Call<ResponseBody> importContact(@Query("key") String key, @Query("user_id") String userId, @Body String contactJson);
+    Call<ResponseBody> importContact(@Body ImportContactRequestBean importContactRequestBean);
 
-    @POST(ServerApi.UPDATE_PROFILE)
+    @GET(ServerApi.UPDATE_PROFILE)
     Call<ResponseBody> updateProfile(@Query("key") String key, @Query("user_id") String userId, @Query("user_name") String userName, @Query("user_email") String userEmail, @Query("secondary_contact") String secondaryContact, @Query("city_id") String cityId, @Query("locality_id") String localityId, @Query("address") String address);
 
     @POST(ServerApi.GET_CONTACTS)

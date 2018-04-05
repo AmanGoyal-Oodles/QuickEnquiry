@@ -58,6 +58,26 @@ public class UserResponseBean {
     private String smsSent;
     @SerializedName("smsbal")
     private String smsBal;
+    @SerializedName("secondary_contact")
+    private String secondaryContact;
+    @SerializedName("useremail")
+    private String userEmail;
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getSecondaryContact() {
+        return secondaryContact;
+    }
+
+    public void setSecondaryContact(String secondaryContact) {
+        this.secondaryContact = secondaryContact;
+    }
 
     public String getUserId() {
         return userId;

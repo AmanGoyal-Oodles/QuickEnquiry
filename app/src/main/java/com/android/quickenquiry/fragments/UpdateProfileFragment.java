@@ -2,6 +2,7 @@ package com.android.quickenquiry.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.android.quickenquiry.R;
+import com.android.quickenquiry.activities.MainDashboardActivity;
 import com.android.quickenquiry.interfaces.apiResponseListener.GetCityResponseListener;
 import com.android.quickenquiry.interfaces.apiResponseListener.GetLocalityResponseListener;
 import com.android.quickenquiry.interfaces.apiResponseListener.UpdateProfileResponseListener;
@@ -26,6 +28,7 @@ import com.android.quickenquiry.services.databases.preferences.AccountDetailHold
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetCityApi;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetLocalityApi;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.UpdateProfileApi;
+import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
 import com.android.quickenquiry.utils.util.InputValidation;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.CityDetails;
@@ -69,6 +72,7 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
     private String selectedCity="0";
     private String selectedLocality="0";
     private Context mContext;
+    private String localityId="",cityId="";
     private ProgressDialog mProgressDialog;
 
 
@@ -85,18 +89,44 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         ButterKnife.bind(this,view);
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null)
-            actionBar.setTitle("Update Profile");
+            actionBar.setTitle("  Update Profile");
         init();
     }
 
     private void init() {
         initVariables();
         getCityApi();
-        setCitySpinnerAdapter();
-        setLocalitySpinnerAdapter();
+        setViews();
+        setCitySpinnerAdapter(-1);
+        setLocalitySpinnerAdapter(-1);
     }
 
-    private void setLocalitySpinnerAdapter() {
+    private void setViews() {
+        UserResponseBean userResponseBean=mAccountDetailHolder.getUserDetail();
+        String name=userResponseBean.getUserName();
+        String email=userResponseBean.getUserEmail();
+        String primaryContact=userResponseBean.getUserMob();
+        String secondaryContact=userResponseBean.getSecondaryContact();
+        String address=userResponseBean.getAddress();
+        cityId=userResponseBean.getuCityId();
+        localityId=userResponseBean.getuLoclId();
+        mNameEt.setText(name);
+        mEmailEt.setText(email);
+        mPriConEt.setText(primaryContact);
+        mSecConEt.setText(secondaryContact);
+        mAddressEt.setText(address);
+    }
+
+    private void initVariables() {
+        mContext=getContext();
+        cityList=new ArrayList<>();
+        localityList=new ArrayList<>();
+        mCityList=new ArrayList<>();
+        mLocalityList=new ArrayList<>();
+        mAccountDetailHolder=new AccountDetailHolder(mContext);
+    }
+
+    private void setLocalitySpinnerAdapter(int pos) {
         mLocalityAdapter=new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item) {
             @Override
             public boolean isEnabled(int position) {
@@ -108,6 +138,9 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         mLocalityAdapter.add("Select Locality");
         mLocalityAdapter.addAll(mLocalityList);
         mLocalitySpinner.setAdapter(mLocalityAdapter);
+        if(pos>=0) {
+            mLocalitySpinner.setSelection(pos+1);
+        }
     }
 
     private void getCityApi() {
@@ -116,7 +149,7 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         getCityApi.callGetCityApi();
     }
 
-    private void setCitySpinnerAdapter() {
+    private void setCitySpinnerAdapter(int pos) {
         mCityAdapter=new ArrayAdapter<String>(getActivity(),R.layout.support_simple_spinner_dropdown_item) {
             @Override
             public boolean isEnabled(int position) {
@@ -128,15 +161,13 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         mCityAdapter.add("Select City");
         mCityAdapter.addAll(mCityList);
         mCitySpinner.setAdapter(mCityAdapter);
-    }
-
-    private void initVariables() {
-        mContext=getContext();
-        cityList=new ArrayList<>();
-        localityList=new ArrayList<>();
-        mCityList=new ArrayList<>();
-        mLocalityList=new ArrayList<>();
-        mAccountDetailHolder=new AccountDetailHolder(mContext);
+        if(pos>=0) {
+            mCitySpinner.setSelection(pos + 1);
+            selectedCity=cityList.get(pos).getCityId();
+            mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
+            GetLocalityApi getLocalityApi = new GetLocalityApi(mContext, this, mProgressDialog);
+            getLocalityApi.callGetLocalityApi(selectedCity);
+        }
     }
 
     @OnItemSelected({R.id.update_profile_city_spinner})
@@ -171,7 +202,9 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
     }
 
     private boolean isInputValid() {
-        if(InputValidation.validateFirstName(mNameEt)&&InputValidation.validateEmail(mEmailEt)&&InputValidation.validateMobile(mSecConEt)) {
+        if( (InputValidation.validateFirstName(mNameEt))
+                &&(mEmailEt.getText().toString().isEmpty()||InputValidation.validateEmail(mEmailEt))
+                && (mSecConEt.getText().toString().isEmpty()||InputValidation.validateMobile(mSecConEt)) ) {
             return true;
         }
         return false;
@@ -184,9 +217,15 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         for(int i=0;i<cityList.size();i++) {
             mCityList.add(cityList.get(i).getCityType());
         }
-        setCitySpinnerAdapter();
+        int j=-1;
+        for(int i=0;i<cityList.size();i++) {
+            if(cityId.equalsIgnoreCase(cityList.get(i).getCityId())) {
+                j=i;
+                break;
+            }
+        }
+        setCitySpinnerAdapter(j);
         mLocalityList.clear();
-        setLocalitySpinnerAdapter();
     }
 
     @Override
@@ -197,16 +236,25 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         for(int i=0;i<localityList.size();i++) {
             mLocalityList.add(localityList.get(i).getLocalityName());
         }
-        setLocalitySpinnerAdapter();
+        int j=-1;
+        for(int i=0;i<localityList.size();i++) {
+            if(localityId.equalsIgnoreCase(localityList.get(i).getLocalityId())) {
+                j=i;
+                break;
+            }
+        }
+        setLocalitySpinnerAdapter(j);
     }
 
     @Override
-    public void getUpdateProfileResponse(boolean isUpdated, String message) {
+    public void getUpdateProfileResponse(boolean isUpdated, String message, UserResponseBean userResponseBean) {
         if(isUpdated) {
-            Fragment fragment = new HomeFragment();
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
-            fragmentTransaction.commit();
+            if(userResponseBean!=null) {
+                mAccountDetailHolder.setUserDetail(userResponseBean);
+            }
+            Intent intent = new Intent(getActivity(), MainDashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
     }
 }

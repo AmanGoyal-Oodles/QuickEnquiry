@@ -51,7 +51,7 @@ public class InviteMessageFragment extends Fragment {
     private void setActionBarTitle() {
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null) {
-            actionBar.setTitle("Invite Message");
+            actionBar.setTitle("  Invite Message");
         }
     }
 

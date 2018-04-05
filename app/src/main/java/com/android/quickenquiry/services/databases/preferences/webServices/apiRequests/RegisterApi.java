@@ -40,7 +40,7 @@ public class RegisterApi implements Callback<ResponseBody> {
         mProgressDialog=progressDialog;
     }
 
-    public void callRegisterApi(String userType,String companyName,String userName,String userMobile,String userEmail,String password,String busCat) {
+    public void callRegisterApi(int userType,String companyName,String userName,String userMobile,String userEmail,String password,String busCat) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));

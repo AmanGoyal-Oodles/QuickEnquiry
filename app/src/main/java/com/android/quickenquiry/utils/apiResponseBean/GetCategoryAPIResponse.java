@@ -14,7 +14,7 @@ public class GetCategoryAPIResponse {
     @SerializedName("response")
     private boolean response;
 
-    @SerializedName("ctype")
+    @SerializedName("bcate")
     private ArrayList<CategoryType> catList;
 
     public boolean isResponse() {

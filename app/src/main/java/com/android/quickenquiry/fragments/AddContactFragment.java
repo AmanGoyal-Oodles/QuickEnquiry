@@ -17,22 +17,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.interfaces.apiResponseListener.AddContactAPIResponseListener;
 import com.android.quickenquiry.interfaces.apiResponseListener.GetCategoryResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetContactTypeResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.AddContactAPI;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetCategoryApi;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetContactTypeApi;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.UpdateContactAPi;
 import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.InputValidation;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.CategoryType;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ContactType;
 
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,13 +43,13 @@ import butterknife.OnItemSelected;
  * Created by user on 3/6/2018.
  */
 
-public class AddContactFragment extends Fragment implements AddContactAPIResponseListener,GetCategoryResponseListener {
+public class AddContactFragment extends Fragment implements AddContactAPIResponseListener,GetContactTypeResponseListener {
 
     private static final String CURRENT_TAG = AddContactFragment.class.getName();
     @BindView(R.id.add_contact_save_btn)
     Button mSaveBtn;
-    @BindView(R.id.add_contact_cancel_btn)
-    Button mCancelBtn;
+    /*@BindView(R.id.add_contact_cancel_btn)
+    Button mCancelBtn;*/
     @BindView(R.id.add_contact_relation_et)
     EditText mRelationEt;
     @BindView(R.id.add_contact_name_et)
@@ -80,12 +81,13 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     private Context mContext;
     private AccountDetailHolder mAccountDetailHolder;
     private ProgressDialog mProgressDialog;
-    private ArrayList<CategoryType> mCategoryList;
-    private String dobDay, dobMon, dobYear, annivDay, annivMon, annivYear, contactType;
+    private ArrayList<ContactType> mContactTypeList;
+    private String dobDay="", dobMon="", dobYear="", annivDay="", annivMon="", annivYear="", contactType="";
     private ArrayAdapter<String> mClientTypeAdapter;
     private ContactDetail contactDetail;
     private String tag="";
     private String contactId="";
+    private boolean isRelationEtEnable=true,isDOBSelected=false,isAnnivSelected=false;
     private ArrayAdapter<String> mDobDateAdapter, mDobMonthAdapter, mDobYearAdapter, mAnniversaryDateAdapter, mAnniversaryMonthAdapter, mAnniversaryYearAdapter;
 
     @Nullable
@@ -103,8 +105,8 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     }
 
     private void init() {
+        setToolBar("  ADD Contact");
         getData();
-        setToolBar();
         initVariables();
         getContactType();
     }
@@ -112,6 +114,7 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     private void getData() {
         tag=getArguments().getString("tag");
         if(tag.equalsIgnoreCase("updateContact")) {
+            setToolBar("  Update Contact");
             contactDetail = (ContactDetail) getArguments().getSerializable("contactdetail");
             setViews();
         }
@@ -120,6 +123,13 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     private void setViews() {
         contactId=contactDetail.getContactid();
         contactType=contactDetail.getmClientType();
+        if(contactType.equalsIgnoreCase("Friends")||contactType.equalsIgnoreCase("Staff")) {
+            mRelationEt.setVisibility(View.GONE);
+            isRelationEtEnable=false;
+        } else {
+            mRelationEt.setVisibility(View.VISIBLE);
+            isRelationEtEnable=true;
+        }
         mRelationEt.setText(contactDetail.getmCompany());
         mNameEt.setText(contactDetail.getmName());
         mMobileEt.setText(contactDetail.getmPhone());
@@ -131,6 +141,7 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
             dobDay=tempDate[2];
             dobMon=tempDate[1];
             dobYear=tempDate[0];
+            isDOBSelected=true;
         }
         String anniv=contactDetail.getmAnniversary();
         if(!anniv.isEmpty()) {
@@ -138,19 +149,20 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
             annivDay=tempDate[2];
             annivMon=tempDate[1];
             annivYear=tempDate[0];
+            isAnnivSelected=true;
         }
     }
 
     private void getContactType() {
         mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
-        GetCategoryApi getCategoryApi = new GetCategoryApi(mContext, this, mProgressDialog);
-        getCategoryApi.callGetCatApi();
+        GetContactTypeApi getContactTypeApi = new GetContactTypeApi(mContext, this, mProgressDialog);
+        getContactTypeApi.callGetContactTypeApi();
     }
 
-    private void setToolBar() {
+    private void setToolBar(String title) {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Add Contact");
+            actionBar.setTitle(title);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.White)));
         }
     }
@@ -161,10 +173,10 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
         mDateList = new ArrayList<>();
         mMonthList = new ArrayList<>();
         mYearList = new ArrayList<>();
-        mCategoryList = new ArrayList<>();
+        mContactTypeList = new ArrayList<>();
         setList(mDateList, 1, 31);
         //setList(mMonthList,1,12);
-        setList(mYearList, 1970, 2050);
+        setList(mYearList, 1950, 2018);
         setSpinnerAdapters();
     }
 
@@ -180,9 +192,9 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
         mClientTypeAdapter.add("Select Contact Type");
         ArrayList<String> catList = new ArrayList<>();
         int pos=0;
-        for (int i = 0; i < mCategoryList.size(); i++) {
-            catList.add(mCategoryList.get(i).getCatName());
-            if(contactType.equalsIgnoreCase(mCategoryList.get(i).getCatId())) {
+        for (int i = 0; i < mContactTypeList.size(); i++) {
+            catList.add(mContactTypeList.get(i).getContactTypeName());
+            if(contactType.equalsIgnoreCase(mContactTypeList.get(i).getContactTypeId())) {
                 pos=i;
             }
         }
@@ -201,7 +213,6 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
         if(!dobDay.isEmpty()) {
             mSpinnerDobDate.setSelection(Integer.valueOf(dobDay));
         }
-
 
         mDobMonthAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item);
         mDobMonthAdapter.clear();
@@ -283,23 +294,35 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
 
     private boolean isInputValid() {
         if (contactType != null && !contactType.isEmpty()) {
-            if (InputValidation.validateFirstName(mRelationEt) && InputValidation.validateFirstName(mNameEt)
-                    && InputValidation.validateMobile(mMobileEt) && InputValidation.validateEmail(mEmailEt)
-                    && InputValidation.validateFirstName(mAddressEt)) {
+            if ( ((!isRelationEtEnable)||InputValidation.validateFirstName(mRelationEt) ) && (InputValidation.validateFirstName(mNameEt))
+                    && (InputValidation.validateMobile(mMobileEt)) && (mEmailEt.getText().toString().isEmpty()||InputValidation.validateEmail(mEmailEt))
+                    && (mAddressEt.getText().toString().isEmpty()||InputValidation.validateFirstName(mAddressEt)) ) {
                 if (!dobDay.isEmpty() || !dobMon.isEmpty() || !dobYear.isEmpty()) {
                     if ((dobDay != null && !dobDay.isEmpty()) && (dobMon != null && !dobMon.isEmpty()) && (dobYear != null && !dobYear.isEmpty())) {
+                        isDOBSelected=true;
                     } else {
                         AppToast.showToast(mContext, "Please Select Date Of Birth");
+                        isDOBSelected=false;
                         return false;
                     }
                 }
                 if (!annivDay.isEmpty() || !annivMon.isEmpty() || !annivYear.isEmpty()) {
                     if ((annivDay != null && !annivDay.isEmpty()) && (annivMon != null && !annivMon.isEmpty()) && (annivYear != null && !annivYear.isEmpty())) {
+                        isAnnivSelected=true;
                     } else {
                         AppToast.showToast(mContext, "Please Select Annivsary Date");
+                        isAnnivSelected=false;
                         return false;
                     }
                 }
+                if(isDOBSelected&&isAnnivSelected) {
+                    if(!isDOBLessThanAnniv()) {
+                        AppToast.showToast(mContext,"Date Of Birth Should be less than Anniversary Date");
+                        return false;
+                    }
+                }
+            } else {
+                return false;
             }
         } else {
             AppToast.showToast(mContext, "Please Select Contact Type");
@@ -308,10 +331,48 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
         return true;
     }
 
+    private boolean isDOBLessThanAnniv() {
+        int dob_day=Integer.valueOf(dobDay);
+        int dob_mon=Integer.valueOf(dobMon);
+        int dob_year=Integer.valueOf(dobYear);
+        int anniv_day=Integer.valueOf(annivDay);
+        int anniv_mon=Integer.valueOf(annivMon);
+        int anniv_year=Integer.valueOf(annivYear);
+        if(dob_year<anniv_year) {
+            return true;
+        } else if(dob_year>anniv_year) {
+            return false;
+        } else {
+            if(dob_mon<anniv_mon) {
+                return true;
+            } else if(dob_mon>anniv_mon) {
+                return false;
+            } else {
+                if(dob_day<anniv_day) {
+                    return true;
+                } else if(dob_day>anniv_day) {
+                    return false;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+
+    }
+
     @OnItemSelected({R.id.add_contact_contact_spinner})
     public void onSelectedCarBrand(AdapterView<?> parent, View view, int position, long id) {
         if(position>0) {
-            contactType = mCategoryList.get(position).getCatId();
+            contactType = mContactTypeList.get(position-1).getContactTypeId();
+        }
+        String contactType=parent.getItemAtPosition(position).toString();
+            if(contactType.equalsIgnoreCase("Friends")||contactType.equalsIgnoreCase("Staff")) {
+                mRelationEt.setVisibility(View.GONE);
+                isRelationEtEnable=false;
+            } else {
+                mRelationEt.setVisibility(View.VISIBLE);
+                isRelationEtEnable=true;
         }
     }
 
@@ -387,10 +448,11 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     }
 
     @Override
-    public void getCatResponse(ArrayList<CategoryType> catList) {
-        mCategoryList.clear();
-        mCategoryList.addAll(catList);
-        setContactTypeSpinnerAdapter();
+    public void getContactTypeResponse(boolean isReceived, ArrayList<ContactType> contactTypeList) {
+        if(isReceived) {
+            mContactTypeList.clear();
+            mContactTypeList.addAll(contactTypeList);
+            setContactTypeSpinnerAdapter();
+        }
     }
-
 }

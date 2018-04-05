@@ -44,8 +44,6 @@ public class ChangePasswordFragment extends Fragment implements ChangePasswordRe
     EditText mConfirmPassEt;
     @BindView(R.id.change_pass_submit_btn)
     Button mSubmitBtn;
-    @BindView(R.id.change_pass_cancel_btn)
-    Button mCancelBtn;
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private AccountDetailHolder mAccountDetailHolder;
@@ -63,7 +61,7 @@ public class ChangePasswordFragment extends Fragment implements ChangePasswordRe
         ButterKnife.bind(this,view);
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null)
-            actionBar.setTitle("Change Password");
+            actionBar.setTitle("  Change Password");
         init();
     }
 

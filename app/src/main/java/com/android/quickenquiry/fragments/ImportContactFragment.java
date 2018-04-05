@@ -27,6 +27,7 @@ import com.android.quickenquiry.utils.util.Logger;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
 import com.android.quickenquiry.utils.util.pojoClasses.ImportContactListBean;
+import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -50,7 +51,6 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
     private Context mContext;
     private Activity mActivity;
     private Cursor cursor ;
-    @SerializedName("import_contact_arr")
     private ArrayList<ContactDetail> mContactList ;
     private AccountDetailHolder mAccountDetailHolder;
     private ProgressDialog mProgressDialog;
@@ -68,7 +68,7 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
         ButterKnife.bind(this,view);
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null)
-            actionBar.setTitle("Import Contact");
+            actionBar.setTitle("  Import Contact");
         init();
     }
 
@@ -85,9 +85,11 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
 
     @OnClick({R.id.import_contact_btn})
     public void onClickImportBtn() {
-        if(CheckPermission.checkPermissionForReadContact(mActivity)) {
+        /*if(CheckPermission.checkPermissionForReadContact(mActivity)) {
             getContacts();
-        }
+        }*/
+       setContactList();
+       callImportContactApi();
     }
 
     private void getContacts() {
@@ -129,14 +131,35 @@ public class ImportContactFragment extends Fragment implements ImportContactResp
         callImportContactApi();
     }
 
+    private void setContactList() {
+        mContactList.clear();
+        mContactList.add(new ContactDetail("Aman","9355606425",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Ajay","9355606424",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Amar","9355606423",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Akhil","9355606422",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Rahul","9355606421",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Abhinav","9355606420",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Sahil","9355606435",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Ravi","9355606445",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Puneet","9355606455",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Rishabh","9355606465",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Anmol","9355606475",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Ankit","9355606485",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Ajit","9355606495",null,null,null,null,null,null));
+        mContactList.add(new ContactDetail("Akash","9355606405",null,null,null,null,null,null));
+    }
+
     private void callImportContactApi() {
         String userId=mAccountDetailHolder.getUserDetail().getUserId();
         Gson gson=new Gson();
+        ImportContactRequestBean importContactRequestBean=new ImportContactRequestBean();
+        importContactRequestBean.setUserid(userId);
+        importContactRequestBean.setContactList(mContactList);
         String jsonDetails=gson.toJson(mContactList);
         Logger.LogDebug(CURRENT_TAG,jsonDetails);
         mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
         ImportContactApi importContactApi=new ImportContactApi(mContext,this,mProgressDialog);
-        importContactApi.callImportContact(userId,jsonDetails);
+        importContactApi.callImportContact(importContactRequestBean);
     }
 
     @Override

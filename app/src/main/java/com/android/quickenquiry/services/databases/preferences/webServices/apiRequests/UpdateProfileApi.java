@@ -10,6 +10,7 @@ import com.android.quickenquiry.R;
 import com.android.quickenquiry.interfaces.apiResponseListener.UpdateProfileResponseListener;
 import com.android.quickenquiry.services.databases.preferences.connectionClasses.UserConnection;
 import com.android.quickenquiry.utils.apiResponseBean.UpdateProfileResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
 import com.android.quickenquiry.utils.constants.ServerApi;
 import com.android.quickenquiry.utils.retrofitAdapter.ConvertInputStream;
 import com.android.quickenquiry.utils.retrofitAdapter.RetroFitAdapter;
@@ -64,10 +65,10 @@ public class UpdateProfileApi implements Callback<ResponseBody> {
             updateProfileResponseBean=gson.fromJson(result,UpdateProfileResponseBean.class);
             AppToast.showToast(mContext,updateProfileResponseBean.getMessage());
             DismissDialog.dismissWithCheck(mProgressDialog);
-            afterSuccessfullResponse(updateProfileResponseBean.isResponse(),updateProfileResponseBean.getMessage());
+            afterSuccessfullResponse(updateProfileResponseBean.isResponse(),updateProfileResponseBean.getMessage(),updateProfileResponseBean.getUserResponseBean());
         } else {
             AppToast.showToast(mContext,"User Login Failed.");
-            afterSuccessfullResponse(false,updateProfileResponseBean.getMessage());
+            afterSuccessfullResponse(false,updateProfileResponseBean.getMessage(),updateProfileResponseBean.getUserResponseBean());
         }
     }
 
@@ -79,8 +80,8 @@ public class UpdateProfileApi implements Callback<ResponseBody> {
     }
 
 
-    private void afterSuccessfullResponse(boolean isUpdated,String message) {
-        mUpdateProfileResponseListener.getUpdateProfileResponse(isUpdated,message);
+    private void afterSuccessfullResponse(boolean isUpdated, String message, UserResponseBean userResponseBean) {
+        mUpdateProfileResponseListener.getUpdateProfileResponse(isUpdated,message,userResponseBean);
     }
 
 }

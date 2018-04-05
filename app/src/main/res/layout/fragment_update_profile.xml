@@ -113,10 +113,11 @@
             android:layout_below="@+id/update_profile_pri_con_et"
             android:background="@drawable/border_bg_et"
             android:text="9654286725"
+            android:maxLength="10"
             android:hint="Secondary Contact"
             android:padding="@dimen/mar_10"
             android:layout_marginTop="@dimen/mar_10"
-            android:inputType="text"/>
+            android:inputType="number"/>
 
         <!--<TextView
             android:layout_width="wrap_content"

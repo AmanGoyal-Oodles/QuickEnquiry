@@ -95,16 +95,16 @@ public class OTPDialog extends Dialog implements LoginResponseListener{
         if(otp.equals(mOTP)) {
             mOTPOtpDialogListener.isOTPValidate(true,mMobile);
         }
-        dismiss();
         mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
         ValidateOTPAPI validateOTPAPI=new ValidateOTPAPI(mContext,this,mProgressDialog);
-        validateOTPAPI.callValidateOTPApi(mMobile,mOTP);
+        validateOTPAPI.callValidateOTPApi(mMobile,otp);
         //mOTPOtpDialogListener.isOTPValidate(true);
     }
 
     @Override
     public void getLoginResponse(boolean isLogin, UserResponseBean userResponseBean) {
         if(isLogin) {
+            dismiss();
             mAccountDetailHolder.setUserDetail(userResponseBean);
             mOTPOtpDialogListener.isOTPValidate(true,mMobile);
         }

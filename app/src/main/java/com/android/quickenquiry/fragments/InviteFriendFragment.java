@@ -70,7 +70,7 @@ public class InviteFriendFragment extends Fragment implements ContactSelectionLi
         ButterKnife.bind(this,view);
         ActionBar actionBar=((AppCompatActivity)getActivity()).getSupportActionBar();
         if(actionBar!=null) {
-            actionBar.setTitle("Invite To Freinds");
+            actionBar.setTitle("  Invite To Freinds");
         }
         init();
     }

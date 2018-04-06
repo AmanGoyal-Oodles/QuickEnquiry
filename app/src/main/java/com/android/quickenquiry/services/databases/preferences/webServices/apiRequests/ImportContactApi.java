@@ -43,7 +43,7 @@ public class ImportContactApi implements Callback<ResponseBody> {
         mProgressDialog=progressDialog;
     }
 
-    public void callImportContact(String userId,String list) {
+    public void callImportContact(String userId,String contactList) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
@@ -51,7 +51,7 @@ public class ImportContactApi implements Callback<ResponseBody> {
         }
         String key=ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.importContact(key,userId,list);
+        Call<ResponseBody> call=userConnection.importContact(key,userId,contactList);
         call.enqueue(this);
     }
 

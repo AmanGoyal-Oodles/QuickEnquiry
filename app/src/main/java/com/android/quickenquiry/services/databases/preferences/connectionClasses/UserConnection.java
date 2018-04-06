@@ -1,14 +1,13 @@
 package com.android.quickenquiry.services.databases.preferences.connectionClasses;
 
 import com.android.quickenquiry.utils.constants.ServerApi;
-import com.android.quickenquiry.utils.util.pojoClasses.ImportContactDetail;
 import com.android.quickenquiry.utils.util.pojoClasses.ImportContactRequestBean;
-
-import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -55,8 +54,9 @@ public interface UserConnection {
     @POST(ServerApi.INVITE_TO_FRIEND)
     Call<ResponseBody> inviteToFriend(@Query("key") String key, @Query("user_id") String userId, @Query("contacts") String contacts);
 
+    @FormUrlEncoded
     @POST(ServerApi.IMPORT_CONTACT)
-    Call<ResponseBody> importContact(@Query("key") String key, @Query("user_id") String userId, @Query("import_contact_arr")String list);
+    Call<ResponseBody> importContact(@Field("key")String key,@Field("user_id")String userId,@Field("import_contact_arr")String contactList);
 
     @GET(ServerApi.UPDATE_PROFILE)
     Call<ResponseBody> updateProfile(@Query("key") String key, @Query("user_id") String userId, @Query("user_name") String userName, @Query("user_email") String userEmail, @Query("secondary_contact") String secondaryContact, @Query("city_id") String cityId, @Query("locality_id") String localityId, @Query("address") String address);

@@ -1,10 +1,12 @@
 package com.android.quickenquiry.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -18,14 +20,31 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.adapters.SendSMSMultipleContactAdapter;
 import com.android.quickenquiry.adapters.SendSMSSingleContactAdapter;
+import com.android.quickenquiry.dialoges.SelectContactDialog;
+import com.android.quickenquiry.interfaces.GetSelectedContactListener;
+import com.android.quickenquiry.interfaces.GetSelectedContactTypeListener;
 import com.android.quickenquiry.interfaces.GetSingleContactSelectionListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetContactTypeResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetContactsResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.GetSMSApiResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.SendSMSApiResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetContactTypeApi;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetContactsApi;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetSMSApi;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.SendSMSApi;
+import com.android.quickenquiry.utils.apiResponseBean.GetSMSApiResponse;
+import com.android.quickenquiry.utils.apiResponseBean.SendSMSApiResponse;
+import com.android.quickenquiry.utils.util.AppToast;
 import com.android.quickenquiry.utils.util.Logger;
+import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
+import com.android.quickenquiry.utils.util.pojoClasses.ContactType;
 
 import java.util.ArrayList;
 
@@ -37,40 +56,35 @@ import butterknife.OnClick;
  * Created by user on 3/5/2018.
  */
 
-public class SendSMSFragment extends Fragment implements GetSingleContactSelectionListener,AdapterView.OnItemClickListener {
+public class SendSMSFragment extends Fragment implements GetSMSApiResponseListener,SendSMSApiResponseListener
+        ,GetSelectedContactListener,GetSelectedContactTypeListener{
 
 
-    /*@BindView(R.id.send_sms_contact_type_spinner)
-    Spinner mContactTypeSpinner;*/
-    /*@BindView(R.id.send_sms_multiple_spinner_layout)
-    LinearLayout mMultipleLayout;
-    */
-    @BindView(R.id.send_sms_single_list_layout)
-    LinearLayout mSingleItemLayout;
-    @BindView(R.id.send_sms_multiple_item_list)
-    ListView mMulitpleListView;
-    /*@BindView(R.id.send_sms_search_et)
-    EditText mSearchEt;*/
-    /*@BindView(R.id.send_sms_single_contact_list_view)
-    ListView mContactListView;*/
+    private static final String CURRENT_TAG =SendSMSFragment.class.getName() ;
     @BindView(R.id.send_sms_multiple_radio_btn)
     RadioButton mMultipleRadiobtn;
     @BindView(R.id.send_sms_single_radio_btn)
     RadioButton mSingleRadioButton;
-    @BindView(R.id.send_sms_single_contact_actv)
-    AutoCompleteTextView mSingleContactACTV;
-    @BindView(R.id.send_sms_multiple_item_et)
-    EditText mMultipleItemEt;
-    private ArrayAdapter<String> mContactTypeAdapter;
-    private ArrayAdapter<ContactDetail> mSendSMSSingleContactAdapter;
-    private ArrayAdapter<String> arrayAdapter;
-    private String[] list = {"A", "B", "C", "D"};
-    private ArrayList<ContactDetail> mContactList, mSearchList;
-    private Context mcContext;
+    @BindView(R.id.send_sms_package_val_tv)
+    TextView mPackageTv;
+    @BindView(R.id.send_sms_active_date_val_tv)
+    TextView mActiveDateTv;
+    @BindView(R.id.send_sms_expiry_date_val_tv)
+    TextView mExpiryDateTv;
+    @BindView(R.id.send_sms_left_val_tv)
+    TextView mSMSLeftTv;
+    @BindView(R.id.send_sms_message_content_et)
+    EditText mMessageEt;
+    @BindView(R.id.send_sms_select_contact_btn)
+    TextView mSelectContactBtn;
+    private ArrayList<ContactDetail> mContactList;
+    private ArrayList<ContactType> mContactTypeList;
+    private Context mContext;
     private Activity mActivity;
     private AccountDetailHolder mAccountDetailHolder;
-    private SendSMSMultipleContactAdapter multipleContactAdapter;
-    private ArrayList<Boolean> mSingleSelectedList;
+    private ProgressDialog mProgressDialog;
+    private String contacts="";
+    private String contactType="contactType";
 
     @Nullable
     @Override
@@ -91,124 +105,113 @@ public class SendSMSFragment extends Fragment implements GetSingleContactSelecti
 
     private void init() {
         initVariables();
-        //setSpinnerAdapter();
-        mContactList.clear();
-        mContactList.addAll(mAccountDetailHolder.getContactList());
-        setContactList();
-        setACTVAdapter();
-        setListViewAdapter();
-
-        //setListView(mContactList);
+        callGetSMSApi();
     }
 
-    private void setContactList() {
-        mContactList.add(new ContactDetail("Aman", "9355606425", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Ajay", "9355606424", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Amar", "9355606423", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Akhil", "9355606422", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Rahul", "9355606421", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Abhinav", "9355606420", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Sahil", "9355606435", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Ravi", "9355606445", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Puneet", "9355606455", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Rishabh", "9355606465", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Anmol", "9355606475", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Ankit", "9355606485", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Ajit", "9355606495", "", "", "", "", "", ""));
-        mContactList.add(new ContactDetail("Akash", "9355606405", "", "", "", "", "", ""));
-    }
-
-    private void setACTVAdapter() {
-        mSingleContactACTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Logger.LogDebug("hello",adapterView.getSelectedItemPosition()+"");
-            }
-        });
-        mSendSMSSingleContactAdapter = new SendSMSSingleContactAdapter(mActivity, R.layout.layout_send_sms_contact_list, mContactList);
-        //  mSingleContactACTV.setAdapter(mSendSMSSingleContactAdapter);
-       /* String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
-
-        //janab jugaad dekhte hai ab
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (mcContext,android.R.layout.select_dialog_item,language);
-        mSingleContactACTV.setThreshold(1);*/
-        mSingleContactACTV.setAdapter(mSendSMSSingleContactAdapter);
-    }
-
-    private void setListViewAdapter() {
-        multipleContactAdapter = new SendSMSMultipleContactAdapter(mActivity, R.layout.layout_send_sms_contact_list, mContactList);
-        mMulitpleListView.setAdapter(mSendSMSSingleContactAdapter);
-    }
-
-    @OnClick({R.id.send_sms_multiple_item_et})
-    public void onClickMultipleItemEt() {
-        //mMulitpleListView.setVisibility(View.VISIBLE);
-    }
-
-    /*private void setListView(ArrayList<ContactDetail> list) {
-        mSendSMSSingleContactAdapter.setmContactList(list);
-        mSendSMSSingleContactAdapter.notifyDataSetChanged();
-    }*/
-
-    private void setSpinnerAdapter() {
-        mContactTypeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0 && super.isEnabled(position);
-            }
-        };
-        mContactTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mContactTypeAdapter.clear();
-        mContactTypeAdapter.addAll(getResources().getStringArray(R.array.CATEGORY));
-        //mContactTypeSpinner.setAdapter(mContactTypeAdapter);
+    private void callGetSMSApi() {
+        String userId=mAccountDetailHolder.getUserDetail().getUserId();
+        mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+        GetSMSApi getSMSApi=new GetSMSApi(mContext,this,mProgressDialog);
+        getSMSApi.callGetSMSApi(userId);
     }
 
     private void initVariables() {
-        mcContext = getContext();
+        mContext = getContext();
         mActivity = getActivity();
         mContactList = new ArrayList<>();
-        mSearchList = new ArrayList<>();
-        mSingleSelectedList = new ArrayList<>();
-        mAccountDetailHolder = new AccountDetailHolder(mcContext);
+        mContactTypeList=new ArrayList<>();
+        mAccountDetailHolder = new AccountDetailHolder(mContext);
     }
 
     @OnClick({R.id.send_sms_multiple_radio_btn})
     public void onClickMultipleRadioBtn() {
         if (mMultipleRadiobtn.isChecked()) {
-            mSingleItemLayout.setVisibility(View.GONE);
-            //mMultipleLayout.setVisibility(View.VISIBLE);
+            contactType="contactType";
+            mSelectContactBtn.setText("Select Contact Type");
         } else {
-            //mMultipleLayout.setVisibility(View.GONE);
-            mSingleItemLayout.setVisibility(View.VISIBLE);
+            contactType="contact_number";
+            mSelectContactBtn.setText("Select Contacts");
         }
     }
 
     @OnClick({R.id.send_sms_single_radio_btn})
     public void onClickSingleRadioBtn() {
         if (mSingleRadioButton.isChecked()) {
-            //mMultipleLayout.setVisibility(View.GONE);
-            mSingleItemLayout.setVisibility(View.VISIBLE);
+            contactType="contact_number";
+            mSelectContactBtn.setText("Select Contacts");
         } else {
-            mSingleItemLayout.setVisibility(View.GONE);
-            //mMultipleLayout.setVisibility(View.VISIBLE);
+            contactType="contactType";
+            mSelectContactBtn.setText("Select Contact Type");
         }
     }
 
-    @Override
-    public void getSingleItemSelected(boolean isSelected, ContactDetail contactDetail) {
-        ContactDetail detail;
-        for (int i = 0; i < mContactList.size(); i++) {
-            detail = mContactList.get(i);
-            if (detail.getmPhone().equals(contactDetail.getmPhone())) {
-                mSingleSelectedList.set(i, isSelected);
-                break;
+    @OnClick({R.id.send_sms_send_btn})
+    public void onClickSendBtn() {
+        String userId=mAccountDetailHolder.getUserDetail().getUserId();
+        String message=mMessageEt.getText().toString().trim()+"";
+        if(!contacts.isEmpty()) {
+            if(!message.isEmpty()) {
+                mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
+                SendSMSApi sendSMSApi = new SendSMSApi(mContext, this, mProgressDialog);
+                sendSMSApi.callInviteFriendApi(userId, contacts, contactType, message);
+            } else {
+                AppToast.showToast(mContext,"Please Type Message data.");
             }
+        } else {
+            AppToast.showToast(mContext,"Please Select Contacts");
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+    @OnClick({R.id.send_sms_select_contact_btn})
+    public void onClickSelectContact() {
+        SelectContactDialog selectContactDialog=new SelectContactDialog(mContext,contactType,this,this,mContactList,mContactTypeList);
+        selectContactDialog.show();
     }
+
+    @Override
+    public void getSendSMSApiResponse(boolean isSent, GetSMSApiResponse getSMSApiResponse) {
+        if(isSent) {
+            updateView(getSMSApiResponse);
+        }
+    }
+
+    private void updateView(GetSMSApiResponse getSMSApiResponse) {
+        mPackageTv.setText(getSMSApiResponse.getPackage_name());
+        mActiveDateTv.setText(getSMSApiResponse.getCrm_active_date());
+        mExpiryDateTv.setText(getSMSApiResponse.getCrm_expiry_date());
+        mSMSLeftTv.setText(getSMSApiResponse.getSms_balance());
+    }
+
+    @Override
+    public void getSendSMSApiResponse(boolean isSent, SendSMSApiResponse sendSMSApiResponse) {
+     if(isSent) {
+         Fragment fragment = new HomeFragment();
+         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+         fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
+         fragmentTransaction.commit();
+     }
+    }
+
+    @Override
+    public void getSelectedContacct(ArrayList<ContactDetail> contactList) {
+    contacts="";
+    mContactList.clear();
+    mContactList.addAll(contactList);
+    for (int i=0;i<contactList.size();i++) {
+         contacts=contacts+contactList.get(i).getmPhone()+",";
+     }
+     contactType="contact_no";
+    }
+
+    @Override
+    public void getSelectedContactType(ArrayList<ContactType> contactTypeList) {
+        contacts="";
+        mContactTypeList.clear();
+        mContactTypeList.addAll(contactTypeList);
+        for (int i=0;i<contactTypeList.size();i++) {
+            contacts=contacts+contactTypeList.get(i).getContactTypeId()+",";
+        }
+        contactType="contactType";
+    }
+
 }

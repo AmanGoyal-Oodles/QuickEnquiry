@@ -1,15 +1,11 @@
 package com.android.quickenquiry.services.databases.preferences.webServices.apiRequests;
 
-/**
- * Created by user on 3/26/2018.
- */
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import com.android.quickenquiry.R;
-import com.android.quickenquiry.interfaces.apiResponseListener.InviteFriendResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.SendSMSApiResponseListener;
 import com.android.quickenquiry.services.databases.preferences.connectionClasses.UserConnection;
-import com.android.quickenquiry.utils.apiResponseBean.InviteFriendResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.SendSMSApiResponse;
 import com.android.quickenquiry.utils.constants.ServerApi;
 import com.android.quickenquiry.utils.retrofitAdapter.ConvertInputStream;
 import com.android.quickenquiry.utils.retrofitAdapter.RetroFitAdapter;
@@ -25,24 +21,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Cortana on 1/11/2018.
+ * Created by Cortana on 4/11/2018.
  */
 
-public class InviteFriendApi implements Callback<ResponseBody> {
+public class SendSMSApi implements Callback<ResponseBody> {
 
 
     private Context mContext;
-    private InviteFriendResponseListener mInviteFriendResponseListener;
+    private SendSMSApiResponseListener mSendSMSApiResponseListener;
     private static final String TAG=LoginApi.class.getName();
     private ProgressDialog mProgressDialog;
 
-    public InviteFriendApi(Context context, InviteFriendResponseListener listener, ProgressDialog progressDialog) {
+    public SendSMSApi(Context context, SendSMSApiResponseListener listener, ProgressDialog progressDialog) {
         mContext=context;
-        mInviteFriendResponseListener=listener;
+        mSendSMSApiResponseListener=listener;
         mProgressDialog=progressDialog;
     }
 
-    public void callInviteFriendApi(String userId,String contacts) {
+    public void callInviteFriendApi(String userId,String contacts,String contactType,String message) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
@@ -50,23 +46,28 @@ public class InviteFriendApi implements Callback<ResponseBody> {
         }
         String key= ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.inviteToFriend(key,userId,contacts);
-        call.enqueue(this);
+        if(contactType.equalsIgnoreCase("contactType")) {
+            Call<ResponseBody> call = userConnection.sendSMSMultiple(key, userId, contacts,message);
+            call.enqueue(this);
+        } else {
+            Call<ResponseBody> call = userConnection.sendSMSSingle(key, userId, contacts,message);
+            call.enqueue(this);
+        }
     }
 
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        InviteFriendResponseBean inviteFriendResponseBean=new InviteFriendResponseBean();
+        SendSMSApiResponse sendSMSApiResponse=new SendSMSApiResponse();
         if(response.isSuccessful()) {
             InputStream stream=response.body().byteStream();
             String result= ConvertInputStream.getFormattedResponse(stream);
             Gson gson=new Gson();
-            inviteFriendResponseBean=gson.fromJson(result,InviteFriendResponseBean.class);
-            AppToast.showToast(mContext,inviteFriendResponseBean.getMessage());
-            afterSuccessfullResponse(inviteFriendResponseBean.isResponse(),inviteFriendResponseBean.getMessage());
+            sendSMSApiResponse=gson.fromJson(result,SendSMSApiResponse.class);
+            AppToast.showToast(mContext,sendSMSApiResponse.getMessage());
+            afterSuccessfullResponse(sendSMSApiResponse.isResponse(),sendSMSApiResponse);
         } else {
-            AppToast.showToast(mContext,"User Login Failed.");
-            afterSuccessfullResponse(inviteFriendResponseBean.isResponse(),inviteFriendResponseBean.getMessage());
+            AppToast.showToast(mContext,"Send SMS Failed.");
+            afterSuccessfullResponse(sendSMSApiResponse.isResponse(),sendSMSApiResponse);
         }
     }
 
@@ -78,9 +79,9 @@ public class InviteFriendApi implements Callback<ResponseBody> {
     }
 
 
-    private void afterSuccessfullResponse(boolean isInvited,String message) {
+    private void afterSuccessfullResponse(boolean isSent,SendSMSApiResponse sendSMSApiResponse) {
         DismissDialog.dismissWithCheck(mProgressDialog);
-        mInviteFriendResponseListener.getInviteFriendResponse(isInvited, message);
+        mSendSMSApiResponseListener.getSendSMSApiResponse(isSent, sendSMSApiResponse);
     }
 
 }

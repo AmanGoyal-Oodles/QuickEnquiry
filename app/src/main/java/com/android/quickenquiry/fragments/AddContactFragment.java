@@ -300,7 +300,7 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
 
     private boolean isInputValid() {
         if (contactType != null && !contactType.isEmpty()) {
-            if ( ((!isRelationEtEnable)||InputValidation.validateFirstName(mRelationEt) ) && (InputValidation.validateFirstName(mNameEt))
+            if ( ((!isRelationEtEnable)||InputValidation.validateCompanyName(mRelationEt) ) && (InputValidation.validateFirstName(mNameEt))
                     && (InputValidation.validateMobile(mMobileEt)) && (mEmailEt.getText().toString().isEmpty()||InputValidation.validateEmail(mEmailEt))
                     && (mAddressEt.getText().toString().isEmpty()||InputValidation.validateFirstName(mAddressEt)) ) {
                 if (!dobDay.isEmpty() || !dobMon.isEmpty() || !dobYear.isEmpty()) {

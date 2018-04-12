@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.activities.MainDashboardActivity;
@@ -28,6 +29,8 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
 
     @BindView(R.id.send_sms_single_contact_item_name_tv)
     TextView mNameTv;
+    @BindView(R.id.contact_item_layout)
+    LinearLayout linearLayout;
     private Context mContext;
     private Activity mActivity;
     private ArrayList<ContactDetail> mContactList;
@@ -86,6 +89,20 @@ public class SendSMSSingleContactAdapter extends ArrayAdapter<ContactDetail> {
         } else {
             mNameTv.setBackgroundColor(mContext.getResources().getColor(R.color.White));
         }
+        mNameTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNameTv.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
+            }
+        });
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNameTv.setBackgroundColor(mContext.getResources().getColor(R.color.LightGray));
+            }
+        });
+
         return convertView;
     }
 

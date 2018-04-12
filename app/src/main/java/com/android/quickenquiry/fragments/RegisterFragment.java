@@ -158,7 +158,7 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
         String userPassword = mPasswordEt.getText().toString();
         if (mCorporateRadioBtn.isChecked()) {
             companyName = mCompanyNameEt.getText().toString();
-            if (InputValidation.validateFirstName(mCompanyNameEt) && isInputValid()) {
+            if (InputValidation.validateCompanyName(mCompanyNameEt) && isInputValid()) {
                 if ((!selectedCatId.equals("0"))) {
                     mProgressDialog = ShowDialog.show(mContext, "", "Please Wait", true, false);
                     RegisterApi registerApi = new RegisterApi(mContext, this, mProgressDialog);

@@ -31,6 +31,7 @@ public class ServerApi {
     public static final String ADD_CONTACT="add_contact_api.php";
     public static final String UPDATE_CONTACT="update_contact_api.php";
     public static final String CONTACTLIST="/contactlist";
-
+    public static final String SEND_SMS="send_sms_api.php";
+    public static final String GET_SEND_SMS="get_sms_api.php";
 
 }

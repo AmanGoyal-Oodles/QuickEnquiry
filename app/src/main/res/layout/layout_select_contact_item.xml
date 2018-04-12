@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/select_contact_item_layout"
+    android:padding="@dimen/mar_10">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name(Number)"
+        android:textColor="@color/Black"
+        android:padding="@dimen/mar_3"
+        android:id="@+id/select_contact_item_name_tv"
+        android:textSize="@dimen/textSize16sp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/select_contact_item_checkbox"/>
+    
+</RelativeLayout>

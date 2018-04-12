@@ -1,6 +1,5 @@
 package com.android.quickenquiry.utils.constants;
 
-
 import com.android.quickenquiry.BuildConfig;
 
 /**

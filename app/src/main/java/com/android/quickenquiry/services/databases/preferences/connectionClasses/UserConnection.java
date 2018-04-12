@@ -54,6 +54,15 @@ public interface UserConnection {
     @POST(ServerApi.INVITE_TO_FRIEND)
     Call<ResponseBody> inviteToFriend(@Query("key") String key, @Query("user_id") String userId, @Query("contacts") String contacts);
 
+    @POST(ServerApi.SEND_SMS)
+    Call<ResponseBody> sendSMSSingle(@Query("key") String key, @Query("user_id") String userId, @Query("contact_type") String contactTypes,@Query("message") String message);
+
+    @POST(ServerApi.SEND_SMS)
+    Call<ResponseBody> sendSMSMultiple(@Query("key") String key, @Query("user_id") String userId, @Query("contact_no") String contacts,@Query("message") String message);
+
+    @POST(ServerApi.GET_SEND_SMS)
+    Call<ResponseBody> getSendSMS(@Query("key") String key, @Query("user_id") String userId);
+
     @FormUrlEncoded
     @POST(ServerApi.IMPORT_CONTACT)
     Call<ResponseBody> importContact(@Field("key")String key,@Field("user_id")String userId,@Field("import_contact_arr")String contactList);

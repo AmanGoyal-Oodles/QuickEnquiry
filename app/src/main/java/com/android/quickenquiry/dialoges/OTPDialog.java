@@ -104,9 +104,9 @@ public class OTPDialog extends Dialog implements LoginResponseListener{
     @Override
     public void getLoginResponse(boolean isLogin, UserResponseBean userResponseBean) {
         if(isLogin) {
-            dismiss();
             mAccountDetailHolder.setUserDetail(userResponseBean);
             mOTPOtpDialogListener.isOTPValidate(true,mMobile);
+            dismiss();
         }
     }
 }

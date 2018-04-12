@@ -19,6 +19,16 @@ public class InputValidation {
         }
     }
 
+    public static boolean validateCompanyName(EditText nameEt) {
+        String name=nameEt.getText().toString().trim();
+        if(name!=null && !name.isEmpty()) {
+            return true;
+        }else {
+            nameEt.setError("Please enter company Name");
+            return false;
+        }
+    }
+
     public static boolean validateEmail(EditText emailEt) {
         String email=emailEt.getText().toString().trim();
         String regex="^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*\n" +

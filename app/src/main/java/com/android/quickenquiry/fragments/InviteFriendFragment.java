@@ -180,10 +180,10 @@ public class InviteFriendFragment extends Fragment implements ContactSelectionLi
     @Override
     public void getInviteFriendResponse(boolean isInvited, String message) {
         if(isInvited) {
-            Fragment fragment = new HomeFragment();
+            /*Fragment fragment = new HomeFragment();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
-            fragmentTransaction.commit();
+            fragmentTransaction.commit();*/
         }
     }
 

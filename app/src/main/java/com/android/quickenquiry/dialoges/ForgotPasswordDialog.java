@@ -74,9 +74,8 @@ public class ForgotPasswordDialog extends Dialog implements ForgotPassMobileVali
     public void getForgotPassMobileValidateResponse(boolean isOTPSent, String message) {
         if(isOTPSent) {
             String mobile=mMobileNoEt.getText().toString().trim();
-            String OTP[]=message.split(" ");
-            int size=OTP.length;
-            mForgotPasswordDialogResponseListener.isOTPSent(isOTPSent,mobile,OTP[size-1]);
+            String OTP=message;
+            mForgotPasswordDialogResponseListener.isOTPSent(isOTPSent,mobile,OTP);
             dismiss();
         }
     }

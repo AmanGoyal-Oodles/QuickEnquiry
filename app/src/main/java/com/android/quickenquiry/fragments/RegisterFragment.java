@@ -238,10 +238,10 @@ public class RegisterFragment extends Fragment implements OTPDialogListener, Reg
     }
 
     @Override
-    public void getRegisterResponse(boolean isSuccess, String otp) {
+    public void getRegisterResponse(boolean isSuccess) {
         DismissDialog.dismissWithCheck(mProgressDialog);
         if (isSuccess) {
-            OTPDialog dialog = new OTPDialog(mContext, mActivity, this, mobile, otp);
+            OTPDialog dialog = new OTPDialog(mContext, mActivity, this, mobile, "","register");
             dialog.show();
         } else {
             AppToast.showToast(mContext, "Registration Failed");

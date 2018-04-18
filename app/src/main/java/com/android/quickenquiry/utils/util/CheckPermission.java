@@ -26,6 +26,17 @@ public class CheckPermission {
         return hasPermission;
     }
 
+    public static boolean checkPermissionForCall(Activity context) {
+        String[] permission={"android.permission.CALL_PHONE"};
+        boolean hasPermission=(ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE))== PackageManager.PERMISSION_GRANTED;
+        if(!hasPermission) {
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+                context.requestPermissions(permission, AppConstantKeys.CALL_PERMISSION);
+            }
+        }
+        return hasPermission;
+    }
+
     public static boolean checkPermissionForReadContact(Activity context) {
         String[] permission={"android.permission.READ_CONTACTS"};
         boolean hasPermission=((ContextCompat.checkSelfPermission(context,Manifest.permission.READ_CONTACTS))

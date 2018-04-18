@@ -45,13 +45,13 @@ public class InputValidation {
 
     public static boolean validateMobile(EditText mobileEt) {
         String mobile=mobileEt.getText().toString().trim();
-        String regex="[0-9]+";
+        String regex="^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[0-9]\\d{9}$";
         if(mobile==null || mobile.isEmpty()) {
             mobileEt.setError("Please enter your phone number");
         } else if(!mobile.matches(regex)) {
             mobileEt.setError("Please enter valid phone number");
         } else if(!(mobile.length()==10)) {
-            mobileEt.setError("Phone number digits should be 10");
+            mobileEt.setError("Phone number should be 10 digits");
         } else {
             return true;
         }

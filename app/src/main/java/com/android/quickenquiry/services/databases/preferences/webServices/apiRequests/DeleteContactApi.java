@@ -39,6 +39,7 @@ public class DeleteContactApi implements Callback<ResponseBody> {
     private DeleteContactResponseListener mDeleteContactResponseListener;
     private static final String TAG=LoginApi.class.getName();
     private ProgressDialog mProgressDialog;
+    private String mContactId="";
 
     public DeleteContactApi(Context context, DeleteContactResponseListener listener, ProgressDialog progressDialog) {
         mContext=context;
@@ -47,6 +48,7 @@ public class DeleteContactApi implements Callback<ResponseBody> {
     }
 
     public void callDeleteContactApi(String userId,String contact_id) {
+        mContactId=contact_id;
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
@@ -84,7 +86,7 @@ public class DeleteContactApi implements Callback<ResponseBody> {
 
     private void afterSuccessfullResponse(boolean isDelete,String message) {
         DismissDialog.dismissWithCheck(mProgressDialog);
-        mDeleteContactResponseListener.getDeleteContactResponse(isDelete,message);
+        mDeleteContactResponseListener.getDeleteContactResponse(isDelete,message,mContactId);
     }
 
 }

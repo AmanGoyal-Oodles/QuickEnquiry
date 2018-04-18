@@ -7,6 +7,7 @@ package com.android.quickenquiry.utils.constants;
 public class AppConstantKeys {
 
     public static final int CAMERA_PERMISSION=101;
+    public static final int CALL_PERMISSION=103;
     public static final int READ_CONTACT_PERMISSION=102;
 
 }

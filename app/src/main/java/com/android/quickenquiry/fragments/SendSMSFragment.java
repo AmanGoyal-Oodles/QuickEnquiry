@@ -185,10 +185,10 @@ public class SendSMSFragment extends Fragment implements GetSMSApiResponseListen
     @Override
     public void getSendSMSApiResponse(boolean isSent, SendSMSApiResponse sendSMSApiResponse) {
      if(isSent) {
-         Fragment fragment = new HomeFragment();
+         /*Fragment fragment = new HomeFragment();
          FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
          fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
-         fragmentTransaction.commit();
+         fragmentTransaction.commit();*/
      }
     }
 
@@ -200,7 +200,12 @@ public class SendSMSFragment extends Fragment implements GetSMSApiResponseListen
     for (int i=0;i<contactList.size();i++) {
          contacts=contacts+contactList.get(i).getmPhone()+",";
      }
-     contactType="contact_no";
+     if(!contacts.isEmpty()) {
+         StringBuilder sb = new StringBuilder(contacts);
+         sb.deleteCharAt(contacts.length()-1);
+         contacts=sb.toString();
+     }
+     contactType="contact_number";
     }
 
     @Override
@@ -210,6 +215,11 @@ public class SendSMSFragment extends Fragment implements GetSMSApiResponseListen
         mContactTypeList.addAll(contactTypeList);
         for (int i=0;i<contactTypeList.size();i++) {
             contacts=contacts+contactTypeList.get(i).getContactTypeId()+",";
+        }
+        if(!contacts.isEmpty()) {
+            StringBuilder sb = new StringBuilder(contacts);
+            sb.deleteCharAt(contacts.length()-1);
+            contacts=sb.toString();
         }
         contactType="contactType";
     }

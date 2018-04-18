@@ -55,10 +55,14 @@ public interface UserConnection {
     Call<ResponseBody> inviteToFriend(@Query("key") String key, @Query("user_id") String userId, @Query("contacts") String contacts);
 
     @POST(ServerApi.SEND_SMS)
-    Call<ResponseBody> sendSMSSingle(@Query("key") String key, @Query("user_id") String userId, @Query("contact_type") String contactTypes,@Query("message") String message);
+    Call<ResponseBody> sendSMSSingle(@Query("key") String key, @Query("user_id") String userId, @Query("contact_no") String contactTypes,@Query("message") String message);
 
     @POST(ServerApi.SEND_SMS)
-    Call<ResponseBody> sendSMSMultiple(@Query("key") String key, @Query("user_id") String userId, @Query("contact_no") String contacts,@Query("message") String message);
+    Call<ResponseBody> sendSMSMultiple(@Query("key") String key, @Query("user_id") String userId, @Query("contact_type") String contacts,@Query("message") String message);
+
+    @POST(ServerApi.SEND_QUERY)
+    Call<ResponseBody> sendQuery(@Query("key") String key, @Query("user_id") String userId, @Query("ip_address") String ipAddress,@Query("description") String description);
+
 
     @POST(ServerApi.GET_SEND_SMS)
     Call<ResponseBody> getSendSMS(@Query("key") String key, @Query("user_id") String userId);

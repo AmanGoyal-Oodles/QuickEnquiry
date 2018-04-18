@@ -6,6 +6,6 @@ package com.android.quickenquiry.interfaces.apiResponseListener;
 
 public interface DeleteContactResponseListener {
 
-    public void getDeleteContactResponse(boolean isDeleted,String message);
+    public void getDeleteContactResponse(boolean isDeleted,String message,String contactid);
 
 }

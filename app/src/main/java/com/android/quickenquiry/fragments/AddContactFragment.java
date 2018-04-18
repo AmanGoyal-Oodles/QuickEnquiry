@@ -338,33 +338,35 @@ public class AddContactFragment extends Fragment implements AddContactAPIRespons
     }
 
     private boolean isDOBLessThanAnniv() {
-        int dob_day=Integer.valueOf(dobDay);
-        int dob_mon=Integer.valueOf(dobMon);
-        int dob_year=Integer.valueOf(dobYear);
-        int anniv_day=Integer.valueOf(annivDay);
-        int anniv_mon=Integer.valueOf(annivMon);
-        int anniv_year=Integer.valueOf(annivYear);
-        if(dob_year<anniv_year) {
-            return true;
-        } else if(dob_year>anniv_year) {
-            return false;
-        } else {
-            if(dob_mon<anniv_mon) {
+        int dob_day=(dobDay!=null&&!dobDay.isEmpty())?Integer.valueOf(dobDay):0;
+        int dob_mon=(dobMon!=null&&!dobMon.isEmpty())?Integer.valueOf(dobMon):0;
+        int dob_year=(dobYear!=null&&!dobYear.isEmpty())?Integer.valueOf(dobYear):0;
+        int anniv_day=(annivDay!=null&&!annivDay.isEmpty())?Integer.valueOf(annivDay):0;
+        int anniv_mon=(annivMon!=null&&!annivMon.isEmpty())?Integer.valueOf(annivMon):0;
+        int anniv_year=(annivYear!=null&&!annivYear.isEmpty())?Integer.valueOf(annivYear):0;
+        if(dob_day!=0||anniv_day!=0) {
+            if (dob_year < anniv_year) {
                 return true;
-            } else if(dob_mon>anniv_mon) {
+            } else if (dob_year > anniv_year) {
                 return false;
             } else {
-                if(dob_day<anniv_day) {
+                if (dob_mon < anniv_mon) {
                     return true;
-                } else if(dob_day>anniv_day) {
+                } else if (dob_mon > anniv_mon) {
                     return false;
                 } else {
-                    return false;
+                    if (dob_day < anniv_day) {
+                        return true;
+                    } else if (dob_day > anniv_day) {
+                        return false;
+                    } else {
+                        return false;
+                    }
                 }
             }
+        } else {
+            return true;
         }
-
-
     }
 
     @OnItemSelected({R.id.add_contact_contact_spinner})

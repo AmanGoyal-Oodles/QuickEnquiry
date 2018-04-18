@@ -79,12 +79,7 @@ public class RegisterApi implements Callback<ResponseBody> {
 
     private void afterSuccessfullResponse(RegisterResponseBean registerResponseBean) {
         if(registerResponseBean.isResponse()&&registerResponseBean.getMessage()!=null) {
-            String message=registerResponseBean.getMessage();
-            String temp[]=message.split("OTP:");
-            String temp2[]=temp[1].split(" ");
-            String otp=temp2[1];
-            Logger.LogDebug("hello",otp);
-            mRegisterResponseListener.getRegisterResponse(true,otp);
+            mRegisterResponseListener.getRegisterResponse(true);
         }
         ///mLoginResponseListener.getLoginResponse(loginResponseBean.isResponse(),loginResponseBean.getProfile());
     }

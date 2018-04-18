@@ -85,8 +85,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="SUBMIT"
-            android:background="@drawable/border_bg_et"
-            android:textColor="@color/Black"
+            android:background="@color/Orange"
+            android:textColor="@color/White"
             android:textSize="@dimen/textSize16sp"
             android:id="@+id/change_pass_submit_btn" />
 

@@ -3,25 +3,15 @@ package com.android.quickenquiry.utils.apiResponseBean;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by user on 3/26/2018.
+ * Created by Cortana on 4/18/2018.
  */
 
-public class ForgotPassMobileValidateResponseBean {
+public class SendQueryAPIResponseBean {
 
     @SerializedName("response")
     private boolean response;
     @SerializedName("message")
     private String message;
-    @SerializedName("otp")
-    private String otp;
-
-    public String getOtp() {
-        return otp;
-    }
-
-    public void setOtp(String otp) {
-        this.otp = otp;
-    }
 
     public boolean isResponse() {
         return response;

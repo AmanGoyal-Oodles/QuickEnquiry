@@ -30,6 +30,10 @@
             android:title="Send SMS" />
 
         <item
+            android:id="@+id/nav_send_query"
+            android:title="Send QUERY" />
+
+        <item
             android:id="@+id/nav_logout"
             android:title="LogOut" />
     </group>

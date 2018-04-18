@@ -61,7 +61,6 @@ public class SelectContactAdapter extends RecyclerView.Adapter<SelectContactAdap
             }
         }
         holder.mCheckbox.setChecked(flag);
-
     }
 
     public ArrayList<ContactDetail> getSelectedContactDetail() {

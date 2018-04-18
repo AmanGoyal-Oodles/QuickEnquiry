@@ -22,6 +22,7 @@ public class AccountDetailHolder {
     private static final String KEY_IS_USER__LOGGED_IN="isUserLoggedIn";
     private static final String KEY_CONTACT_LIST="contactList";
     private static final String KEY_USER_DATEIL="userDetail";
+    private static final String KEY_CALL_NUMBER="callNumber";
     public static SharedPreferences.Editor editor;
 
     public AccountDetailHolder(Context context) {
@@ -47,6 +48,14 @@ public class AccountDetailHolder {
         Gson gson=new Gson();
         String jsonDetails=gson.toJson(contactList);
         sharedPreferences.edit().putString(KEY_CONTACT_LIST,jsonDetails).apply();
+    }
+
+    public void setCallNumber(String number) {
+        sharedPreferences.edit().putString(KEY_CALL_NUMBER,number).apply();
+    }
+
+    public String getCallNumber() {
+        return sharedPreferences.getString(KEY_CALL_NUMBER,"");
     }
 
     public void setUserLoggedIn(boolean status) {

@@ -45,6 +45,7 @@ public class SendSMSApi implements Callback<ResponseBody> {
             return;
         }
         String key= ServerApi.API_KEY;
+        int size=contacts.length();
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
         if(contactType.equalsIgnoreCase("contactType")) {
             Call<ResponseBody> call = userConnection.sendSMSMultiple(key, userId, contacts,message);

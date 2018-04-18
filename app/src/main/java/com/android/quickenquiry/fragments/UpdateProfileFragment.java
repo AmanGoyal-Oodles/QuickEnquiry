@@ -108,13 +108,27 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
         String primaryContact=userResponseBean.getUserMob();
         String secondaryContact=userResponseBean.getSecondaryContact();
         String address=userResponseBean.getAddress();
-        cityId=userResponseBean.getuCityId();
-        localityId=userResponseBean.getuLoclId();
-        mNameEt.setText(name);
-        mEmailEt.setText(email);
-        mPriConEt.setText(primaryContact);
-        mSecConEt.setText(secondaryContact);
-        mAddressEt.setText(address);
+        if(userResponseBean.getuCityId()!=null) {
+            cityId = userResponseBean.getuCityId();
+        }
+        if(userResponseBean.getuLoclId()!=null) {
+            localityId = userResponseBean.getuLoclId();
+        }
+        if(name!=null) {
+            mNameEt.setText(name);
+        }
+        if(email!=null) {
+            mEmailEt.setText(email);
+        }
+        if(primaryContact!=null) {
+            mPriConEt.setText(primaryContact);
+        }
+        if(secondaryContact!=null) {
+            mSecConEt.setText(secondaryContact);
+        }
+        if(address!=null) {
+            mAddressEt.setText(address);
+        }
     }
 
     private void initVariables() {
@@ -252,9 +266,9 @@ public class UpdateProfileFragment extends Fragment implements GetCityResponseLi
             if(userResponseBean!=null) {
                 mAccountDetailHolder.setUserDetail(userResponseBean);
             }
-            Intent intent = new Intent(getActivity(), MainDashboardActivity.class);
+            /*Intent intent = new Intent(getActivity(), MainDashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            startActivity(intent);*/
         }
     }
 }

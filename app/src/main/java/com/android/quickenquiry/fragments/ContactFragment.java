@@ -1,5 +1,6 @@
 package com.android.quickenquiry.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,16 +20,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.android.quickenquiry.R;
 import com.android.quickenquiry.adapters.ContactAdapter;
+import com.android.quickenquiry.dialoges.ConfirmDeleteDialog;
+import com.android.quickenquiry.interfaces.ConfirmDeleteListener;
 import com.android.quickenquiry.interfaces.GetUpdateContactListener;
+import com.android.quickenquiry.interfaces.OnClickContactDeleteListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.DeleteContactResponseListener;
 import com.android.quickenquiry.interfaces.apiResponseListener.GetContactsResponseListener;
 import com.android.quickenquiry.services.databases.preferences.AccountDetailHolder;
+import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.DeleteContactApi;
 import com.android.quickenquiry.services.databases.preferences.webServices.apiRequests.GetContactsApi;
 import com.android.quickenquiry.utils.util.dialogs.ShowDialog;
 import com.android.quickenquiry.utils.util.pojoClasses.ContactDetail;
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,7 +41,8 @@ import butterknife.OnTextChanged;
  * Created by user on 3/7/2018.
  */
 
-public class ContactFragment extends Fragment implements GetContactsResponseListener,GetUpdateContactListener{
+public class ContactFragment extends Fragment implements GetContactsResponseListener
+        ,GetUpdateContactListener,OnClickContactDeleteListener,ConfirmDeleteListener,DeleteContactResponseListener{
 
 
     @BindView(R.id.contact_list_search_et)
@@ -50,6 +54,7 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
     @BindView(R.id.contact_list_add_contact_btn)
     Button mAddContactBtn;
     private Context mContext;
+    private Activity mActivity;
     private ContactAdapter mContactAdapter;
     private ArrayList<ContactDetail> mContactList,mSearchList;
     private AccountDetailHolder mAccountDetailHolder;
@@ -76,11 +81,7 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
     private void init() {
         initVariables();
         setRecyclerView();
-        //setContactList();
         callGetContacts();
-        //getContactFromLocalStorage();
-        //mContactAdapter.setContactList(mContactList);
-        //mContactAdapter.notifyDataSetChanged();
     }
 
     private void callGetContacts() {
@@ -90,30 +91,12 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
         getContactsApi.callGetContactsApi(userid);
     }
 
-    private void getContactFromLocalStorage() {
-        //mContactList.clear();
-        //mContactList=mAccountDetailHolder.getContactList();
-    }
-
-    private void setContactList() {
-        mContactList.add(new ContactDetail("Aman","9355606425","","","","","",""));
-        mContactList.add(new ContactDetail("Ajay","9355606424","","","","","",""));
-        mContactList.add(new ContactDetail("Amar","9355606423","","","","","",""));
-        mContactList.add(new ContactDetail("Akhil","9355606422","","","","","",""));
-        mContactList.add(new ContactDetail("Rahul","9355606421","","","","","",""));
-        mContactList.add(new ContactDetail("Abhinav","9355606420","","","","","",""));
-        mContactList.add(new ContactDetail("Sahil","9355606435","","","","","",""));
-        mContactList.add(new ContactDetail("Ravi","9355606445","","","","","",""));
-        mContactList.add(new ContactDetail("Puneet","9355606455","","","","","",""));
-        mContactList.add(new ContactDetail("Rishabh","9355606465","","","","","",""));
-        mContactList.add(new ContactDetail("Anmol","9355606475","","","","","",""));
-        mContactList.add(new ContactDetail("Ankit","9355606485","","","","","",""));
-        mContactList.add(new ContactDetail("Ajit","9355606495","","","","","",""));
-        mContactList.add(new ContactDetail("Akash","9355606405","","","","","",""));
-    }
-
     @OnTextChanged({R.id.contact_list_search_et})
     public void onSearchTextChaged() {
+        updateSearchList();
+    }
+
+    private void updateSearchList() {
         mSearchList.clear();
         String text=mSearchEt.getText().toString().trim();
         if(!text.isEmpty()) {
@@ -145,15 +128,17 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
     }
 
     private void setRecyclerView() {
-        mContactAdapter =new ContactAdapter(mContext,this);
+        mContactAdapter =new ContactAdapter(mContext,mActivity,this,this);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(mContext);
         mContactListRv.setLayoutManager(layoutManager);
         mContactListRv.setItemAnimator(new DefaultItemAnimator());
         mContactListRv.setAdapter(mContactAdapter);
+        mSearchEt.setText("");
     }
 
     private void initVariables() {
         mContext=getContext();
+        mActivity=getActivity();
         mContactList=new ArrayList<>();
         mSearchList=new ArrayList<>();
         mAccountDetailHolder=new AccountDetailHolder(mContext);
@@ -170,10 +155,10 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
     }
 
     @Override
-    public void getContactPosition(int position) {
+    public void getContactPosition(ContactDetail contactDetail) {
         Fragment fragment = new AddContactFragment();
         Bundle bundle=new Bundle();
-        bundle.putSerializable("contactdetail",mContactList.get(position));
+        bundle.putSerializable("contactdetail",contactDetail);
         bundle.putString("tag","updateContact");
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -181,4 +166,34 @@ public class ContactFragment extends Fragment implements GetContactsResponseList
         fragmentTransaction.addToBackStack(CURRENT_TAG);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onClickContactDelete(String contactId) {
+        ConfirmDeleteDialog confirmDeleteDialog=new ConfirmDeleteDialog(mContext,this,contactId);
+        confirmDeleteDialog.show();
+    }
+
+    @Override
+    public void isConfirmDelete(String contect_id,boolean isConfirmed) {
+        if(isConfirmed) {
+            String userId=mAccountDetailHolder.getUserDetail().getUserId();
+            mProgressDialog= ShowDialog.show(mContext,"","Please Wait",true,false);
+            DeleteContactApi deleteContactApi=new DeleteContactApi(mContext,this,mProgressDialog);
+            deleteContactApi.callDeleteContactApi(userId,contect_id);
+        }
+    }
+
+    @Override
+    public void getDeleteContactResponse(boolean isDeleted, String message,String contactId) {
+        if(isDeleted) {
+            for(int i=0;i<mContactList.size();i++) {
+               if(mContactList.get(i).getContactid().equalsIgnoreCase(contactId)) {
+                   mContactList.remove(i);
+                   updateSearchList();
+               }
+            }
+
+        }
+    }
+
 }

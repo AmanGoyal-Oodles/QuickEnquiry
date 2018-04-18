@@ -96,4 +96,5 @@ public class NewPasswordDialog extends Dialog implements ForgotPassResetPassResp
     public void getFPRPResponse(boolean isChanged, String message) {
         dismiss();
     }
+
 }

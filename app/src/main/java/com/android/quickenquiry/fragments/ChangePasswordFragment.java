@@ -106,6 +106,7 @@ public class ChangePasswordFragment extends Fragment implements ChangePasswordRe
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_frame, fragment, CURRENT_TAG);
             fragmentTransaction.commit();*/
+            mAccountDetailHolder.setUserLoggedIn(false);
              Intent intent = new Intent(getActivity(), LoginSignUpActivity.class);
              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
              startActivity(intent);

@@ -63,10 +63,10 @@ public class ForgotPassMobileValidate implements Callback<ResponseBody> {
             Gson gson=new Gson();
             fPMVResponseBean=gson.fromJson(result,ForgotPassMobileValidateResponseBean.class);
             AppToast.showToast(mContext,fPMVResponseBean.getMessage());
-            afterSuccessfullResponse(fPMVResponseBean.isResponse(),fPMVResponseBean.getMessage());
+            afterSuccessfullResponse(fPMVResponseBean.isResponse(),fPMVResponseBean.getOtp());
         } else {
             AppToast.showToast(mContext,"User Login Failed.");
-            afterSuccessfullResponse(false,fPMVResponseBean.getMessage());
+            afterSuccessfullResponse(false,fPMVResponseBean.getOtp());
         }
     }
 

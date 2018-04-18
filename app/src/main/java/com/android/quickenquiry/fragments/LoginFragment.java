@@ -120,7 +120,7 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
     @Override
     public void isOTPSent(boolean isSend,String mobile, String OTP) {
         if(isSend) {
-            OTPDialog dialog=new OTPDialog(mContext,mActivity,this,mobile,OTP);
+            OTPDialog dialog=new OTPDialog(mContext,mActivity,this,mobile,OTP,"forgot Password");
             dialog.show();
         }
     }
@@ -148,7 +148,7 @@ public class LoginFragment extends Fragment implements ForgotPasswordDialogRespo
             getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             startActivity(intent);
         } else {
-            AppToast.showToast(mContext,"User Login failed");
+            //AppToast.showToast(mContext,"User Login failed");
         }
     }
 }

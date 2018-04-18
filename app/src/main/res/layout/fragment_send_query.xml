@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/send_query_desc_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description*"
+        android:background="@drawable/border_bg_et"
+        android:lines="9"
+        android:maxLines="10"
+        android:minLines="9"
+        android:gravity="top|left"
+        android:layout_margin="@dimen/mar_10"
+        android:padding="@dimen/mar_5"
+        android:textSize="@dimen/textSize16sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mar_20"
+        android:background="@color/Orange"
+        android:text="SUBMIT"
+        android:gravity="center"
+        android:id="@+id/send_query_submit_btn"
+        android:textColor="@color/White" />
+
+</LinearLayout>

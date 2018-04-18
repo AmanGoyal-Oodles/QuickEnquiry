@@ -3,10 +3,11 @@ package com.android.quickenquiry.services.databases.preferences.webServices.apiR
 import android.app.ProgressDialog;
 import android.content.Context;
 import com.android.quickenquiry.R;
-import com.android.quickenquiry.interfaces.apiResponseListener.LoginResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.SendQueryResponseListener;
+import com.android.quickenquiry.interfaces.apiResponseListener.SendSMSApiResponseListener;
 import com.android.quickenquiry.services.databases.preferences.connectionClasses.UserConnection;
-import com.android.quickenquiry.utils.apiResponseBean.LoginResponseBean;
-import com.android.quickenquiry.utils.apiResponseBean.UserResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.SendQueryAPIResponseBean;
+import com.android.quickenquiry.utils.apiResponseBean.SendSMSApiResponse;
 import com.android.quickenquiry.utils.constants.ServerApi;
 import com.android.quickenquiry.utils.retrofitAdapter.ConvertInputStream;
 import com.android.quickenquiry.utils.retrofitAdapter.RetroFitAdapter;
@@ -22,50 +23,48 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Cortana on 1/11/2018.
+ * Created by Cortana on 4/11/2018.
  */
 
-public class LoginApi implements Callback<ResponseBody> {
+public class SendQueryApi implements Callback<ResponseBody> {
 
 
     private Context mContext;
-    private LoginResponseListener mLoginResponseListener;
+    private SendQueryResponseListener mSendQueryResponseListener;
     private static final String TAG=LoginApi.class.getName();
     private ProgressDialog mProgressDialog;
 
-    public LoginApi(Context context,LoginResponseListener loginResponseListener,ProgressDialog progressDialog) {
+    public SendQueryApi(Context context, SendQueryResponseListener listener, ProgressDialog progressDialog) {
         mContext=context;
-        mLoginResponseListener=loginResponseListener;
+        mSendQueryResponseListener=listener;
         mProgressDialog=progressDialog;
     }
 
-    public void callLoginApi(String phone, String password) {
+    public void callSendQueryApi(String userId,String ipAddress,String desc) {
         if(!InternetConnection.isInternetConnected(mContext)) {
             DismissDialog.dismissWithCheck(mProgressDialog);
             AppToast.showToast(mContext,mContext.getResources().getString(R.string.err_no_internet));
             return;
         }
-        String key=ServerApi.API_KEY;
+        String key= ServerApi.API_KEY;
         UserConnection userConnection= RetroFitAdapter.createService(UserConnection.class, ServerApi.SERVER_URL);
-        Call<ResponseBody> call=userConnection.userLoginIn(key,phone,password);
-        call.enqueue(this);
+            Call<ResponseBody> call = userConnection.sendQuery(key, userId, ipAddress,desc);
+            call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-        UserResponseBean userDetailBean=new UserResponseBean();
-        LoginResponseBean loginResponseBean=new LoginResponseBean();
+        SendQueryAPIResponseBean sendQueryAPIResponseBean=new SendQueryAPIResponseBean();
         if(response.isSuccessful()) {
             InputStream stream=response.body().byteStream();
-            String result=ConvertInputStream.getFormattedResponse(stream);
+            String result= ConvertInputStream.getFormattedResponse(stream);
             Gson gson=new Gson();
-            loginResponseBean=gson.fromJson(result,LoginResponseBean.class);
-            AppToast.showToast(mContext,loginResponseBean.getMessage());
-            DismissDialog.dismissWithCheck(mProgressDialog);
-            afterSuccessfullResponse(loginResponseBean);
+            sendQueryAPIResponseBean=gson.fromJson(result,SendQueryAPIResponseBean.class);
+            AppToast.showToast(mContext,sendQueryAPIResponseBean.getMessage());
+            afterSuccessfullResponse(sendQueryAPIResponseBean.isResponse(),sendQueryAPIResponseBean.getMessage());
         } else {
-            //AppToast.showToast(mContext,"User Login Failed.");
-            afterSuccessfullResponse(loginResponseBean);
+            AppToast.showToast(mContext,"Send Query Failed.");
+            afterSuccessfullResponse(sendQueryAPIResponseBean.isResponse(),sendQueryAPIResponseBean.getMessage());
         }
     }
 
@@ -76,9 +75,9 @@ public class LoginApi implements Callback<ResponseBody> {
         AppToast.showToast(mContext,"Network Error");
     }
 
-
-    private void afterSuccessfullResponse(LoginResponseBean loginResponseBean) {
-        mLoginResponseListener.getLoginResponse(loginResponseBean.isResponse(),loginResponseBean.getProfile());
+    private void afterSuccessfullResponse(boolean isSubmit,String message) {
+        DismissDialog.dismissWithCheck(mProgressDialog);
+        mSendQueryResponseListener.getSendQueryResponse(isSubmit,message);
     }
 
 }

@@ -33,5 +33,6 @@ public class ServerApi {
     public static final String CONTACTLIST="/contactlist";
     public static final String SEND_SMS="send_sms_api.php";
     public static final String GET_SEND_SMS="get_sms_api.php";
+    public static final String SEND_QUERY="send_query_api.php";
 
 }

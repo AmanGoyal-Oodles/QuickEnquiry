@@ -6,6 +6,6 @@ package com.android.quickenquiry.interfaces.apiResponseListener;
 
 public interface RegisterResponseListener {
 
-    public void getRegisterResponse(boolean isSuccess, String otp);
+    public void getRegisterResponse(boolean isSuccess);
 
 }
